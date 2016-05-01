@@ -12,41 +12,61 @@
 \usepackage{xfrac}
 \usepackage[hyphens]{url}
 
+%\setlength{\mathindent}{0cm}
+
+%------------------------------------------------------------------------------%
+% NEWCOMMANDS
+%------------------------------------------------------------------------------%
+
+% General
+\newcommand{\DS}{\displaystyle}
+\newcommand{\bb}[1]{\mathbb{#1}}
+
+% Absolute value: \abs{x} => |x|
 \newcommand{\abs}[1]{\left|#1\right|}
+
+% Function: \func{f}{X}{Y} => f : X -> Y
 \newcommand{\func}[3]{#1 : #2 \rightarrow #3}
+% Function to R: \func{f}{X} => f : X -> R
 \newcommand{\functoR}[2]{#1 : #2 \rightarrow \mathbb{R}}
+% Function to N: \func{f}{X} => f : X -> N
 \newcommand{\functoN}[2]{#1 : #2 \rightarrow \mathbb{N}}
+% Function from R to R: \func{f} => f : R -> R
 \newcommand{\funcR}[1]{#1 : \mathbb{R} \rightarrow \mathbb{R}}
 
+% Limits and convergence
 \newcommand{\limn}{\lim_{n \to \infty}}
 \newcommand{\limsupn}{\limsup_{n \to \infty}}
 \newcommand{\liminfn}{\liminf_{n \to \infty}}
 \newcommand{\limx}[1]{\lim_{x \to #1}}
-
 \newcommand{\tounif}{\xrightarrow{unif.}}
 
-\newcommand{\DS}{\displaystyle}
-\newcommand{\bb}[1]{\mathbb{#1}}
+% Sums and series
 \newcommand{\sumn}[1]{\sum_{k=1}^n #1}
 \newcommand{\series}[1]{\sum_{k=1}^\infty #1}
 \newcommand{\seriec}[1]{\sum_{k=m}^n #1}
 \newcommand{\pseries}[1]{\sum_{n=0}^\infty #1}
 
+% Intervals
+% Closed-closed interval [a,b]
 \newcommand{\intcc}[1]{\left[#1\right]}
+% Open-closed interval (a,b]
 \newcommand{\intoc}[1]{\left(#1\right]}
+% Closed-open interval [a,b)
 \newcommand{\intco}[1]{\left[#1\right)}
+% Open-open interval (a,b)
 \newcommand{\intoo}[1]{\left(#1\right)}
 
+% Sets
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 
+% Variables
 \newcommand{\Ep}{\varepsilon}
 
-\newcommand{\separator}{\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}}
-\newcommand{\pseparator}{\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}}}
-
+% Paragraphs
 \newcommand{\Def}{\paragraph{Definition}}
 \newcommand{\Proposition}{\paragraph{Proposition}}
 \newcommand{\Theorem}{\paragraph{Theorem}}
@@ -56,12 +76,11 @@
 \newcommand{\Proof}{\paragraph{Proof}}
 \newcommand{\Example}{\paragraph{Example}}
 
+% Document data
 \newcommand{\COURSE}{Calculus}
 \newcommand{\ASSIGNMENT}{Lecture Notes}
 \newcommand{\SEMESTER}{Spring Semester}
 \newcommand{\AUTHOR}{Amedeo Zucchetti}
-
-%\setlength{\mathindent}{0cm}
 
 
 %------------------------------------------------------------------------------%
@@ -106,285 +125,285 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \section{Sets, groups and fields}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Natural numbers $\N$
-	\begin{enumerate}[label=(\roman*)]
-		\item $1 \in \N$
+  \Def Natural numbers $\N$
+    \begin{enumerate}[label=(\roman*)]
+      \item $1 \in \N$
 
-		\item $n \in \N \Rightarrow n+1 \in \N$ ($n+1$ is the successor of $n$)
+      \item $n \in \N \Rightarrow n+1 \in \N$ ($n+1$ is the successor of $n$)
 
-		\item $\nexists n \in \N : n+1 = 1$ (no number is predecessor of 1)
+      \item $\nexists n \in \N : n+1 = 1$ (no number is predecessor of 1)
 
-		\item $m, n \in \N$ and $m+1 = n+1 \Rightarrow m = n$
+      \item $m, n \in \N$ and $m+1 = n+1 \Rightarrow m = n$
 
-		\item $A \subseteq \N$, $n \in A$ and $n+1 \in A \Rightarrow A = \N$
-	\end{enumerate}
+      \item $A \subseteq \N$, $n \in A$ and $n+1 \in A \Rightarrow A = \N$
+  \end{enumerate}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Group
+  \Def Group
 \\A set $X$ and an operation $\circ$ form a group $(X, \circ)$ if the following
-	rules are satisfied for all $a, b, c \in X$:
-	\begin{enumerate}[label=(\roman*)]
-		\item Closure: $a \circ b \in X$
+  rules are satisfied for all $a, b, c \in X$:
+  \begin{enumerate}[label=(\roman*)]
+    \item Closure: $a \circ b \in X$
 
-		\item Associativity: $(a \circ b) \circ c = a \circ (b \circ c)$
+    \item Associativity: $(a \circ b) \circ c = a \circ (b \circ c)$
 
-		\item Identity: $\exists! 0 \in X : a \circ 0 = 0 \circ a = a$
+    \item Identity: $\exists! 0 \in X : a \circ 0 = 0 \circ a = a$
 
-		\item Inverse: $\exists! (-a) \in X : a \circ (-a) = (-a) \circ a = 0$
-	\end{enumerate}
-	The group $(X, \circ)$ is abellian if the following rule is satisfied too:
-	\begin{enumerate}[label=(\roman*)]
-		\setcounter{enumi}{4}
-		\item Commutativity: $a \circ b = b \circ a$
-	\end{enumerate}
+    \item Inverse: $\exists! (-a) \in X : a \circ (-a) = (-a) \circ a = 0$
+    \end{enumerate}
+    The group $(X, \circ)$ is abellian if the following rule is satisfied too:
+    \begin{enumerate}[label=(\roman*)]
+    \setcounter{enumi}{4}
+    \item Commutativity: $a \circ b = b \circ a$
+  \end{enumerate}
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{enumerate}[label=(\arabic*)]
-		\item $(\Z_2, \oplus)$ is an abellian group (where $\Z_2 = \{ 0, 1 \}$ and
-		$\oplus$ is exclusive or):
-		\begin{enumerate}[label=(\roman*)]
-			\item Closure: $0 \oplus 0 = 0$, $0 \oplus 1 = 1$, $1 \oplus 0 = 1$,
-			$1 \oplus 1 = 0$
-			\item Associativity: we have two elements, so we don't need to prove it
-			\item Identity: $0 \Rightarrow 0 \oplus 0 = 0$, $1 \oplus 0 = 1$,
-			$0 \oplus 1 = 1$
-			\item Inverse: $(-1) = 1, (-0) = 0 \Rightarrow 1 \oplus 1 = 0$,
-			$0 \oplus 0 = 0$
-			\item Commutativity: $1 \oplus 0 = 1 = 0 \oplus 1$
-		\end{enumerate}
+  \Example
+  \begin{enumerate}[label=(\arabic*)]
+    \item $(\Z_2, \oplus)$ is an abellian group (where $\Z_2 = \{ 0, 1 \}$ and
+    $\oplus$ is exclusive or):
+    \begin{enumerate}[label=(\roman*)]
+      \item Closure: $0 \oplus 0 = 0$, $0 \oplus 1 = 1$, $1 \oplus 0 = 1$,
+      $1 \oplus 1 = 0$
+      \item Associativity: we have two elements, so we don't need to prove it
+      \item Identity: $0 \Rightarrow 0 \oplus 0 = 0$, $1 \oplus 0 = 1$,
+      $0 \oplus 1 = 1$
+      \item Inverse: $(-1) = 1, (-0) = 0 \Rightarrow 1 \oplus 1 = 0$,
+      $0 \oplus 0 = 0$
+      \item Commutativity: $1 \oplus 0 = 1 = 0 \oplus 1$
+    \end{enumerate}
 
-		\item $(\N, +)$ is not a group, since it doesn't have the identity element.
-	\end{enumerate}
+    \item $(\N, +)$ is not a group, since it doesn't have the identity element.
+  \end{enumerate}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Field
+  \Def Field
 \\Given a set $X$, then $(X, +, \cdot)$ is a field if it satisfies the following
-	properties for all $a, b, c \in X$:
-	\begin{enumerate}[label=(\roman*)]
-		\item
-		$a + b \in X
-	\\a \cdot b \in X$
+  properties for all $a, b, c \in X$:
+  \begin{enumerate}[label=(\roman*)]
+    \item
+    $a + b \in X
+  \\a \cdot b \in X$
 
-		\item
-		$(a + b) + c = a + (b + c)
-	\\(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+    \item
+    $(a + b) + c = a + (b + c)
+  \\(a \cdot b) \cdot c = a \cdot (b \cdot c)$
 
-		\item
-		$\exists! 0 \in X : a + 0 = 0 + a = a
-	\\\exists! 1 \in X : a \cdot 1 = 1 \cdot a = a$
+    \item
+    $\exists! 0 \in X : a + 0 = 0 + a = a
+  \\\exists! 1 \in X : a \cdot 1 = 1 \cdot a = a$
 
-		\item
-		$\exists! (-a) \in X : a + (-a) = (-a) + a = 0
-	\\\forall a \neq 0, \exists! a^{-1} : a \cdot a^{-1} = a^{-1} \cdot a = 1$
+    \item
+    $\exists! (-a) \in X : a + (-a) = (-a) + a = 0
+  \\\forall a \neq 0, \exists! a^{-1} : a \cdot a^{-1} = a^{-1} \cdot a = 1$
 
-		\item
-		$a + b = b + a
-	\\a \cdot b = b\cdot a$
+    \item
+    $a + b = b + a
+  \\a \cdot b = b\cdot a$
 
-		\item
-		$a \cdot (b + c) = a \cdot b + a \cdot c$
-	\end{enumerate}
+    \item
+    $a \cdot (b + c) = a \cdot b + a \cdot c$
+  \end{enumerate}
 
 %%BEGIN_EXAMPLE
-	\Example Application of field axioms
-	\begin{enumerate}[label=(\arabic*)]
-		\item If $a \cdot b = 0 \Rightarrow$ either $a$ or $b$ are equal to 0. We
-		suppose $b \neq 0$:
-	\\$0 = 0 \cdot b^{-1} = (a \cdot b) \cdot b^{-1} = a \cdot (b \cdot b^{-1}) =
-		a \cdot 1 = a \Rightarrow a = 0$ (the same can be done supposing $a \neq 0$)
+  \Example Application of field axioms
+  \begin{enumerate}[label=(\arabic*)]
+    \item If $a \cdot b = 0 \Rightarrow$ either $a$ or $b$ are equal to 0. We
+    suppose $b \neq 0$:
+  \\$0 = 0 \cdot b^{-1} = (a \cdot b) \cdot b^{-1} = a \cdot (b \cdot b^{-1}) =
+    a \cdot 1 = a \Rightarrow a = 0$ (the same can be done supposing $a \neq 0$)
 
-		\item $a \cdot 0 = 0$:
-	\\$a \cdot 0 = a \cdot (0 + 0) = a \cdot 0 + a \cdot 0 \Rightarrow$ we
-		subtract from both sides $(- \ a \cdot 0)$:
-	\\$a \cdot 0 + (- \ a \cdot 0) = a \cdot 0 + a \cdot 0 + (- \ a \cdot 0) \iff
-		0 = a \cdot 0$
-	\end{enumerate}
+    \item $a \cdot 0 = 0$:
+  \\$a \cdot 0 = a \cdot (0 + 0) = a \cdot 0 + a \cdot 0 \Rightarrow$ we
+    subtract from both sides $(- \ a \cdot 0)$:
+  \\$a \cdot 0 + (- \ a \cdot 0) = a \cdot 0 + a \cdot 0 + (- \ a \cdot 0) \iff
+    0 = a \cdot 0$
+  \end{enumerate}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $\Q = \{ \frac{p}{q} : p, q \in \Z, q \neq 0 \}$
+  \Def $\Q = \{ \frac{p}{q} : p, q \in \Z, q \neq 0 \}$
 
-	\Remark $(\Q, +, \cdot)$ is a field.
+  \Remark $(\Q, +, \cdot)$ is a field.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Ordered field
+  \Def Ordered field
 \\Let $\leq$ be an order relation. Then the field $(X, +, \cdot, \leq)$ is an
-	ordered field if the following properties are satisfied for $a, b, c\in X$:
-	\begin{enumerate}[label=(\roman*)]
-		\item Either $a \leq b$ or $b \leq a$
+  ordered field if the following properties are satisfied for $a, b, c\in X$:
+  \begin{enumerate}[label=(\roman*)]
+    \item Either $a \leq b$ or $b \leq a$
 
-		\item If $a \leq b$ and $b \leq a$, then $a = b$
+    \item If $a \leq b$ and $b \leq a$, then $a = b$
 
-		\item If $a \leq b$ and $b \leq c$, then $a \leq c$
+    \item If $a \leq b$ and $b \leq c$, then $a \leq c$
 
-		\item If $a \leq b$, then $a + c \leq b + c$
+    \item If $a \leq b$, then $a + c \leq b + c$
 
-		\item If $a \leq b$ and $0 \leq c$, then $a \cdot c \leq b \cdot c$
-	\end{enumerate}
+    \item If $a \leq b$ and $0 \leq c$, then $a \cdot c \leq b \cdot c$
+  \end{enumerate}
 
-	\Example Application of the order axioms
+  \Example Application of the order axioms
 \\Let's take $(\Q, +, \cdot, \leq)$, $a, b \in \Q$. We want to show that if $a
-	\leq b$, then $(-b) \leq (-a)$:
+  \leq b$, then $(-b) \leq (-a)$:
 \\$a \leq b \iff a + ((-a) + (-b)) \leq b + ((-a) + (-b)) \iff (a + (-a)) + (-b)
- 	\leq (-a) + (b + (-b))
+   \leq (-a) + (b + (-b))
 \\\iff (-b) + 0 \leq (-a) + 0 \iff (-b) \leq (-a)$
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def A set $A$ is countably infinite if it exists a function
-	$\functoN{f}{A}$ bijective.
+  \Def A set $A$ is countably infinite if it exists a function
+  $\functoN{f}{A}$ bijective.
 
-	\Remark Let $A, B$ sets:
-	\begin{itemize}
-		\item If $|A| = |B| \iff$ exists a bijection between $A$ and $B$
+  \Remark Let $A, B$ sets:
+  \begin{itemize}
+    \item If $|A| = |B| \iff$ exists a bijection between $A$ and $B$
 
-		\item If $|A| \leq |B| \iff$ exists an injection from $A$ to $B$
+    \item If $|A| \leq |B| \iff$ exists an injection from $A$ to $B$
 
-		\item If $|A| < |B| \iff$ exists an injection, but not a bijection
-	\end{itemize}
+    \item If $|A| < |B| \iff$ exists an injection, but not a bijection
+  \end{itemize}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $\Z$ is countably infinite
+  \Proposition $\Z$ is countably infinite
 
 %%BEGIN_PROOF
-	\Proof We can arrange $\Z$ and $\Z$ in the following way:
-	\begin{equation*}
-		\begin{array}{lcrccccccccl}
-			\bb{N} & = & \{ & 1, & 2, & 3, & 4, & 5, & 6, & 7, & \hdots & \} \\
-			\bb{Z} & = & \{ & 0, & 1, & -1,& 2, & -2,& 3, & -3,& \hdots & \} \\
-		\end{array}
-	\end{equation*}
-	We can take the function $\functoN{f}{\Z}$ such that:
-	\begin{equation*}
-		f(x) = \begin{cases}
-			0 									& \text{if } x = 1					\\
-			\frac{x}{2} 				& \text{if } x \text{ even}	\\
-			-\frac{(x - 1)}{2} 	& \text{if } x \text{ odd}
-		\end{cases}, \quad
-		f^{-1}(x) = \begin{cases}
-			1 			& \text{if } x = 0	\\
-			2x 			& \text{if } 0 < x 	\\
-			-2x+1 	& \text{if } x < 0
-		\end{cases}
-	\end{equation*}
-	$f$ is bijective, thus $\Z$ is countably infinite.
+  \Proof We can arrange $\Z$ and $\Z$ in the following way:
+  \begin{equation*}
+    \begin{array}{lcrccccccccl}
+      \bb{N} & = & \{ & 1, & 2, & 3, & 4, & 5, & 6, & 7, & \hdots & \} \\
+      \bb{Z} & = & \{ & 0, & 1, & -1,& 2, & -2,& 3, & -3,& \hdots & \} \\
+    \end{array}
+  \end{equation*}
+  We can take the function $\functoN{f}{\Z}$ such that:
+  \begin{equation*}
+    f(x) = \begin{cases}
+      0 & \text{if } x = 1 \\
+      \frac{x}{2} & \text{if } x \text{ even} \\
+      -\frac{(x - 1)}{2} & \text{if } x \text{ odd}
+    \end{cases}, \quad
+    f^{-1}(x) = \begin{cases}
+      1 & \text{if } x = 0 \\
+      2x & \text{if } 0 < x \\
+      -2x+1 & \text{if } x < 0
+    \end{cases}
+  \end{equation*}
+  $f$ is bijective, thus $\Z$ is countably infinite.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $\Q$ is countably infinite
+  \Proposition $\Q$ is countably infinite
 
 %%BEGIN_PROOF
-	\Proof Idea of the proof. We can arrange $\N$ and $\Q$ as such:
-	\begin{equation*}
-		\begin{array}{lcrcccccccccl}
-			\bb{N} & = & \{ & 1, & 2, & 3, & 4, & 5, & 6, & 7, & 8, & \hdots & \} \\
-			\bb{Q} & = & \{ & \frac{0}{1}, & \frac{1}{1}, & -\frac{1}{1}, &
-			\frac{1}{2}, & -\frac{1}{2}, & \frac{2}{1},& -\frac{2}{1}, & \frac{1}{3},
-			& \hdots & \} \\
-		\end{array}
-	\end{equation*}
-	Similarly to the proof for $\Z$, we can find a bijection between $\N$
-	and $\Q$.
+  \Proof Idea of the proof. We can arrange $\N$ and $\Q$ as such:
+  \begin{equation*}
+    \begin{array}{lcrcccccccccl}
+      \bb{N} & = & \{ & 1, & 2, & 3, & 4, & 5, & 6, & 7, & 8, & \hdots & \} \\
+      \bb{Q} & = & \{ & \frac{0}{1}, & \frac{1}{1}, & -\frac{1}{1}, &
+      \frac{1}{2}, & -\frac{1}{2}, & \frac{2}{1},& -\frac{2}{1}, & \frac{1}{3},
+      & \hdots & \} \\
+    \end{array}
+  \end{equation*}
+  Similarly to the proof for $\Z$, we can find a bijection between $\N$
+  and $\Q$.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $\R$ is not countable
+  \Proposition $\R$ is not countable
 
 %%BEGIN_PROOF
-	\Proof Idea of the proof. Let $x \in {[}0,1{[}$. Each $x$ can be written as an
-	infinite succession of digits:
+  \Proof Idea of the proof. Let $x \in {[}0,1{[}$. Each $x$ can be written as an
+  infinite succession of digits:
 \\\begin{tabular}{l|l}
-		1 & 0.\textbf{1}786... \\
-		2 & 0.3\textbf{9}09... \\
-		3 & 0.45\textbf{0}0... \\
-		4 & 0.097\textbf{2}... \\
-		... & ...
-	\end{tabular}
+    1 & 0.\textbf{1}786... \\
+    2 & 0.3\textbf{9}09... \\
+    3 & 0.45\textbf{0}0... \\
+    4 & 0.097\textbf{2}... \\
+    ... & ...
+  \end{tabular}
 \\We can construct a new number, taking a digit from each number (each at a
-	different position) and increment it by 1. This way, the new number will be
-	different from any other in the list in the position from where the digit was
-	taken. In our example, the new number would be 0.\textbf{2013}...
+  different position) and increment it by 1. This way, the new number will be
+  different from any other in the list in the position from where the digit was
+  taken. In our example, the new number would be 0.\textbf{2013}...
 \\Since there is one more number than those in the list, then $|\N| < |\R|$, so
-	there is no bijection, and $\R$ is uncountable.
+  there is no bijection, and $\R$ is uncountable.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $|\R| = |\R^2|$
+  \Proposition $|\R| = |\R^2|$
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Power set
+  \Def Power set
 \\Let $A$ be a set. The power set of $A$ is $2^A = \{ A' : A' \subseteq A \}$,
-	the set containing all subsets of $A$. $|2^A| = 2^{|A|}$
+  the set containing all subsets of $A$. $|2^A| = 2^{|A|}$
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $|2^{\N}| = |\R|$
+  \Proposition $|2^{\N}| = |\R|$
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $\sqrt{2} \notin \Q$
+  \Proposition $\sqrt{2} \notin \Q$
 
 %%BEGIN_PROOF
-	\Proof By contradiction
+  \Proof By contradiction
 \\We suppose $\sqrt{2} \in \Q$, this means there exists $a, b \in \Z$, $b \neq
-	0$ and greatest common divisor of $a$ and $b$ is 1, such
-	that $\sqrt{2} = \frac{a}{b}$:
-	\begin{equation*}
-		\sqrt{2} = \frac{a}{b} \iff 2 = \frac{a^2}{b^2} \iff 2b^2 = a^2
-	\end{equation*}
-	This means $a^2$ is even (and $a$ is even), then it exists $c$ such that $a =
-	2c$:
-	\begin{equation*}
-		2b^2 = a^2 \iff 2b^2 = (2c)^2 = 4c^2 \iff b^2 = 2c^2
-	\end{equation*}
-	This means $b^2$, and $b$, are even. But if both $a$ and $b$ are even, then
-	the greatest common divisor of $a$ and $b$ is not 1, contradiction.
+  0$ and greatest common divisor of $a$ and $b$ is 1, such
+  that $\sqrt{2} = \frac{a}{b}$:
+  \begin{equation*}
+    \sqrt{2} = \frac{a}{b} \iff 2 = \frac{a^2}{b^2} \iff 2b^2 = a^2
+  \end{equation*}
+  This means $a^2$ is even (and $a$ is even), then it exists $c$ such that $a =
+  2c$:
+  \begin{equation*}
+    2b^2 = a^2 \iff 2b^2 = (2c)^2 = 4c^2 \iff b^2 = 2c^2
+  \end{equation*}
+  This means $b^2$, and $b$, are even. But if both $a$ and $b$ are even, then
+  the greatest common divisor of $a$ and $b$ is not 1, contradiction.
 \\We can conclude that $\sqrt{2} \notin \Q$.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Bounds
+  \Def Bounds
 \\Let $A, X$ be sets, such that $A \subseteq X$, and $x \in X$, then:
-	\begin{itemize}
-		\item $x$ is upper bound of $A$ if $a \leq x$, for all $a \in A$
-		\item $x$ is lower bound of $A$ if $x \leq a$, for all $a \in A$
-	\end{itemize}
+  \begin{itemize}
+    \item $x$ is upper bound of $A$ if $a \leq x$, for all $a \in A$
+    \item $x$ is lower bound of $A$ if $x \leq a$, for all $a \in A$
+  \end{itemize}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Supremum and infimum
+  \Def Supremum and infimum
 \\Let $A$ be a set:
-	\begin{itemize}
-		\item The supremum is the smallest upper bound of $A$
-		\item The infimum is the greatest lower bound of $A$
-	\end{itemize}
+  \begin{itemize}
+    \item The supremum is the smallest upper bound of $A$
+    \item The infimum is the greatest lower bound of $A$
+  \end{itemize}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Maximum and minimum
+  \Def Maximum and minimum
 \\Let $A$ be a set:
-	\begin{itemize}
-		\item The maximum is the biggest element of $A$ (if $\sup(A) \in A$, then
-		$\max(A) = \sup(A)$)
-		\item The minimum is the smallest element of $A$ (if $\inf(A) \in A$, then
-		$\min(A) = \inf(A)$)
-	\end{itemize}
+  \begin{itemize}
+    \item The maximum is the biggest element of $A$ (if $\sup(A) \in A$, then
+    $\max(A) = \sup(A)$)
+    \item The minimum is the smallest element of $A$ (if $\inf(A) \in A$, then
+    $\min(A) = \inf(A)$)
+  \end{itemize}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 \newpage
@@ -394,106 +413,106 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \section{Spaces}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Topology
+  \Def Topology
 \\Let $X$ be a set. Then $\tau \subseteq 2^X$ is a topology if:
-	\begin{enumerate}[label=(\roman*)]
-		\item $X \in \tau$
-		\item $\emptyset \in \tau$
-		\item $A_\alpha \in \tau$, then $\displaystyle \bigcup_\alpha A_\alpha \in
-		\tau$ (the union of any element of $\tau$ is also contained in $\tau$)
-		\item $A_i \in \tau$, then $\displaystyle \bigcap_{i = 1}^n A_i \in \tau$
-		(any finite intersection of elements of $\tau$ is also contained in $\tau$)
-	\end{enumerate}
+  \begin{enumerate}[label=(\roman*)]
+    \item $X \in \tau$
+    \item $\emptyset \in \tau$
+    \item $A_\alpha \in \tau$, then $\displaystyle \bigcup_\alpha A_\alpha \in
+    \tau$ (the union of any element of $\tau$ is also contained in $\tau$)
+    \item $A_i \in \tau$, then $\displaystyle \bigcap_{i = 1}^n A_i \in \tau$
+    (any finite intersection of elements of $\tau$ is also contained in $\tau$)
+  \end{enumerate}
 
 %%BEGIN_EXAMPLE
-	\Example Let $X = \{ 1, 2, 3, 4 \}$
-	\begin{enumerate}[label=(\arabic*)]
-		\item $\tau = \{ \emptyset, X \}$ is topology:
-	\\$\emptyset \cup X = X \in \tau$
-	\\$\emptyset \cap X = \emptyset \in \tau$
+  \Example Let $X = \{ 1, 2, 3, 4 \}$
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\tau = \{ \emptyset, X \}$ is topology:
+  \\$\emptyset \cup X = X \in \tau$
+  \\$\emptyset \cap X = \emptyset \in \tau$
 
-		\item $\tau = \{ \emptyset, \{ 2 \}, \{ 2, 3 \}, X \}$ is topology:
-	\\The cases with $\emptyset$ and $X$ are trivial
-	\\$\{ 2 \} \cup \{ 2, 3 \} = \{ 2, 3 \} \in \tau$
-	\\$\{ 2 \} \cap \{ 2, 3 \} = \{ 2 \} \in \tau$
+    \item $\tau = \{ \emptyset, \{ 2 \}, \{ 2, 3 \}, X \}$ is topology:
+  \\The cases with $\emptyset$ and $X$ are trivial
+  \\$\{ 2 \} \cup \{ 2, 3 \} = \{ 2, 3 \} \in \tau$
+  \\$\{ 2 \} \cap \{ 2, 3 \} = \{ 2 \} \in \tau$
 
-		\item $A = \{ \emptyset, \{ 2 \}, \{ 3 \}, X \}$ is not a topology:
-	\\$\{ 2 \} \cup \{ 3 \} = \{ 2, 3 \} \notin A$
-	\end{enumerate}
+    \item $A = \{ \emptyset, \{ 2 \}, \{ 3 \}, X \}$ is not a topology:
+  \\$\{ 2 \} \cup \{ 3 \} = \{ 2, 3 \} \notin A$
+  \end{enumerate}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Topological space
+  \Def Topological space
 \\Let $X$ be a set, $\tau$ a topology, then $(X, \tau)$ is a topological space.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Neighborhood in a topological space $(X, \tau)$
+  \Def Neighborhood in a topological space $(X, \tau)$
 \\A set $N$ is a neighborhood of $x \in X$ if there exists a set $U \in \tau$
-	such that $x \in U$ and $U \subseteq N$.
+  such that $x \in U$ and $U \subseteq N$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Metric
+  \Def Metric
 \\Let $X$ be a set, $x, y, z \in X$. The function $d : X \times X \rightarrow
-	\R$ is a metric if:
-	\begin{enumerate}[label=(\roman*)]
-		\item $d(x,y) = d(y,x)$
-		\item $d(x,y) = 0 \iff x = y$
-		\item $d(x,z) \leq d(x,y) + d(x,z)$
-	\end{enumerate}
+  \R$ is a metric if:
+  \begin{enumerate}[label=(\roman*)]
+    \item $d(x,y) = d(y,x)$
+    \item $d(x,y) = 0 \iff x = y$
+    \item $d(x,z) \leq d(x,y) + d(x,z)$
+  \end{enumerate}
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{enumerate}[label=(\arabic*)]
-		\item $d(x,y) = \abs{x - y}$
-		\item $\displaystyle d(x,y) = ||x - y||_2 =
-		\left(\sum_{i = 1}^n (x_i - y_i)^2\right)^{\frac{1}{2}}$
-	\end{enumerate}
+  \Example
+  \begin{enumerate}[label=(\arabic*)]
+    \item $d(x,y) = \abs{x - y}$
+    \item $\displaystyle d(x,y) = ||x - y||_2 =
+    \left(\sum_{i = 1}^n (x_i - y_i)^2\right)^{\frac{1}{2}}$
+  \end{enumerate}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Metric space
+  \Def Metric space
 \\Let $X$ be a set, $d$ be a metric, then $(X, d)$ is a metric space.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Ball in a metric space $(X, d)$
+  \Def Ball in a metric space $(X, d)$
 \\$B_r(x) = \{ y \in X : d(x,y) < r \}$ is a ball of center $x$ and radius $r$.
-	$B_r(x)$ is subset of $X$.
+  $B_r(x)$ is subset of $X$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Open set in a topological space $(X, \tau)$
+  \Def Open set in a topological space $(X, \tau)$
 \\A set $U$ is open in $(X, \tau)$ if $U \in \tau$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Open set in a metric space $(X, d)$
+  \Def Open set in a metric space $(X, d)$
 \\A set $U$ is open in $(X, d)$ if for all $x \in U$ exists $\Ep > 0$ such
-	that $B_\Ep(x) \subseteq U$.
+  that $B_\Ep(x) \subseteq U$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $C \subseteq X$ is closed if $X\setminus C$ is open. A set is closed if
-	its complement is open.
+  \Def $C \subseteq X$ is closed if $X\setminus C$ is open. A set is closed if
+  its complement is open.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Let $S = (X, x)$ be a space ($x$ a metric or a topology), then:
-	\begin{enumerate}[label=(\roman*)]
-		\item $X$ is open in $S$
-		\item $\emptyset$ is open in $S$
-		\item For all $A_\alpha$ open in $S$, then $\displaystyle \bigcup_\alpha
-		A_\alpha$ is open in $S$ (any union of any open set is also open)
-		\item For all $A_i$ open in $S$, then $\displaystyle \bigcap_{i=1}^n
-		A_i$ is open in $S$ (any finite intersection of any open set is also open)
-	\end{enumerate}
+  \Proposition Let $S = (X, x)$ be a space ($x$ a metric or a topology), then:
+  \begin{enumerate}[label=(\roman*)]
+    \item $X$ is open in $S$
+    \item $\emptyset$ is open in $S$
+    \item For all $A_\alpha$ open in $S$, then $\displaystyle \bigcup_\alpha
+    A_\alpha$ is open in $S$ (any union of any open set is also open)
+    \item For all $A_i$ open in $S$, then $\displaystyle \bigcap_{i=1}^n
+    A_i$ is open in $S$ (any finite intersection of any open set is also open)
+  \end{enumerate}
 
 %%BEGIN_PROOF
-	%TODO: add proof (topological or metric?)
+  %TODO: add proof (topological or metric?)
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
@@ -504,346 +523,346 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \section{Sequences}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Sequence
+  \Def Sequence
 \\A sequence $(x_n)$ is a function $\func{x}{\N}{X}$, where $x(n) = x_n$.
 \\The elements of a sequence can be listed in an ordered set with repetition:
-	$(x_n) = (x_1, x_2, x_3, x_4, \hdots)$
+  $(x_n) = (x_1, x_2, x_3, x_4, \hdots)$
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item $a_n = n \Rightarrow (a_n) = (1, 2, 3, 4, 5, \hdots)$
-		\item $b_n = \frac{1}{n} \Rightarrow (b_n) = (1, \frac{1}{2}, \frac{1}{3},
-		\hdots)$
-		\item $c_n = (-1)^n \Rightarrow (c_n) = (1, -1, 1, -1, \hdots)$
-	\end{itemize}
+  \Example
+  \begin{itemize}
+    \item $a_n = n \Rightarrow (a_n) = (1, 2, 3, 4, 5, \hdots)$
+    \item $b_n = \frac{1}{n} \Rightarrow (b_n) = (1, \frac{1}{2}, \frac{1}{3},
+    \hdots)$
+    \item $c_n = (-1)^n \Rightarrow (c_n) = (1, -1, 1, -1, \hdots)$
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Cauchy sequence
+  \Def Cauchy sequence
 \\A sequence $(x_n)$ is a Cauchy sequence if for all $\Ep > 0$ exists
-	$N_\Ep$ such that $d(x_n,x_m) < \Ep$, for all $n, m \geq N_\Ep$.
+  $N_\Ep$ such that $d(x_n,x_m) < \Ep$, for all $n, m \geq N_\Ep$.
 \\That is, starting from an index $N_\Ep$ all values $x_n$ are contained in
-	an interval ${[}x_{N_\Ep} - \Ep, x_{N_\Ep} + \Ep{]}$.
+  an interval ${[}x_{N_\Ep} - \Ep, x_{N_\Ep} + \Ep{]}$.
 
 %%BEGIN_EXAMPLE
-	\Example $x_n = \frac{1}{n}$ in $(\R, d)$, where $d(x,y) = \abs{x - y}$. We
-	have to find, for each $\Ep$, an $N$ that satisfies the definition of
-	Cauchy sequence.
+  \Example $x_n = \frac{1}{n}$ in $(\R, d)$, where $d(x,y) = \abs{x - y}$. We
+  have to find, for each $\Ep$, an $N$ that satisfies the definition of
+  Cauchy sequence.
 \\Let's take $N \leq n \leq m$. Thanks to the triangle inequality, we can first
-	find that:
-	\begin{equation*}
-		d(x_n,x_m) = \abs{x_n - x_m} \leq \abs{x_n} + \abs{-x_m} =
-		\abs{x_n} + \abs{x_m} = \abs{\frac{1}{n}} + \abs{\frac{1}{m}} =
-		\frac{1}{n} + \frac{1}{m}
-	\end{equation*}
-	Since $N \leq n \leq m$, then we have $\frac{1}{m} \leq \frac{1}{n} \leq
-	\frac{1}{N}$:
-	\begin{equation*}
-		\frac{1}{n} + \frac{1}{m} \leq
-		\frac{1}{N} + \frac{1}{N} = \frac{2}{N}
-	\end{equation*}
-	Now, in order to satisfy the definition we must have $\frac{2}{N} \leq
-	\Ep$, thus $\frac{2}{\Ep} \leq N$. This means, starting from $N =
+  find that:
+  \begin{equation*}
+    d(x_n,x_m) = \abs{x_n - x_m} \leq \abs{x_n} + \abs{-x_m} =
+    \abs{x_n} + \abs{x_m} = \abs{\frac{1}{n}} + \abs{\frac{1}{m}} =
+    \frac{1}{n} + \frac{1}{m}
+  \end{equation*}
+  Since $N \leq n \leq m$, then we have $\frac{1}{m} \leq \frac{1}{n} \leq
+  \frac{1}{N}$:
+  \begin{equation*}
+    \frac{1}{n} + \frac{1}{m} \leq
+    \frac{1}{N} + \frac{1}{N} = \frac{2}{N}
+  \end{equation*}
+  Now, in order to satisfy the definition we must have $\frac{2}{N} \leq
+  \Ep$, thus $\frac{2}{\Ep} \leq N$. This means, starting from $N =
 \frac{2}{\Ep}$ all $d(x_n,x_m)$ wil be smaller than $\Ep$. In fact,
-	if we take the previous inequality:
-	\begin{equation*}
-		\abs{\frac{1}{n} - \frac{1}{m}} \leq
-		\frac{2}{N} = \frac{2}{\frac{2}{\Ep}} = \Ep
-	\end{equation*}
-	Note that it is not important if $d(x,y) < \Ep$ or $d(x,y) \leq \Ep$.
+  if we take the previous inequality:
+  \begin{equation*}
+    \abs{\frac{1}{n} - \frac{1}{m}} \leq
+    \frac{2}{N} = \frac{2}{\frac{2}{\Ep}} = \Ep
+  \end{equation*}
+  Note that it is not important if $d(x,y) < \Ep$ or $d(x,y) \leq \Ep$.
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Convergence in a metric space $(X, d)$
+  \Def Convergence in a metric space $(X, d)$
 \\A sequence $(x_n)$ converges to a limit $x$ if for all $\Ep > 0$ exists
-	$N_\Ep$ such that $d(x_n,x) < \Ep$, for all $n \geq N_\Ep$.
+  $N_\Ep$ such that $d(x_n,x) < \Ep$, for all $n \geq N_\Ep$.
 
 %%BEGIN_EXAMPLE
-	\Example $x_n = \frac{1}{n}$ in $\R$ converges to 0. We take $N \leq n$ and
-	$N = \frac{1}{\Ep}$:
-	\begin{equation*}
-		\abs{x_n - 0} = \abs{x_n} = \abs{\frac{1}{n}} = \frac{1}{n} \leq \frac{1}{N}
-		= \frac{1}{\frac{1}{\Ep}} = \Ep
-	\end{equation*}
+  \Example $x_n = \frac{1}{n}$ in $\R$ converges to 0. We take $N \leq n$ and
+  $N = \frac{1}{\Ep}$:
+  \begin{equation*}
+    \abs{x_n - 0} = \abs{x_n} = \abs{\frac{1}{n}} = \frac{1}{n} \leq \frac{1}{N}
+    = \frac{1}{\frac{1}{\Ep}} = \Ep
+  \end{equation*}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Convergence in a topological space $(X, \tau)$
+  \Def Convergence in a topological space $(X, \tau)$
 \\A sequence $(x_n)$ converges to a limit $x$ if for all $U \in \tau$ such that
-	$x \in U$, it exists $N_U$ such that $x_n \in U$, for all $n \geq N_U$.
+  $x \in U$, it exists $N_U$ such that $x_n \in U$, for all $n \geq N_U$.
 \\That is, $x$ is a limit of a sequence, if all sets of $\tau$ that contain $x$
-	also contain the tail of the sequence.
+  also contain the tail of the sequence.
 
 %%BEGIN_EXAMPLE
-	\Example Let's take $X = \{ a, b, c \}$, $(x_n) = (a, b)$ and $\tau =
-	\{ \emptyset, \{ a \}, X \}$.
-	\begin{itemize}
-		\item $a$ is not a limit of $(x_n)$, in fact $\{ a \}$ contains $a$, but
-		doesn't contain the tail of $(x_n)$
-		\item $b$ and $c$ are limits of $(x_n)$, in fact $b \in X$ and $c \in X$,
-		and $X$ contains $(x_n)$ (and its tail too)
-	\end{itemize}
+  \Example Let's take $X = \{ a, b, c \}$, $(x_n) = (a, b)$ and $\tau =
+  \{ \emptyset, \{ a \}, X \}$.
+  \begin{itemize}
+    \item $a$ is not a limit of $(x_n)$, in fact $\{ a \}$ contains $a$, but
+    doesn't contain the tail of $(x_n)$
+    \item $b$ and $c$ are limits of $(x_n)$, in fact $b \in X$ and $c \in X$,
+    and $X$ contains $(x_n)$ (and its tail too)
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $x_n \to x$ in $(X, d) \iff$ for all $U \subseteq X$ open exists
-	$N_U$ such that $x_n \in U$, for all $n \geq N_U$.
-	%If a sequence converges in metric, then converges it in a topological space?
+  \Proposition $x_n \to x$ in $(X, d) \iff$ for all $U \subseteq X$ open exists
+  $N_U$ such that $x_n \in U$, for all $n \geq N_U$.
+  %If a sequence converges in metric, then converges it in a topological space?
 
 %%BEGIN_PROOF
-	\Proof Let $U \subseteq X$ open, $x \in U$, it exists $\Ep > 0$ such that
-	$B_\Ep(x) \subseteq U$.
-	\begin{itemize}
-		\item[$\Rightarrow$] Since $x_n$ converges, then $d(x_n,x) < \Ep$, for
-		all $\Ep$. This means $x \in B_\Ep(x) \subseteq U$, thus $x \in U$
-		\item[$\Leftarrow$] $x \in B_\Ep(x)$ open. This mean it exists $N$ such
-		that all $x_n \in B_\Ep(x)$, for all $n \geq N$. We can conclude that
-		$d(x_n,x) < \Ep$.
-	\end{itemize}
-	\qed
+  \Proof Let $U \subseteq X$ open, $x \in U$, it exists $\Ep > 0$ such that
+  $B_\Ep(x) \subseteq U$.
+  \begin{itemize}
+    \item[$\Rightarrow$] Since $x_n$ converges, then $d(x_n,x) < \Ep$, for
+    all $\Ep$. This means $x \in B_\Ep(x) \subseteq U$, thus $x \in U$
+    \item[$\Leftarrow$] $x \in B_\Ep(x)$ open. This mean it exists $N$ such
+    that all $x_n \in B_\Ep(x)$, for all $n \geq N$. We can conclude that
+    $d(x_n,x) < \Ep$.
+  \end{itemize}
+  \qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem If a sequence converges to a limit in a metric space, then the limit
-	is unique.
+  \Theorem If a sequence converges to a limit in a metric space, then the limit
+  is unique.
 
 %%BEGIN_PROOF
-	\Proof Let's suppose $x_n \to x$ and $x_n \to x'$.
-	It exists $N$ such that for $n geq N$, $d(x_n,x) < \Ep$ and It exists
-	$N'$ such that for $n \geq N'$, $d(x_n,x') < \Ep$. We take $n \geq
-	\max\{ N, N' \}$. Now we have $0 \leq d(x,x') \leq d(x,x_n) + d(x_n,x') <
-	2\Ep$.
+  \Proof Let's suppose $x_n \to x$ and $x_n \to x'$.
+  It exists $N$ such that for $n geq N$, $d(x_n,x) < \Ep$ and It exists
+  $N'$ such that for $n \geq N'$, $d(x_n,x') < \Ep$. We take $n \geq
+  \max\{ N, N' \}$. Now we have $0 \leq d(x,x') \leq d(x,x_n) + d(x_n,x') <
+  2\Ep$.
 \\Since $\Ep$ is arbitrarily small, then $d(x,x') \leq 0$. Now, we have
-	$0 \leq d(x,x') \leq 0 \Rightarrow d(x,x') = 0 \Rightarrow x = x'$.
-	\qed
+  $0 \leq d(x,x') \leq 0 \Rightarrow d(x,x') = 0 \Rightarrow x = x'$.
+  \qed
 %%END_PROOF
 
-	\Remark This isn't true in a topological space. In a topological space, a
-	sequence can converge to multiple limits.
+  \Remark This isn't true in a topological space. In a topological space, a
+  sequence can converge to multiple limits.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $x_n \to x$ in $(X,d)$ metric space, then for all $y \in X$,
-	$d(x_n,y) \to d(x,y)$.
+  \Proposition $x_n \to x$ in $(X,d)$ metric space, then for all $y \in X$,
+  $d(x_n,y) \to d(x,y)$.
 
 %%BEGIN_PROOF
-	%???
+  %???
 %%BEGIN_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Properties of real sequences
-	\\For all $(x_n), (y_n)$ such that $x_n \to x$, $y_n \to y$, we have the
-		following properties:
-		\begin{enumerate}[label=(\roman*)]
-			\item $ \displaystyle
-			\limn (\alpha x_n + \beta y_n) = \alpha \limn x_n + \beta \limn y_n $
+  \Proposition Properties of real sequences
+  \\For all $(x_n), (y_n)$ such that $x_n \to x$, $y_n \to y$, we have the
+    following properties:
+    \begin{enumerate}[label=(\roman*)]
+      \item $ \displaystyle
+      \limn (\alpha x_n + \beta y_n) = \alpha \limn x_n + \beta \limn y_n $
 
-			\item $ \displaystyle
-			\limn x_n x_y = \limn x_n \limn y_n $
+      \item $ \displaystyle
+      \limn x_n x_y = \limn x_n \limn y_n $
 
-			\item $ \displaystyle
-			\limn \frac{x_n}{x_y} = \frac{\limn x_n}{\limn y_n} $
-		\end{enumerate}
+      \item $ \displaystyle
+      \limn \frac{x_n}{x_y} = \frac{\limn x_n}{\limn y_n} $
+    \end{enumerate}
 
 %%BEGIN_PROOF
-	\Proof
-		\begin{enumerate}[label=(\roman*)]
-			\item $ \displaystyle
-			\forall \Ep > 0, \quad
-			\exists N : \abs{x_n - x} < \frac{\Ep}{2\abs{\alpha}} = \Ep', \quad
-			\exists N' : \abs{y_n - y} < \frac{\Ep}{2\abs{\beta}} = \Ep''
-			\rightarrow $ we take $ n = \max \{ N, N'\} $.
-			\begin{equation*}
-				\abs{(\alpha x_n + \beta y_n) - (\alpha x + \beta y)} =
-				\abs{\alpha (x_n - x) + \beta (y_n - y)} \leq
-				\abs{\alpha (x_n - x)} + \abs{\beta (y_n - y)} =
-			\end{equation*}
-			\begin{equation*} =
-				\abs{\alpha} \abs{(x_n - x)} + \abs{\beta} \abs{(y_n - y)} <
-				\abs{\alpha} \Ep' + \abs{\beta} \Ep'' =
-				\frac{\Ep}{2} + \frac{\Ep}{2} =
-				\Ep
-			\end{equation*}
+  \Proof
+    \begin{enumerate}[label=(\roman*)]
+      \item $ \displaystyle
+      \forall \Ep > 0, \quad
+      \exists N : \abs{x_n - x} < \frac{\Ep}{2\abs{\alpha}} = \Ep', \quad
+      \exists N' : \abs{y_n - y} < \frac{\Ep}{2\abs{\beta}} = \Ep''
+      \rightarrow $ we take $ n = \max \{ N, N'\} $.
+      \begin{equation*}
+        \abs{(\alpha x_n + \beta y_n) - (\alpha x + \beta y)} =
+        \abs{\alpha (x_n - x) + \beta (y_n - y)} \leq
+        \abs{\alpha (x_n - x)} + \abs{\beta (y_n - y)} =
+      \end{equation*}
+      \begin{equation*} =
+        \abs{\alpha} \abs{(x_n - x)} + \abs{\beta} \abs{(y_n - y)} <
+        \abs{\alpha} \Ep' + \abs{\beta} \Ep'' =
+        \frac{\Ep}{2} + \frac{\Ep}{2} =
+        \Ep
+      \end{equation*}
 
-			\item[(i-ii)] Similar to previous demonstration.
-		\end{enumerate}
-		\qed
+      \item[(i-ii)] Similar to previous demonstration.
+    \end{enumerate}
+    \qed
 %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example
-		\begin{enumerate}[label=(\arabic*)]
-			\item
-			Knowing that $\frac{1}{n} \to 0$, show that $\frac{1}{n^2} \to 0$.
-			\begin{equation*}
-				\limn \frac{1}{n^2} = \limn \frac{1}{n} \cdot \limn \frac{1}{n} = 0 \cdot 0 = 0
-			\end{equation*}
+  \Example
+    \begin{enumerate}[label=(\arabic*)]
+      \item
+      Knowing that $\frac{1}{n} \to 0$, show that $\frac{1}{n^2} \to 0$.
+      \begin{equation*}
+        \limn \frac{1}{n^2} = \limn \frac{1}{n} \cdot \limn \frac{1}{n} = 0 \cdot 0 = 0
+      \end{equation*}
 
-			\item
-			Find the limit of the sequence $\frac{2n^2 - 3n + 2}{n^2 + n -1}$.
-			\begin{equation*}
-				\limn \frac{2n^2 - 3n + 2}{n^2 + n -1} =
-				\frac{\lim (2n^2 - 3n + 2)}{\lim (n^2 + n -1)} =
-				\frac{\lim 2 - \lim \frac{3}{n} + \lim \frac{2}{n^2}}{\lim 1 +
-				\lim \frac{1}{n} - \lim \frac{1}{n^2}} =
-				\frac{2 - 0 + 0}{1 + 0 - 0} = 2
-			\end{equation*}
-		\end{enumerate}
+      \item
+      Find the limit of the sequence $\frac{2n^2 - 3n + 2}{n^2 + n -1}$.
+      \begin{equation*}
+        \limn \frac{2n^2 - 3n + 2}{n^2 + n -1} =
+        \frac{\lim (2n^2 - 3n + 2)}{\lim (n^2 + n -1)} =
+        \frac{\lim 2 - \lim \frac{3}{n} + \lim \frac{2}{n^2}}{\lim 1 +
+        \lim \frac{1}{n} - \lim \frac{1}{n^2}} =
+        \frac{2 - 0 + 0}{1 + 0 - 0} = 2
+      \end{equation*}
+    \end{enumerate}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def A sequence $(x_n)$ is bounded if exists $c$ such that $\abs{s_n} \leq c$.
+  \Def A sequence $(x_n)$ is bounded if exists $c$ such that $\abs{s_n} \leq c$.
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item $a_n = \frac{1}{n}$ is bounded. We can take $c = 1$,
-		$\abs{\frac{1}{n}} = \frac{1}{n} \leq 1$, being $a_1 = 1$ the $\sup(a_n)$.
-		\item $b_n = (-1)^n$ is bounded. In fact, the values of the sequence are
-		always 1 and -1. If we take $c = 1$, then $\abs{b_n} = 1 \leq 1$.
-		\item $x_n = n$ is not bounded, we can prove it by contradiction.
-	\\We suppose it exists a $c$ such that $\abs{x_n} \leq c$. If we take $x_{c+1}
-		= c + 1$, we have $c + 1 \leq c \iff 0 \leq 1$ contradiction. This means
-		$x_n$ is not bounded.
-	\end{itemize}
+  \Example
+  \begin{itemize}
+    \item $a_n = \frac{1}{n}$ is bounded. We can take $c = 1$,
+    $\abs{\frac{1}{n}} = \frac{1}{n} \leq 1$, being $a_1 = 1$ the $\sup(a_n)$.
+    \item $b_n = (-1)^n$ is bounded. In fact, the values of the sequence are
+    always 1 and -1. If we take $c = 1$, then $\abs{b_n} = 1 \leq 1$.
+    \item $x_n = n$ is not bounded, we can prove it by contradiction.
+  \\We suppose it exists a $c$ such that $\abs{x_n} \leq c$. If we take $x_{c+1}
+    = c + 1$, we have $c + 1 \leq c \iff 0 \leq 1$ contradiction. This means
+    $x_n$ is not bounded.
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Convergent real sequences are bounded (not the opposite).
+  \Theorem Convergent real sequences are bounded (not the opposite).
 
 %%BEGIN_PROOF
-	\Proof Since $x_n \to x$, it exists $N$ such that for all $n \geq N$,
-	$\abs{x_n - x} < \Ep$. By triangle inequality we have:
-	\begin{equation*}
-		\abs{x_n} = \abs{x_n - x + x} \leq \abs{x_n - x} + \abs{x} < \Ep + \abs{x}
-	\end{equation*}
-	We choose $c = \max\{\abs{x_1}, \hdots, \abs{x_{N-1}}, \abs{x} + \Ep\}$,
-	then $\abs{x_n} < c$ for each $n$.
+  \Proof Since $x_n \to x$, it exists $N$ such that for all $n \geq N$,
+  $\abs{x_n - x} < \Ep$. By triangle inequality we have:
+  \begin{equation*}
+    \abs{x_n} = \abs{x_n - x + x} \leq \abs{x_n - x} + \abs{x} < \Ep + \abs{x}
+  \end{equation*}
+  We choose $c = \max\{\abs{x_1}, \hdots, \abs{x_{N-1}}, \abs{x} + \Ep\}$,
+  then $\abs{x_n} < c$ for each $n$.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Monotonic sequences
-	\begin{itemize}
-		\item $(x_n)$ is monotonic increasing if $x_n \leq x_{n+1}$ for all $n$
-		\item $(x_n)$ is monotonic decreasing if $x_{n+1} \leq x_n$ for all $n$
-	\end{itemize}
+  \Def Monotonic sequences
+  \begin{itemize}
+    \item $(x_n)$ is monotonic increasing if $x_n \leq x_{n+1}$ for all $n$
+    \item $(x_n)$ is monotonic decreasing if $x_{n+1} \leq x_n$ for all $n$
+  \end{itemize}
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item $a_n = \frac{1}{n}$ is monotonic decreasing. In fact, $\frac{1}{n+1}
-		\leq \frac{1}{n}$, then $a_{n+1} \leq a_n$.
-		\item $b_n = n$ is monotonic increasing. In fact, $b_n = n$ and $b_{n+1} =
-		n + 1$. Since $n \leq n + 1$, then $b_n \leq b_{n+1}$.
-		\item $c_n = (-1)^n$ is not monotonic. We can take $n = 1$, then $a_1 \leq
-		a_2 \nleq a_3$.
-	\end{itemize}
+  \Example
+  \begin{itemize}
+    \item $a_n = \frac{1}{n}$ is monotonic decreasing. In fact, $\frac{1}{n+1}
+    \leq \frac{1}{n}$, then $a_{n+1} \leq a_n$.
+    \item $b_n = n$ is monotonic increasing. In fact, $b_n = n$ and $b_{n+1} =
+    n + 1$. Since $n \leq n + 1$, then $b_n \leq b_{n+1}$.
+    \item $c_n = (-1)^n$ is not monotonic. We can take $n = 1$, then $a_1 \leq
+    a_2 \nleq a_3$.
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem If a sequence monotonic and bounded $\Rightarrow$ convergent
+  \Theorem If a sequence monotonic and bounded $\Rightarrow$ convergent
 
 %%BEGIN_PROOF
-	\Proof $(x_n)$ increasing and bounded, let $c = \sup(x_n)$. For all $\Ep
-	> 0$ exists $N$ such that $c - \Ep < x_N$. Since $(x_n)$ increasing, for
-	all $n \geq N$, $x_N \leq x_n \leq c$.
-	\begin{equation*}
-		c - \Ep < x_n \leq c \iff -\Ep < x_n - c \leq 0 < \Ep \iff
-		\abs{x_n - c} < \Ep
-	\end{equation*}
-	The last inequality implies convergence. Similarly, the theorem can be proven
-	for decreasing sequences.
+  \Proof $(x_n)$ increasing and bounded, let $c = \sup(x_n)$. For all $\Ep
+  > 0$ exists $N$ such that $c - \Ep < x_N$. Since $(x_n)$ increasing, for
+  all $n \geq N$, $x_N \leq x_n \leq c$.
+  \begin{equation*}
+    c - \Ep < x_n \leq c \iff -\Ep < x_n - c \leq 0 < \Ep \iff
+    \abs{x_n - c} < \Ep
+  \end{equation*}
+  The last inequality implies convergence. Similarly, the theorem can be proven
+  for decreasing sequences.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Limit superior and inferior of $(x_n)$
-	\begin{itemize}
-		\item $\limsup_{n \to \infty} x_n = \limn \sup\{x_k : k \geq n\}$
-		\item $\liminf_{n \to \infty} x_n = \limn \inf\{x_k : k \geq n\}$
-	\end{itemize}
+  \Def Limit superior and inferior of $(x_n)$
+  \begin{itemize}
+    \item $\limsup_{n \to \infty} x_n = \limn \sup\{x_k : k \geq n\}$
+    \item $\liminf_{n \to \infty} x_n = \limn \inf\{x_k : k \geq n\}$
+  \end{itemize}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Subsequence
+  \Def Subsequence
 \\$(x_{n_k}) \subseteq (x_n)$ is a subsequence of $(x_n)$. Only some terms of a
-	sequence are part of a subsequence.
+  sequence are part of a subsequence.
 
 %%BEGIN_EXAMPLE
-	\Example $x_n = (-1)^n \cdot n$. We take $k = 2n$, then the subsequence
-	$(x_{n_k}) = (x_{2n})$ of $(x_n)$ takes all the even indexes $n$ of $(x_n)$:
-	\begin{equation*}
-		\begin{array}{lcrcccccccl}
-			(x_n)		& = & ( & -1, & 2, & -3, & 4, & -5, & 6, & \hdots & )\\
-			(x_2n)	& = & ( & 		& 2, &		 & 4, &			& 6, & \hdots & )
-		\end{array}
-	\end{equation*}
+  \Example $x_n = (-1)^n \cdot n$. We take $k = 2n$, then the subsequence
+  $(x_{n_k}) = (x_{2n})$ of $(x_n)$ takes all the even indexes $n$ of $(x_n)$:
+  \begin{equation*}
+    \begin{array}{lcrcccccccl}
+      (x_n)		& = & ( & -1, & 2, & -3, & 4, & -5, & 6, & \hdots & )\\
+      (x_2n)	& = & ( & 		& 2, &		 & 4, &			& 6, & \hdots & )
+    \end{array}
+  \end{equation*}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem If $x_n \to x$ $\Rightarrow x_{n_k} \to x$. If a sequence converges,
-	all subsequences converge to the same limit.
+  \Theorem If $x_n \to x$ $\Rightarrow x_{n_k} \to x$. If a sequence converges,
+  all subsequences converge to the same limit.
 
 %%BEGIN_PROOF
-	\Proof $k \leq n_k$ (it can be proved by induction) and $d(x_k,x) < \Ep$.
-	Since $N \leq k \leq n_k$, then $d(x_{n_k},x) \leq d(x_k,x) < \Ep$. This
-	means the subsequence converges to $x$.
+  \Proof $k \leq n_k$ (it can be proved by induction) and $d(x_k,x) < \Ep$.
+  Since $N \leq k \leq n_k$, then $d(x_{n_k},x) \leq d(x_k,x) < \Ep$. This
+  means the subsequence converges to $x$.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $x_n$ is a dominant term if $x_m < x_n$ for all $n < m$.
+  \Def $x_n$ is a dominant term if $x_m < x_n$ for all $n < m$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Every sequence has a monotonic subsequence.
+  \Theorem Every sequence has a monotonic subsequence.
 
 %%BEGIN_PROOF
-	\Proof Based on dominants terms:
-	\begin{itemize}
-		\item If we have infinite dominant terms, we take the decreasing subsequence
-		formed by the dominant terms.
-		\item If we have a finite number of dominant terms, then, after the last
-		dominant term, we start taking an increasing subsequence (since, for each
-		term, there will be at some point a greater term).
-	\end{itemize}
-	\qed
+  \Proof Based on dominants terms:
+  \begin{itemize}
+    \item If we have infinite dominant terms, we take the decreasing subsequence
+    formed by the dominant terms.
+    \item If we have a finite number of dominant terms, then, after the last
+    dominant term, we start taking an increasing subsequence (since, for each
+    term, there will be at some point a greater term).
+  \end{itemize}
+  \qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Bolzano-Weierstrass
+  \Theorem Bolzano-Weierstrass
 \\Every bounded sequence has a convergent subsequence.
 
 %%BEGIN_PROOF
-	\Proof We take $(x_n)$ bounded. We show it in three steps:
-	\begin{itemize}
-		\item $(x_n)$ has a monotonic subsequence $(x_{n_k})$
-		\item Since $(x_n)$ is bounded, then $(x_{n_k})$ is bounded
-		\item Since $(x_{n_k})$ is bounded and monotonic, it is convergent
-	\end{itemize}
-	\qed
+  \Proof We take $(x_n)$ bounded. We show it in three steps:
+  \begin{itemize}
+    \item $(x_n)$ has a monotonic subsequence $(x_{n_k})$
+    \item Since $(x_n)$ is bounded, then $(x_{n_k})$ is bounded
+    \item Since $(x_{n_k})$ is bounded and monotonic, it is convergent
+  \end{itemize}
+  \qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $X \subseteq \R^n$ is compact $\iff X$ is closed and bounded (this is not
-	true for $\R^\infty$).
+  \Def $X \subseteq \R^n$ is compact $\iff X$ is closed and bounded (this is not
+  true for $\R^\infty$).
 %%END_BLOCK-------------------------------------------------------------------%%
 
 \newpage
@@ -853,158 +872,158 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \section{Series}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Series
+  \Def Series
 \\$(x_n)$ sequence. $\DS s_n = \sumn{x_k}$ is a series (also known as
-	the partial sum). A series is the summation of the terms of a sequence.
+  the partial sum). A series is the summation of the terms of a sequence.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Convergence of series
+  \Def Convergence of series
 \\$\DS s_n = \sumn{x_k}$ a series. $\limn s_n = \limn \sumn{x_k} = \series{x_k}$.
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item Harmonic: $\DS \series{\frac{1}{n}} = +\infty$
-		\item Geometric: $\DS \series{a^n} = \begin{cases}
-		\infty & \abs{a} \geq 1 \\ \frac{1}{1-a} & \abs{a} < 1\end{cases}$
-		\item Exponential: $\DS \series{\frac{1}{n!}} = e$
-		\item Leibniz: $\DS \series{\frac{(-1)^n}{2n-1}} = \frac{\pi}{4}$
-	\end{itemize}
+  \Example
+  \begin{itemize}
+    \item Harmonic: $\DS \series{\frac{1}{n}} = +\infty$
+    \item Geometric: $\DS \series{a^n} = \begin{cases}
+    \infty & \abs{a} \geq 1 \\ \frac{1}{1-a} & \abs{a} < 1\end{cases}$
+    \item Exponential: $\DS \series{\frac{1}{n!}} = e$
+    \item Leibniz: $\DS \series{\frac{(-1)^n}{2n-1}} = \frac{\pi}{4}$
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Absolute convergence of a series $\DS s_n = \sumn{x_k}$
+  \Def Absolute convergence of a series $\DS s_n = \sumn{x_k}$
 \\$s_n$ converges absolutely if $\DS \series{\abs{x_k}} < \infty$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Absolute convergence $\Rightarrow$ convergence. If $\DS
-	\series{\abs{x_k}} < \infty$, then $\DS \series{x_k} < \infty$.
+  \Proposition Absolute convergence $\Rightarrow$ convergence. If $\DS
+  \series{\abs{x_k}} < \infty$, then $\DS \series{x_k} < \infty$.
 
 %%BEGIN_PROOF
-	\Proof $\DS \series{\abs{x_k}} < \infty$ and $x_n \leq \abs{x_n}$, then $\DS
-	\series{x_k} \leq \series{\abs{x_k}} < \infty$.
+  \Proof $\DS \series{\abs{x_k}} < \infty$ and $x_n \leq \abs{x_n}$, then $\DS
+  \series{x_k} \leq \series{\abs{x_k}} < \infty$.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Cauchy criterion for series
+  \Def Cauchy criterion for series
 \\$\DS s_n = \sumn{x_k}$, and$\DS \series{x_k} < \infty$ is a Cauchy series if
-	for all $\Ep > 0$ it exists $N$ such that:
-	\begin{equation*}
-		\forall N \leq m \leq n \Rightarrow \abs{s_n - s_m} =
-		\abs{\sumn{x_k} - \sum_{k=1}^m x_k} = \abs{\sum_{k=m}^n x_k} < \Ep
-	\end{equation*}
+  for all $\Ep > 0$ it exists $N$ such that:
+  \begin{equation*}
+    \forall N \leq m \leq n \Rightarrow \abs{s_n - s_m} =
+    \abs{\sumn{x_k} - \sum_{k=1}^m x_k} = \abs{\sum_{k=m}^n x_k} < \Ep
+  \end{equation*}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Comparison test, for $x_n, y_n$ sequences and $x_n \geq 0$
-	\begin{enumerate}[label=(\roman*)]
-		\item If $\DS \series{x_k} < \infty$ and $\abs{y_n} \leq x_n \DS \Rightarrow
-		\series{y_k} < \infty$
-		\item If $\DS \series{x_k} = +\infty$ and $x_n \leq y_n \DS \Rightarrow
-		\series{y_k} = +\infty$
-	\end{enumerate}
+  \Proposition Comparison test, for $x_n, y_n$ sequences and $x_n \geq 0$
+  \begin{enumerate}[label=(\roman*)]
+    \item If $\DS \series{x_k} < \infty$ and $\abs{y_n} \leq x_n \DS \Rightarrow
+    \series{y_k} < \infty$
+    \item If $\DS \series{x_k} = +\infty$ and $x_n \leq y_n \DS \Rightarrow
+    \series{y_k} = +\infty$
+  \end{enumerate}
 
 %%BEGIN_PROOF
-	\Proof
-	\begin{enumerate}[label=(\roman*)]
-		\item $\DS \abs{\seriec{y_k}} \leq \seriec{\abs{y_k}} \leq \seriec{x_k} <
-		\Ep \Rightarrow \series{y_k} < \infty$
-		\item $\DS +\infty = \series{x_k} \leq \series{y_k} \Rightarrow \series{y_n}
-		= +\infty$
-	\end{enumerate}
-	\qed
+  \Proof
+  \begin{enumerate}[label=(\roman*)]
+    \item $\DS \abs{\seriec{y_k}} \leq \seriec{\abs{y_k}} \leq \seriec{x_k} <
+    \Ep \Rightarrow \series{y_k} < \infty$
+    \item $\DS +\infty = \series{x_k} \leq \series{y_k} \Rightarrow \series{y_n}
+    = +\infty$
+  \end{enumerate}
+  \qed
 %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example $\DS \series \frac{1}{n^2+1} \Rightarrow \series \frac{1}{n^2+1} <
-	\series \frac{1}{n^2} < \infty$, the series converges.
+  \Example $\DS \series \frac{1}{n^2+1} \Rightarrow \series \frac{1}{n^2+1} <
+  \series \frac{1}{n^2} < \infty$, the series converges.
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Ratio test, for $x_n$ sequence, $x_n \neq 0$ and $\DS
-	s_n = \sumn{x_k}$ series:
-	\begin{enumerate}[label=(\roman*)]
-		\item $s_n$ converges absolutely if $\limsupn \abs{\frac{x_{n+1}}{x_n}} < 1$
-		\item $s_n$ diverges if $\liminfn \abs{\frac{x_{n+1}}{x_n}} > 1$
-	\end{enumerate}
+  \Proposition Ratio test, for $x_n$ sequence, $x_n \neq 0$ and $\DS
+  s_n = \sumn{x_k}$ series:
+  \begin{enumerate}[label=(\roman*)]
+    \item $s_n$ converges absolutely if $\limsupn \abs{\frac{x_{n+1}}{x_n}} < 1$
+    \item $s_n$ diverges if $\liminfn \abs{\frac{x_{n+1}}{x_n}} > 1$
+  \end{enumerate}
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item $\DS \series\left({-\frac{1}{3}}\right)^n$:
-		\begin{equation*}
-			\abs{\frac{(-\frac{1}{3})^{n+1}}{(-\frac{1}{3})^n}} = \abs{-\frac{1}{3}}
-			= \frac{1}{3} \Rightarrow \limsupn \frac{1}{3} = \frac{1}{3} < 1
-			\Rightarrow \text{ converges absolutely}
-		\end{equation*}
-		\item $\DS \series \frac{n}{n^2+3}$
-			\begin{itemize}
-				\item Ratio test:
-				\begin{equation*}
-					\limsupn \abs{\frac{n+1}{(n+1)^2+3}\frac{n^2+3}{n}} =
-					\limsupn \frac{n+1}{(n+1)^2+3}\frac{n^2+3}{n} = 1 \text{, no information}
-				\end{equation*}
-				\item Comparison test:
-				\begin{equation*}
-					\frac{n}{n^2+3n^2} \leq \frac{n}{n^2+3} \Rightarrow
-					\frac{n}{n^2+3n^2} = \frac{n}{4n^2} = \frac{1}{4} \frac{n}{n^2}
-					\Rightarrow \series \frac{1}{4} \frac{n}{n^2} \Rightarrow
-					+\infty = \frac{1}{4} \series \frac{n}{n^2} \leq \series \frac{n}{n^2+3}
-				\end{equation*}
-				The series diverges. Sometimes one test can give more information than
-				others.
-			\end{itemize}
-	\end{itemize}
+  \Example
+  \begin{itemize}
+    \item $\DS \series\left({-\frac{1}{3}}\right)^n$:
+    \begin{equation*}
+      \abs{\frac{(-\frac{1}{3})^{n+1}}{(-\frac{1}{3})^n}} = \abs{-\frac{1}{3}}
+      = \frac{1}{3} \Rightarrow \limsupn \frac{1}{3} = \frac{1}{3} < 1
+      \Rightarrow \text{ converges absolutely}
+    \end{equation*}
+    \item $\DS \series \frac{n}{n^2+3}$
+      \begin{itemize}
+        \item Ratio test:
+        \begin{equation*}
+          \limsupn \abs{\frac{n+1}{(n+1)^2+3}\frac{n^2+3}{n}} =
+          \limsupn \frac{n+1}{(n+1)^2+3}\frac{n^2+3}{n} = 1 \text{, no information}
+        \end{equation*}
+        \item Comparison test:
+        \begin{equation*}
+          \frac{n}{n^2+3n^2} \leq \frac{n}{n^2+3} \Rightarrow
+          \frac{n}{n^2+3n^2} = \frac{n}{4n^2} = \frac{1}{4} \frac{n}{n^2}
+          \Rightarrow \series \frac{1}{4} \frac{n}{n^2} \Rightarrow
+          +\infty = \frac{1}{4} \series \frac{n}{n^2} \leq \series \frac{n}{n^2+3}
+        \end{equation*}
+        The series diverges. Sometimes one test can give more information than
+        others.
+      \end{itemize}
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Root test, Let $\DS s_n = \sumn{x_k}$ a series, $\DS \alpha =
-	\limsupn \sqrt[n]{\abs{x_n}}$:
-	\begin{enumerate}[label=(\roman*)]
-		\item $s_n$ converges absolutely if $\alpha < 1$
-		\item $s_n$ diverges if $\alpha > 1$
-	\end{enumerate}
+  \Proposition Root test, Let $\DS s_n = \sumn{x_k}$ a series, $\DS \alpha =
+  \limsupn \sqrt[n]{\abs{x_n}}$:
+  \begin{enumerate}[label=(\roman*)]
+    \item $s_n$ converges absolutely if $\alpha < 1$
+    \item $s_n$ diverges if $\alpha > 1$
+  \end{enumerate}
 
 %%BEGIN_PROOF
-	\Proof $\alpha = \limsupn \sqrt[n]{\abs{x_n}}, \Ep > 0, \alpha + \Ep
-	< 1$:
-	\begin{equation*}
-		\limsupn \sqrt[n]{\abs{x_n}} = \limn \sup\{\sqrt[k]{\abs{x_k}} : k > n\}
-		\Rightarrow \exists N : \abs{\sup\{\sqrt[n]{\abs{x_n}} : n > N\} - \alpha} <
-		\Ep
-	\end{equation*}
-	\begin{equation*}
-		\alpha - \Ep < \abs{\sup\{\sqrt[n]{\abs{x_n}} : n > N\}} < \alpha + \Ep
-		\Rightarrow \sqrt[n]{\abs{x_n}} < \alpha + \Ep \iff
-		\abs{x_n} < (\alpha + \Ep)^n
-	\end{equation*}
-	Since the geometric series $\DS \series (\alpha + \Ep)^n < \infty$, then
-	$\DS \series \abs{x_n} < \series (\alpha + \Ep)^n < \infty$, the series
-	converges absolutely.
+  \Proof $\alpha = \limsupn \sqrt[n]{\abs{x_n}}, \Ep > 0, \alpha + \Ep
+  < 1$:
+  \begin{equation*}
+    \limsupn \sqrt[n]{\abs{x_n}} = \limn \sup\{\sqrt[k]{\abs{x_k}} : k > n\}
+    \Rightarrow \exists N : \abs{\sup\{\sqrt[n]{\abs{x_n}} : n > N\} - \alpha} <
+    \Ep
+  \end{equation*}
+  \begin{equation*}
+    \alpha - \Ep < \abs{\sup\{\sqrt[n]{\abs{x_n}} : n > N\}} < \alpha + \Ep
+    \Rightarrow \sqrt[n]{\abs{x_n}} < \alpha + \Ep \iff
+    \abs{x_n} < (\alpha + \Ep)^n
+  \end{equation*}
+  Since the geometric series $\DS \series (\alpha + \Ep)^n < \infty$, then
+  $\DS \series \abs{x_n} < \series (\alpha + \Ep)^n < \infty$, the series
+  converges absolutely.
 \\\qed
 %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item $\DS \series\left({-\frac{1}{3}}\right)^n \Rightarrow
-		\limsupn \sqrt[n]{-\frac{1}{3}^n} = \limsupn \frac{1}{3} = \frac{1}{3} < 1$,
-		the series converges absolutely
-		\item $\DS \series 2^{(-1)^n-n} \Rightarrow \sqrt[n]{2^{(-1)^n-n}} =
-		\begin{cases}
-			2^{\frac{1}{n}-1}  & \text{if } n \text{ even} \\
-			2^{-\frac{1}{n}-1} & \text{if } n \text{ odd}
-		\end{cases} \Rightarrow
-		\limn 2^{\frac{1}{n}-1} = \limn 2^{-\frac{1}{n}-1} = \frac{1}{2} < 1$,
-		the series converges.
-	\end{itemize}
+  \Example
+  \begin{itemize}
+    \item $\DS \series\left({-\frac{1}{3}}\right)^n \Rightarrow
+    \limsupn \sqrt[n]{-\frac{1}{3}^n} = \limsupn \frac{1}{3} = \frac{1}{3} < 1$,
+    the series converges absolutely
+    \item $\DS \series 2^{(-1)^n-n} \Rightarrow \sqrt[n]{2^{(-1)^n-n}} =
+    \begin{cases}
+      2^{\frac{1}{n}-1}  & \text{if } n \text{ even} \\
+      2^{-\frac{1}{n}-1} & \text{if } n \text{ odd}
+    \end{cases} \Rightarrow
+    \limn 2^{\frac{1}{n}-1} = \limn 2^{-\frac{1}{n}-1} = \frac{1}{2} < 1$,
+    the series converges.
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
@@ -1015,164 +1034,164 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \section{Functions and continuity}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Given a function $\func{f}{X}{Y}$, the image of $f$ is defined as:
-	$Im_f(X) = \{ f(x) : x \in X \}$. It contains all the images of all elements
-	of $X$.
+  \Def Given a function $\func{f}{X}{Y}$, the image of $f$ is defined as:
+  $Im_f(X) = \{ f(x) : x \in X \}$. It contains all the images of all elements
+  of $X$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Given a function $\func{f}{X}{Y}$, the preimage of $f$ is defined as:
-	$PreIm_f(Y) = \{ x : f(x) \in Y \}$. It contains all the elements of $X$ that
-	have an image in $Y$.
+  \Def Given a function $\func{f}{X}{Y}$, the preimage of $f$ is defined as:
+  $PreIm_f(Y) = \{ x : f(x) \in Y \}$. It contains all the elements of $X$ that
+  have an image in $Y$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Continuity of $\func{f}{(X,d_x)}{(Y,d_y)}$ (in a metric space)
+  \Def Continuity of $\func{f}{(X,d_x)}{(Y,d_y)}$ (in a metric space)
 \\$f$ is continuous at $x \in X$ if:
-	\begin{equation*}
-		\forall \Ep > 0 \ \exists \delta_\Ep > 0 : \forall x' \in X,
-		d_x(x,x') < \delta_\Ep \Rightarrow d_y(f(x),f(x')) < \Ep
-	\end{equation*}
+  \begin{equation*}
+    \forall \Ep > 0 \ \exists \delta_\Ep > 0 : \forall x' \in X,
+    d_x(x,x') < \delta_\Ep \Rightarrow d_y(f(x),f(x')) < \Ep
+  \end{equation*}
 
 %%BEGIN_EXAMPLE
-	\Example Let's take $\DS f(x) = \begin{cases} 0 & \text{if } x = 0 \\ x^2
-	\sin\frac{1}{x} & \text{otherwise} \end{cases}$
+  \Example Let's take $\DS f(x) = \begin{cases} 0 & \text{if } x = 0 \\ x^2
+  \sin\frac{1}{x} & \text{otherwise} \end{cases}$
 \\We want to prove that $f$ is continuous in 0. Let $\Ep > 0$, then
-	$\abs{f(x) - f(0)} = \abs{f(x) - 0} = \abs{f(x)} \leq x^2$. If we take $\delta
-	= \sqrt{\Ep}$, then:
-	\begin{equation*}
-		\abs{x - 0} < \delta \Rightarrow x^2 < \delta \Rightarrow \abs{f(x) - f(0)}
-		\leq x^2 < \delta^2 = \Ep \Rightarrow f \text{ is continuous in 0}
-	\end{equation*}
+  $\abs{f(x) - f(0)} = \abs{f(x) - 0} = \abs{f(x)} \leq x^2$. If we take $\delta
+  = \sqrt{\Ep}$, then:
+  \begin{equation*}
+    \abs{x - 0} < \delta \Rightarrow x^2 < \delta \Rightarrow \abs{f(x) - f(0)}
+    \leq x^2 < \delta^2 = \Ep \Rightarrow f \text{ is continuous in 0}
+  \end{equation*}
 %%END_EXAMPLE
 
-	\Remark Continuity can also be defined as follows:
-	\begin{equation*}
-		\forall \Ep > 0 \ \exists \delta_\Ep > 0 :
-		Im_f(B_{\delta\Ep}^{d_x}(x)) \subseteq B_\Ep^{d_y}(f(x))
-	\end{equation*}
-	This means that the image of each ball around each $x$ is contained in another
-	ball around $f(x)$.
+  \Remark Continuity can also be defined as follows:
+  \begin{equation*}
+    \forall \Ep > 0 \ \exists \delta_\Ep > 0 :
+    Im_f(B_{\delta\Ep}^{d_x}(x)) \subseteq B_\Ep^{d_y}(f(x))
+  \end{equation*}
+  This means that the image of each ball around each $x$ is contained in another
+  ball around $f(x)$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Continuity of $\func{f}{(X,\tau_x)}{(Y,\tau_y)}$ (in a topological space)
+  \Def Continuity of $\func{f}{(X,\tau_x)}{(Y,\tau_y)}$ (in a topological space)
 \\$f$ is continuous at $x \in X$ if for all $U \in \tau_y$ such that $f(x) \in
-	U$, then $PreIm_f(U) \in \tau_x$.
+  U$, then $PreIm_f(U) \in \tau_x$.
 
 %%BEGIN_EXAMPLE
-	\Example Let's take $(M,\tau_m)$, $(N,\tau_n)$, $M = N = \{ 1, 2 \}$,
-	$\tau_m = \{ \emptyset, \{ 1 \}, \{ 2 \}, \{ 1, 2 \} \}$, $\tau_m = \{
-	\emptyset, \{ 1, 2 \} \}$.
-	\begin{itemize}
-		\item Let $\func{f}{(M,\tau_m)}{(N,\tau_n)}$, such that $f(1) = 2$ and $f(2)
-		= 1$:
-		\begin{equation*}
-			PreIm_f(\emptyset) = \emptyset \in \tau_m,
-			PreIm_f(\{ 1, 2 \}) = \{ 1, 2 \} \in \tau_m \Rightarrow
-			f \text{ is continuous in all } x \in M
-		\end{equation*}
-		\item Let $\func{g}{(N,\tau_n)}{(M,\tau_m)}$, such that $f(1) = 2$ and $f(2)
-		= 1$:
-		\begin{equation*}
-			PreIm_g(\{ 1 \}) = \{ 2 \} \notin \tau_n \Rightarrow
-			g \text{ is not continuous}
-		\end{equation*}
-	\end{itemize}
+  \Example Let's take $(M,\tau_m)$, $(N,\tau_n)$, $M = N = \{ 1, 2 \}$,
+  $\tau_m = \{ \emptyset, \{ 1 \}, \{ 2 \}, \{ 1, 2 \} \}$, $\tau_m = \{
+  \emptyset, \{ 1, 2 \} \}$.
+  \begin{itemize}
+    \item Let $\func{f}{(M,\tau_m)}{(N,\tau_n)}$, such that $f(1) = 2$ and $f(2)
+    = 1$:
+    \begin{equation*}
+      PreIm_f(\emptyset) = \emptyset \in \tau_m,
+      PreIm_f(\{ 1, 2 \}) = \{ 1, 2 \} \in \tau_m \Rightarrow
+      f \text{ is continuous in all } x \in M
+    \end{equation*}
+    \item Let $\func{g}{(N,\tau_n)}{(M,\tau_m)}$, such that $f(1) = 2$ and $f(2)
+    = 1$:
+    \begin{equation*}
+      PreIm_g(\{ 1 \}) = \{ 2 \} \notin \tau_n \Rightarrow
+      g \text{ is not continuous}
+    \end{equation*}
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Continuous functions map open sets into open sets. If
-	$\func{f}{(X,d_x)}{(Y,d_y)}$ continuous, then $PreIm_f(A)$ is open, for all
-	$A \subseteq Y$ open.
+  \Proposition Continuous functions map open sets into open sets. If
+  $\func{f}{(X,d_x)}{(Y,d_y)}$ continuous, then $PreIm_f(A)$ is open, for all
+  $A \subseteq Y$ open.
 
 %%BEGIN_PROOF
-	\Proof Let $A \subseteq Y$ open, $x \in PreIm_f(A)$, $f(x) \in A$. Then, it
-	exists $\Ep > 0$ such that $B_\Ep^{d_y}(f(x)) \subseteq A$. Since
-	$f$ is continuous, then it exists $\delta_\Ep$ such that:
-	\begin{equation*}
-		PreIm_f(B_{\delta_\Ep}^{d_x}(x)) \subseteq B_\Ep^{d_y}(f(x))
-		\subseteq A \Rightarrow B_{\delta_\Ep}^{d_x}(x) \subseteq PreIm_f(A)
-		\Rightarrow A \text{ is open}
-	\end{equation*}
-	\qed
+  \Proof Let $A \subseteq Y$ open, $x \in PreIm_f(A)$, $f(x) \in A$. Then, it
+  exists $\Ep > 0$ such that $B_\Ep^{d_y}(f(x)) \subseteq A$. Since
+  $f$ is continuous, then it exists $\delta_\Ep$ such that:
+  \begin{equation*}
+    PreIm_f(B_{\delta_\Ep}^{d_x}(x)) \subseteq B_\Ep^{d_y}(f(x))
+    \subseteq A \Rightarrow B_{\delta_\Ep}^{d_x}(x) \subseteq PreIm_f(A)
+    \Rightarrow A \text{ is open}
+  \end{equation*}
+  \qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Continuous functions map limits to limits:
-	\begin{equation*}
-		f \text{ continuous, } x_n \to x \iff f(x_n) \to f(x)
-	\end{equation*}
+  \Theorem Continuous functions map limits to limits:
+  \begin{equation*}
+    f \text{ continuous, } x_n \to x \iff f(x_n) \to f(x)
+  \end{equation*}
 
 %%BEGIN_PROOF
-	\Proof Topological (only for ``$\Rightarrow$'')
+  \Proof Topological (only for ``$\Rightarrow$'')
 \\Let $\func{f}{(X,\tau_x)}{(Y,\tau_y)}$, $A \in \tau_y$, $f(x) \in A$. Since
-	$f$ continuous, then $PreIm_f(A) \in \tau_x$ and $x \in PreIm_f(A)$. Since
-	$x_n$ converges to $x$, we have that:
-	\begin{equation*}
-		\exists N : \forall n \geq N, (x_n) \subseteq PreIm_f(A) \Rightarrow
-		Im_f(x_n) \subseteq A \Rightarrow f(x_n) \to f(x)
-	\end{equation*}
-	\qed
+  $f$ continuous, then $PreIm_f(A) \in \tau_x$ and $x \in PreIm_f(A)$. Since
+  $x_n$ converges to $x$, we have that:
+  \begin{equation*}
+    \exists N : \forall n \geq N, (x_n) \subseteq PreIm_f(A) \Rightarrow
+    Im_f(x_n) \subseteq A \Rightarrow f(x_n) \to f(x)
+  \end{equation*}
+  \qed
 %%END_PROOF
 
 %%BEGIN_PROOF
-	\Proof Metrical (only for ``$\Rightarrow$'')
+  \Proof Metrical (only for ``$\Rightarrow$'')
 \\Let $\Ep > 0$, $\func{f}{(X,d_x)}{(Y,d_y)}$ continuous. Then, it exists
-	$\delta > 0$ such that for all $x' \in X$, $d_x(x,x') < \delta$. This means
-	$d_y(f(x),f(x')) < \Ep$. Since $x_n$ converges to $x$:
-	\begin{equation*}
-		\exists N : \forall n \geq N, d_x(x,x) < \delta \Rightarrow d_y(f(x_n),f(x))
-		< \Ep \Rightarrow f(x_n) \to f(x)
-	\end{equation*}
-	\qed
+  $\delta > 0$ such that for all $x' \in X$, $d_x(x,x') < \delta$. This means
+  $d_y(f(x),f(x')) < \Ep$. Since $x_n$ converges to $x$:
+  \begin{equation*}
+    \exists N : \forall n \geq N, d_x(x,x) < \delta \Rightarrow d_y(f(x_n),f(x))
+    < \Ep \Rightarrow f(x_n) \to f(x)
+  \end{equation*}
+  \qed
 %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example Let's take $f(x) = 2x^2 + 1$ and $\DS \limn x_n = x$. Then:
-	\begin{equation*}
-		\limn 2x_n^2 + 1 = 2 \left(\limn x_n\right)^2 + 1 = 2x^2 + 1
-	\end{equation*}
-	This means that for $x_n \to x$, then $f(x_n) \to f(x)$. Therefore, $f$ is
-	continuous.
+  \Example Let's take $f(x) = 2x^2 + 1$ and $\DS \limn x_n = x$. Then:
+  \begin{equation*}
+    \limn 2x_n^2 + 1 = 2 \left(\limn x_n\right)^2 + 1 = 2x^2 + 1
+  \end{equation*}
+  This means that for $x_n \to x$, then $f(x_n) \to f(x)$. Therefore, $f$ is
+  continuous.
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $\funcR{f,g}$ continuous at $x \Rightarrow f+g$, $f \cdot g$ and
-	$\frac{f}{g}$ (for $g(x) \neq 0$) are continuous at $x$.
+  \Proposition $\funcR{f,g}$ continuous at $x \Rightarrow f+g$, $f \cdot g$ and
+  $\frac{f}{g}$ (for $g(x) \neq 0$) are continuous at $x$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition $f$ continuous at $x$ and $g$ continuous at $f(x) \Rightarrow
-	g \circ f = g(f(x))$ is continuous at $x$.
+  \Proposition $f$ continuous at $x$ and $g$ continuous at $f(x) \Rightarrow
+  g \circ f = g(f(x))$ is continuous at $x$.
 
 %%BEGIN_PROOF
-	\Proof
-	\begin{enumerate}[label=(\arabic*)]
-		\item $f$ continuous at $x \Rightarrow$ for $x_n \to x$, then $f(x_n) \to f(x)$
-		\item $g$ continuous at $y \Rightarrow$ for $y_n \to y$, then $g(y_n) \to f(y)$
-		\item In particular, for $y_n = f(x_n) \Rightarrow g(f(x_n)) \to g(f(x))$
-	\end{enumerate}
-	\qed
+  \Proof
+  \begin{enumerate}[label=(\arabic*)]
+    \item $f$ continuous at $x \Rightarrow$ for $x_n \to x$, then $f(x_n) \to f(x)$
+    \item $g$ continuous at $y \Rightarrow$ for $y_n \to y$, then $g(y_n) \to f(y)$
+    \item In particular, for $y_n = f(x_n) \Rightarrow g(f(x_n)) \to g(f(x))$
+  \end{enumerate}
+  \qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $\func{f}{(X,d)}{(X,d)}$ is a contraction $\iff$ it exists $0 \leq c < 1$
-	such that $d(f(x),f(y)) \leq cd(x,y)$, for all $x,y \in X$.
+  \Def $\func{f}{(X,d)}{(X,d)}$ is a contraction $\iff$ it exists $0 \leq c < 1$
+  such that $d(f(x),f(y)) \leq cd(x,y)$, for all $x,y \in X$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Banach fixed point
+  \Theorem Banach fixed point
 \\Let's take $(X,d)$ complete (Cauchy $\iff$ convergence) and
-	$\func{f}{(X,d)}{(X,d)}$ a contraction, then:
-	\begin{enumerate}[label=(\roman*)]
-		\item $\exists! x^* \in X : f(x^*) = x^*$
-		\item $x_0 \in X$, $x_{n+1} = f(x_n) \Rightarrow x_n \to x^*$
-	\end{enumerate}
+  $\func{f}{(X,d)}{(X,d)}$ a contraction, then:
+  \begin{enumerate}[label=(\roman*)]
+    \item $\exists! x^* \in X : f(x^*) = x^*$
+    \item $x_0 \in X$, $x_{n+1} = f(x_n) \Rightarrow x_n \to x^*$
+  \end{enumerate}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 
@@ -1182,368 +1201,368 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \section{Limits of functions}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $f$ converges to $c$ at $x_0 \iff$ for all $(x_n)$ such that $x_n \to x_0$
-	we have $f(x_n) \to c$. We write $\DS \limx{x_0} f(x) = c$.
-	\begin{itemize}
-		\item $f$ converges from above if, for all $(x_n)$, then $x_0 < x_n$.
-		We write $\DS \limx{x_0^+} f(x) = c$.
-		\item $f$ converges from below if, for all $(x_n)$, then $x_n < x_0$.
-		We write $\DS \limx{x_0^-} f(x) = c$.
-	\end{itemize}
+  \Def $f$ converges to $c$ at $x_0 \iff$ for all $(x_n)$ such that $x_n \to x_0$
+  we have $f(x_n) \to c$. We write $\DS \limx{x_0} f(x) = c$.
+  \begin{itemize}
+    \item $f$ converges from above if, for all $(x_n)$, then $x_0 < x_n$.
+    We write $\DS \limx{x_0^+} f(x) = c$.
+    \item $f$ converges from below if, for all $(x_n)$, then $x_n < x_0$.
+    We write $\DS \limx{x_0^-} f(x) = c$.
+  \end{itemize}
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item Let $\DS f(x) = \frac{1}{x} \Rightarrow \limx{0^+} \frac{1}{x} =
-		+\infty, \limx{0^-} \frac{1}{x} = -\infty$
-		\item Let $\DS f(x) = floor(x) \Rightarrow \limx{1^+} floor(x) = 1,
-		\limx{1^-} floor(x) = 0$, but $\DS \limx{\frac{1}{2}^+} floor(x) =
-		\frac{1}{2} = \limx{\frac{1}{2}^-} floor(x)$
-	\end{itemize}
+  \Example
+  \begin{itemize}
+    \item Let $\DS f(x) = \frac{1}{x} \Rightarrow \limx{0^+} \frac{1}{x} =
+    +\infty, \limx{0^-} \frac{1}{x} = -\infty$
+    \item Let $\DS f(x) = floor(x) \Rightarrow \limx{1^+} floor(x) = 1,
+    \limx{1^-} floor(x) = 0$, but $\DS \limx{\frac{1}{2}^+} floor(x) =
+    \frac{1}{2} = \limx{\frac{1}{2}^-} floor(x)$
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $\funcR{f}$ is bounded on $X \subseteq \R$ if $Im(X) = \{ f(x) : x \in X
-	\}$ is bounded. That is, it exists $c$ such that $\abs{f(x)} \leq c$ for all
-	$x \in X$.
+  \Def $\funcR{f}$ is bounded on $X \subseteq \R$ if $Im(X) = \{ f(x) : x \in X
+  \}$ is bounded. That is, it exists $c$ such that $\abs{f(x)} \leq c$ for all
+  $x \in X$.
 
 %%BEGIN_EXAMPLE
-	\Example $\func{f}{\R}{\intcc{-1,1}}$, $f(x) = \sin(x)$ is bounded on $\R$,
-	since $\abs{\sin(x)} \leq 1$ for all $x \in \R$.
+  \Example $\func{f}{\R}{\intcc{-1,1}}$, $f(x) = \sin(x)$ is bounded on $\R$,
+  since $\abs{\sin(x)} \leq 1$ for all $x \in \R$.
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Extreme value
+  \Theorem Extreme value
 \\If $\functoR{f}{\intcc{a,b}}$ is continuous, then:
-	\begin{enumerate}[label=(\roman*)]
-		\item $f$ is bounded on $\intcc{a,b}$
-		\item $f$ has a maximum and a minimum on $\intcc{a,b}$
-	\\$\exists x_{minimizer}, x_{maximizer} \in \intcc{a,b} :
-	f(x_{mininizer}) \leq f(x) \leq f(x_{maximizer}), \forall x \in \intcc{a,b}$
-	\end{enumerate}
+  \begin{enumerate}[label=(\roman*)]
+    \item $f$ is bounded on $\intcc{a,b}$
+    \item $f$ has a maximum and a minimum on $\intcc{a,b}$
+  \\$\exists x_{minimizer}, x_{maximizer} \in \intcc{a,b} :
+  f(x_{mininizer}) \leq f(x) \leq f(x_{maximizer}), \forall x \in \intcc{a,b}$
+  \end{enumerate}
 
 %%BEGIN_PROOF
-	\Proof
-	\begin{enumerate}[label=(\roman*)]
-		\item Proof by contradiction, we assume $f$ unbounded
-	\\This means, for all $n \in \N$ it exists $x_n \in \intcc{a,b}$ such that
-		$\abs{f(x_n)} > n$. Then, $(x_n) \subseteq \intcc{a,b}$ is bounded and has
-		a subsequence $(x_{n_k})$ that converges to a $x_0 \in \intcc{a,b}$
-		(Bolzano-Weierstrass). Since $f$ is continuous at $x_0$, then $f(x_{n_k})$
-		converges to $f(x_0)$. If $f$ is unbounded, then $f(x_n)$ diverges:
-		contradiction. This means $f$ is bounded.
+  \Proof
+  \begin{enumerate}[label=(\roman*)]
+    \item Proof by contradiction, we assume $f$ unbounded
+  \\This means, for all $n \in \N$ it exists $x_n \in \intcc{a,b}$ such that
+    $\abs{f(x_n)} > n$. Then, $(x_n) \subseteq \intcc{a,b}$ is bounded and has
+    a subsequence $(x_{n_k})$ that converges to a $x_0 \in \intcc{a,b}$
+    (Bolzano-Weierstrass). Since $f$ is continuous at $x_0$, then $f(x_{n_k})$
+    converges to $f(x_0)$. If $f$ is unbounded, then $f(x_n)$ diverges:
+    contradiction. This means $f$ is bounded.
 
-		\item Let's take $M = \sup\{ f(x) : x \in \intcc{a,b} \}$ the smallest upper
-		bound of $Im(\intcc{a,b})$, then $M - \frac{1}{n}$ is not an upper bound.
-		We know it exists $x_n$ such that $M - \frac{1}{n} < f(x_n) \leq M$. This
-		means:
-		\begin{equation*}
-			\limn{M - \frac{1}{n}} \leq \limn{f(x_n)} \leq M \iff
-			M \leq \limn{f(x_n)} \leq M \iff \limn{f(x_n)} = M
-		\end{equation*}
-		Moreover, $(x_n) \subseteq \intcc{a,b}$ is bounded, and it has a subsequence
-		$(x_{n_k})$ convergent to $x_0 \in \intcc{a,b}$. Since $f$ is continuous,
-		then $f(x_{n_k})$ converges to $f(x_0)$. This means $f(x_0) = M$, where
-		$x_0$ is the maximizer.
-	\end{enumerate}
-	\qed
+    \item Let's take $M = \sup\{ f(x) : x \in \intcc{a,b} \}$ the smallest upper
+    bound of $Im(\intcc{a,b})$, then $M - \frac{1}{n}$ is not an upper bound.
+    We know it exists $x_n$ such that $M - \frac{1}{n} < f(x_n) \leq M$. This
+    means:
+    \begin{equation*}
+      \limn{M - \frac{1}{n}} \leq \limn{f(x_n)} \leq M \iff
+      M \leq \limn{f(x_n)} \leq M \iff \limn{f(x_n)} = M
+    \end{equation*}
+    Moreover, $(x_n) \subseteq \intcc{a,b}$ is bounded, and it has a subsequence
+    $(x_{n_k})$ convergent to $x_0 \in \intcc{a,b}$. Since $f$ is continuous,
+    then $f(x_{n_k})$ converges to $f(x_0)$. This means $f(x_0) = M$, where
+    $x_0$ is the maximizer.
+  \end{enumerate}
+  \qed
 %%END_PROOF
 
 %%BEGIN_REMARK
-	\Remark This isn't true if the interval is open:
-	\begin{itemize}
-		\item $\funcR{f}{\intoo{0,1}}$, $f(x) = \frac{1}{x}$ is unbounded, since
-		$f(x)$ goes to infinity for $x$ small
+  \Remark This isn't true if the interval is open:
+  \begin{itemize}
+    \item $\funcR{f}{\intoo{0,1}}$, $f(x) = \frac{1}{x}$ is unbounded, since
+    $f(x)$ goes to infinity for $x$ small
 
-		\item $\func{f}{\intoo{-1,1}}$, $f(x) = x^2$, doesn't have a max, since
-		$\sup\{ Im(\intoo{-1,1}) \} = 1$ is $f(1)$ or $f(-1)$, but 1 and -1 $\notin
-		\intoo{-1,1}$
-	\end{itemize}
+    \item $\func{f}{\intoo{-1,1}}$, $f(x) = x^2$, doesn't have a max, since
+    $\sup\{ Im(\intoo{-1,1}) \} = 1$ is $f(1)$ or $f(-1)$, but 1 and -1 $\notin
+    \intoo{-1,1}$
+  \end{itemize}
 %%END_REMARK
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Intermediate value (IVT)
+  \Theorem Intermediate value (IVT)
 \\$f$ continuous on $\intcc{a,b}$, $f(a) < c < f(b) \Rightarrow \exists x \in
-	\intcc{a,b} : f(x) = c$.
+  \intcc{a,b} : f(x) = c$.
 
 %%BEGIN_PROOF
-	\Proof Let's assume $f(a) < c < f(b)$ (the same can be done for the opposite).
-	Let's have $S = \{ x \in \intcc{a,b} : f(x) < c \}$ not empty, since at least
-	$f(a) \in S$. Let $x_0 = \sup S \in \intcc{a,b}$, then $x_0 - \frac{1}{n}$ is
-	not an upper bound, and it exists $s_n \in S$ such that $x_0 - \frac{1}{n} <
-	s_n \leq x_0$. This means $s_n$ converges to $x_0$. We now have $f(s_n) < c$
-	and $f(x_0) = \lim f(s_n) \leq c$.
+  \Proof Let's assume $f(a) < c < f(b)$ (the same can be done for the opposite).
+  Let's have $S = \{ x \in \intcc{a,b} : f(x) < c \}$ not empty, since at least
+  $f(a) \in S$. Let $x_0 = \sup S \in \intcc{a,b}$, then $x_0 - \frac{1}{n}$ is
+  not an upper bound, and it exists $s_n \in S$ such that $x_0 - \frac{1}{n} <
+  s_n \leq x_0$. This means $s_n$ converges to $x_0$. We now have $f(s_n) < c$
+  and $f(x_0) = \lim f(s_n) \leq c$.
 \\Let's take $t_n = \min \{ x_0 + \frac{1}{n}, b \} \in \intcc{a,b}$, where
-	$x_0 < t_n \leq t_n + \frac{1}{n}$, meaning that $t_n$ converges to $x_0$. Now
-	$t_n \notin S$ (since $t_n > \sup S$), $f(t_n) \geq c$ and $f(x_0) = \lim t_n
-	\geq c$. Therefore $c \leq f(x_0) \leq c$, so $f(x_0) = c$.
+  $x_0 < t_n \leq t_n + \frac{1}{n}$, meaning that $t_n$ converges to $x_0$. Now
+  $t_n \notin S$ (since $t_n > \sup S$), $f(t_n) \geq c$ and $f(x_0) = \lim t_n
+  \geq c$. Therefore $c \leq f(x_0) \leq c$, so $f(x_0) = c$.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def A Darboux function is a function that satisfies the intermediate value
-	property.
+  \Def A Darboux function is a function that satisfies the intermediate value
+  property.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Continuous implies Darboux, but not the opposite.
+  \Proposition Continuous implies Darboux, but not the opposite.
 
-	%%BEGIN_PROOF
-		%???
-	%%END_PROOF
+  %%BEGIN_PROOF
+    %???
+  %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example $f(x) = \begin{cases}\sin(\frac{1}{x}) & x > 0 \\ 0 & x = 0\end{cases}
-	\quad$ is a Darboux function, but it is not continuous.
+  \Example $f(x) = \begin{cases}\sin(\frac{1}{x}) & x > 0 \\ 0 & x = 0\end{cases}
+  \quad$ is a Darboux function, but it is not continuous.
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Continuous functions map intervals to intervals.
+  \Proposition Continuous functions map intervals to intervals.
 
 %%BEGIN_PROOF
-	%\Proof TODO: notes are not clear, ask.
+  %\Proof TODO: notes are not clear, ask.
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Connectedness
+  \Def Connectedness
 \\Let $(X, \tau)$ a topological space, the $A \subseteq X$ is disconnected if
-	the two equivalent definitions hold:
-	\begin{itemize}
-		\item There exist $U, V \in \tau$ such that:
-		\begin{itemize}
-			\item $(A \cap U) \cap (A \cap V) = \emptyset$, and
-			\item $(A \cap U) \cup (A \cap V) = A$, and
-			\item $A \cap U \neq \emptyset \neq A \cap V$
-		\end{itemize}
+  the two equivalent definitions hold:
+  \begin{itemize}
+    \item There exist $U, V \in \tau$ such that:
+    \begin{itemize}
+      \item $(A \cap U) \cap (A \cap V) = \emptyset$, and
+      \item $(A \cap U) \cup (A \cap V) = A$, and
+      \item $A \cap U \neq \emptyset \neq A \cap V$
+    \end{itemize}
 
-		\item There exist $U, V \subseteq A$ such that:
-		\begin{itemize}
-			\item $A = U \cup V$, and
-			\item $\overline{U} \cap V = \emptyset = U \cap \overline{V}$ ! NOT SURE !
-		\end{itemize}
-	\end{itemize}
-	A set is connected if it is not disconnected.
+    \item There exist $U, V \subseteq A$ such that:
+    \begin{itemize}
+      \item $A = U \cup V$, and
+      \item $\overline{U} \cap V = \emptyset = U \cap \overline{V}$ ! NOT SURE !
+    \end{itemize}
+  \end{itemize}
+  A set is connected if it is not disconnected.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Proposition Continuous functions preserve connectedness.
+  \Proposition Continuous functions preserve connectedness.
 \\$\func{f}{(X,\tau_x)}{(Y,\tau_y)}$, $A \subseteq X$ connected in $(X,\tau_x)$,
-	then $Im(A) \subseteq Y$ is connected in $(Y,\tau_y)$.
+  then $Im(A) \subseteq Y$ is connected in $(Y,\tau_y)$.
 
 %%BEGIN_PROOF
-	\Proof By contradiction. We suppose $A$ connected and $Im(A)$ disconnected.
+  \Proof By contradiction. We suppose $A$ connected and $Im(A)$ disconnected.
 \\Since $Im(A)$ is disconnected, exist $V_1, V_2 \in \tau_y$ such that:
-	\begin{itemize}
-		\item $(Im(A) \cap V_1) \cap (Im(A) \cap V_2) = \emptyset$, and
-		\item $(Im(A) \cap V_1) \cup (Im(A) \cap V_2) = Im(A)$, and
-		\item $Im(A) \cap V_1 \neq \emptyset \neq Im(A) \cap V_2$
-	\end{itemize}
-	Let $U_1 = PreIm(V_1)$ and $U_2 = PreIm(V_2)$ it follows (it should be proved)
-	that:
-	\begin{itemize}
-		\item $(PreIm(A) \cap U_1) \cap (PreIm(A) \cap U_2) = \emptyset$, and
-		\item $(PreIm(A) \cap U_1) \cup (PreIm(A) \cap U_2) = PreIm(A)$, and
-		\item $PreIm(A) \cap U_1 \neq \emptyset \neq PreIm(A) \cap U_2$
-	\end{itemize}
-	This implies that $A$ is disconnected, contradiction. Therefore $Im(A)$ is
-	connected.
+  \begin{itemize}
+    \item $(Im(A) \cap V_1) \cap (Im(A) \cap V_2) = \emptyset$, and
+    \item $(Im(A) \cap V_1) \cup (Im(A) \cap V_2) = Im(A)$, and
+    \item $Im(A) \cap V_1 \neq \emptyset \neq Im(A) \cap V_2$
+  \end{itemize}
+  Let $U_1 = PreIm(V_1)$ and $U_2 = PreIm(V_2)$ it follows (it should be proved)
+  that:
+  \begin{itemize}
+    \item $(PreIm(A) \cap U_1) \cap (PreIm(A) \cap U_2) = \emptyset$, and
+    \item $(PreIm(A) \cap U_1) \cup (PreIm(A) \cap U_2) = PreIm(A)$, and
+    \item $PreIm(A) \cap U_1 \neq \emptyset \neq PreIm(A) \cap U_2$
+  \end{itemize}
+  This implies that $A$ is disconnected, contradiction. Therefore $Im(A)$ is
+  connected.
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Uniform continuity
+  \Def Uniform continuity
 \\$\func{f}{(X,d_x)}{(Y,d_y)}$ is uniformely continuous on $X$ if:
 \begin{equation*}
-	\forall \Ep > 0 \quad \exists \delta_\Ep > 0 : \forall x,x' \in X : d_x(x,x')
-	< \delta \Rightarrow d_y(f(x),f(x')) < \Ep
+  \forall \Ep > 0 \quad \exists \delta_\Ep > 0 : \forall x,x' \in X : d_x(x,x')
+  < \delta \Rightarrow d_y(f(x),f(x')) < \Ep
 \end{equation*}
 
 %%BEGIN_EXAMPLE
-	\Example $f(x) = \frac{1}{x^2}$ in $\left[a, +\infty\right)$, $a > 1$. To show
-	that $f$ is uniformely continuous, we have to show that for all $\Ep > 0$
-	exists $\delta_\Ep > 0$ such that for all $x,y$ such that $\abs{x-y} < \delta$
-	then $\abs{f(x)-f(y)} < \Ep$.
+  \Example $f(x) = \frac{1}{x^2}$ in $\left[a, +\infty\right)$, $a > 1$. To show
+  that $f$ is uniformely continuous, we have to show that for all $\Ep > 0$
+  exists $\delta_\Ep > 0$ such that for all $x,y$ such that $\abs{x-y} < \delta$
+  then $\abs{f(x)-f(y)} < \Ep$.
 \\Let $\Ep > 0$ and $f(x) - f(y) = \frac{1}{x^2} - \frac{1}{y^2} =
-	\frac{(x+y)(x-y)}{x^2 y^2}$. Then, since $a \leq x,y \ \forall x,y$:
+  \frac{(x+y)(x-y)}{x^2 y^2}$. Then, since $a \leq x,y \ \forall x,y$:
 \begin{equation*}
-	\frac{(x+y)}{x^2 y^2} = \frac{x}{x^2 y^2} + \frac{y}{x^2 y^2} \leq \frac{2}{a^3}
+  \frac{(x+y)}{x^2 y^2} = \frac{x}{x^2 y^2} + \frac{y}{x^2 y^2} \leq \frac{2}{a^3}
 \end{equation*}
-	We chose $\delta = \frac{\Ep a^3}{2}$, then:
+  We chose $\delta = \frac{\Ep a^3}{2}$, then:
 \begin{equation*}
-	\forall x,y \geq a : \abs{x-y} < \delta \Rightarrow \abs{f(x)-f(y)} =
-	\abs{x-y} \abs{\frac{x+y}{x^2 y^2}} < \delta \frac{2}{a^3} =
-	\frac{\Ep a^3}{2} \frac{2}{a^3} = \Ep
+  \forall x,y \geq a : \abs{x-y} < \delta \Rightarrow \abs{f(x)-f(y)} =
+  \abs{x-y} \abs{\frac{x+y}{x^2 y^2}} < \delta \frac{2}{a^3} =
+  \frac{\Ep a^3}{2} \frac{2}{a^3} = \Ep
 \end{equation*}
-	This mean $f$ is uniformely continuous.
+  This mean $f$ is uniformely continuous.
 %%END_EXAMPLE
 
-	\Remark Uniform continuity is different from normal continuity. In normal
-	continuity the $\delta$ depends on both $\Ep$ and $x$, while in uniform
-	continuity $\delta$ depends solely on $\Ep$. In fact, $f$ is ``normally''
-	continuous on $x_0 \in X$ if:
+  \Remark Uniform continuity is different from normal continuity. In normal
+  continuity the $\delta$ depends on both $\Ep$ and $x$, while in uniform
+  continuity $\delta$ depends solely on $\Ep$. In fact, $f$ is ``normally''
+  continuous on $x_0 \in X$ if:
 \begin{equation*}
-	\forall \Ep > 0 \quad \exists \delta_{\Ep,x_0} > 0 : \forall x \in X :
-	d_x(x_0,x) < \delta \Rightarrow d_y(f(x_0),f(x)) < \Ep
+  \forall \Ep > 0 \quad \exists \delta_{\Ep,x_0} > 0 : \forall x \in X :
+  d_x(x_0,x) < \delta \Rightarrow d_y(f(x_0),f(x)) < \Ep
 \end{equation*}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem $f$ continuous on $A$, closed and bounded $\Rightarrow$ $f$ is
-	uniformely continuous on $A$.
+  \Theorem $f$ continuous on $A$, closed and bounded $\Rightarrow$ $f$ is
+  uniformely continuous on $A$.
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem $f$ uniformely continuous on $S$, $(s_n) \subseteq S$ is Cauchy
-	sequence $\Rightarrow f(s_n)$ is Cauchy sequence.
+  \Theorem $f$ uniformely continuous on $S$, $(s_n) \subseteq S$ is Cauchy
+  sequence $\Rightarrow f(s_n)$ is Cauchy sequence.
 
 %%BEGIN_PROOF
-	\Proof Let $(s_n) \subseteq S$ a Cauchy sequence, $\Ep > 0$ and $f$ uniformely
-	continuous:
+  \Proof Let $(s_n) \subseteq S$ a Cauchy sequence, $\Ep > 0$ and $f$ uniformely
+  continuous:
 \begin{enumerate}
-	\item Exists $\delta > 0$ such that $\abs{f(x)-f(y)} < \Ep$ for all $\abs{x-y}
-	< \delta$.
-	\item Exists $N_\Ep$ such that for all $n,m \geq N$, then $\abs{s_n - s_m} <
-	\delta$
+  \item Exists $\delta > 0$ such that $\abs{f(x)-f(y)} < \Ep$ for all $\abs{x-y}
+  < \delta$.
+  \item Exists $N_\Ep$ such that for all $n,m \geq N$, then $\abs{s_n - s_m} <
+  \delta$
 \end{enumerate}
-	Combining (1) and (2) we have that for all $n,m \geq N$, $\abs{f(s_n)-f(s_m)}
-	< \Ep$. This means $f(s_n)$ is a Cauchy sequence.
+  Combining (1) and (2) we have that for all $n,m \geq N$, $\abs{f(s_n)-f(s_m)}
+  < \Ep$. This means $f(s_n)$ is a Cauchy sequence.
 \\\qed
 %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example $f(x) = \frac{1}{x^2}$ is not uniformely continuous on $(0,1)$. In
-	fact, $s_n = \frac{1}{n}$ is Cauchy, but $f(s_n) = n^2$ is not Cauchy.
+  \Example $f(x) = \frac{1}{x^2}$ is not uniformely continuous on $(0,1)$. In
+  fact, $s_n = \frac{1}{n}$ is Cauchy, but $f(s_n) = n^2$ is not Cauchy.
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Sequence of functions
+  \Def Sequence of functions
 \\$(f_n) \subseteq \{ \func{f}{S}{\R} \}$ is a sequence of functions. A sequence
-	of function can converge to a function: $f_n \to f$.
+  of function can converge to a function: $f_n \to f$.
 
 %%BEGIN_EXAMPLE
-	\Example $f_n(x) = \frac{x}{n} \to f(x) = 0$
+  \Example $f_n(x) = \frac{x}{n} \to f(x) = 0$
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $f_n$ converges pointwise to $f \iff \DS \limn{f_n(x)} = f(x)$ for all
-	$x \in S$.
+  \Def $f_n$ converges pointwise to $f \iff \DS \limn{f_n(x)} = f(x)$ for all
+  $x \in S$.
 \begin{equation*}
-	\forall \Ep > 0, x \in S \exists N_\Ep : \abs{f_n(x) - f(x)} < \Ep
+  \forall \Ep > 0, x \in S \exists N_\Ep : \abs{f_n(x) - f(x)} < \Ep
 \end{equation*}
 
 %%BEGIN_EXAMPLE
-	\Example $f_n(x) = x^n$, $x \in \intcc{0,1} \Rightarrow f(x) =
-	\begin{cases}1 & x = 1 \\ 0 & x \neq 1\end{cases}$. $f_n$ is continuous and
-	$f$ is discontinuous.
+  \Example $f_n(x) = x^n$, $x \in \intcc{0,1} \Rightarrow f(x) =
+  \begin{cases}1 & x = 1 \\ 0 & x \neq 1\end{cases}$. $f_n$ is continuous and
+  $f$ is discontinuous.
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $d_\infty(f_n,f) = \sup \{ \abs{f_n(x) - f(x)} < \Ep \}$
+  \Def $d_\infty(f_n,f) = \sup \{ \abs{f_n(x) - f(x)} < \Ep \}$
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def $f_n$ converges uniformely to $f$ if exists $N_\Ep$ such that
-	$d_\infty(f_n,f) < \Ep$ for all $n \geq N_\Ep$.
+  \Def $f_n$ converges uniformely to $f$ if exists $N_\Ep$ such that
+  $d_\infty(f_n,f) < \Ep$ for all $n \geq N_\Ep$.
 
 %%BEGIN_EXAMPLE
-	\Example Let $f_n(x) = (1 - \abs{x})^n$, $x \in \intoo{-1,1}$. Then $f$
-	converges pointwise (but not uniformely) to $f(x) =
-	\begin{cases}1 & x = 0 \\ 0 & x \neq 0\end{cases}$. In fact:
+  \Example Let $f_n(x) = (1 - \abs{x})^n$, $x \in \intoo{-1,1}$. Then $f$
+  converges pointwise (but not uniformely) to $f(x) =
+  \begin{cases}1 & x = 0 \\ 0 & x \neq 0\end{cases}$. In fact:
 \begin{itemize}
-	\item Pointwise convergence
+  \item Pointwise convergence
 \\For $x = 0$, $f_n(x) = (1 - 0)^n = 1$, then $\DS \limn{f_n} = \limn{1} = 1$.
 \\For $x \neq 0$, $\abs{x} < 1$. This means $1 - |x| < 1$, then
-	$\DS \limn{(1-|x|)^n} = 0$.
+  $\DS \limn{(1-|x|)^n} = 0$.
 
-	\item Uniform convergence
+  \item Uniform convergence
 \\We assume $f_n \tounif f$ and we take $\Ep = \frac{1}{2}$. Then it exists $N$
-	such that $\abs{f_n(x) - f(x)} < \frac{1}{2}$ for all $x \in \intoo{-1,1}$.
+  such that $\abs{f_n(x) - f(x)} < \frac{1}{2}$ for all $x \in \intoo{-1,1}$.
 \\Let's take $x = 1 - 2^{-\frac{1}{n}}$, then $1 - x = 2^{-\frac{1}{n}}$. Thus
-	$(1 - x)^n = (2^{-\frac{1}{n}})^n = \frac{1}{2} \nless \frac{1}{2} = \Ep$.
-	Contradiction, $f$ doesn't converge uniformely to $f$.
+  $(1 - x)^n = (2^{-\frac{1}{n}})^n = \frac{1}{2} \nless \frac{1}{2} = \Ep$.
+  Contradiction, $f$ doesn't converge uniformely to $f$.
 \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Uniform limit of a continuous function is continuous
+  \Theorem Uniform limit of a continuous function is continuous
 \\$f_n(x)$ continuous and $f_n(x) \tounif f(x) \Rightarrow f(x)$ is continuous.
 
 %%BEGIN_PROOF
-	\Proof Let $\Ep > 0$
+  \Proof Let $\Ep > 0$
 \\Since $f_n \tounif f(x)$, it exists $N_\Ep$ such that $\abs{f_n(x)-f(x)} <
-	\frac{\Ep}{3}$ for all $n \geq N$.
+  \frac{\Ep}{3}$ for all $n \geq N$.
 \\Since $f_n$ continuous, it exists $\delta > 0$ such that for all $x,x_0$ such
-	that $\abs{x_0 - x} < \delta$, then $\abs{f_N(x_0) - f_N(x)} < \frac{\Ep}{3}$.
+  that $\abs{x_0 - x} < \delta$, then $\abs{f_N(x_0) - f_N(x)} < \frac{\Ep}{3}$.
 \\By triangle inequality we have:
 \begin{equation*}
-	\abs{f(x_0) - f(x)} \leq \abs{f(x_0) - f_N(x_0)} + \abs{f_N(x_0) - f(x)} \leq
+  \abs{f(x_0) - f(x)} \leq \abs{f(x_0) - f_N(x_0)} + \abs{f_N(x_0) - f(x)} \leq
 \end{equation*}
 \begin{equation*} \leq
-	\abs{f(x_0) - f_N(x_0)} + \abs{f_N(x_0) - f_N(x)} + \abs{f_N(x) - f(x)} <
-	\frac{\Ep}{3} + \frac{\Ep}{3} + \frac{\Ep}{3} = \Ep
+  \abs{f(x_0) - f_N(x_0)} + \abs{f_N(x_0) - f_N(x)} + \abs{f_N(x) - f(x)} <
+  \frac{\Ep}{3} + \frac{\Ep}{3} + \frac{\Ep}{3} = \Ep
 \end{equation*}
-	\qed
+  \qed
 %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example
+  \Example
 \begin{itemize}
-	\item %1
-	Let $f_n \tounif f$ and $g_n \tounif g$ on $S \subseteq \R$. Then $f_n + g_n
-	\tounif f + g$. In fact:
+  \item %1
+  Let $f_n \tounif f$ and $g_n \tounif g$ on $S \subseteq \R$. Then $f_n + g_n
+  \tounif f + g$. In fact:
 \begin{equation*}
-	\exists N_f : \forall x \in S \abs{f_n(x) - f(x)} < \frac{\Ep}{2} \forall n > N_f
+  \exists N_f : \forall x \in S \abs{f_n(x) - f(x)} < \frac{\Ep}{2} \forall n > N_f
 \end{equation*}
 \begin{equation*}
-	\exists N_g : \forall x \in S \abs{g_n(x) - g(x)} < \frac{\Ep}{2} \forall n > N_g
+  \exists N_g : \forall x \in S \abs{g_n(x) - g(x)} < \frac{\Ep}{2} \forall n > N_g
 \end{equation*}
-	We take $N = \max \{ N_f, N_g \}$. Then:
+  We take $N = \max \{ N_f, N_g \}$. Then:
 \begin{equation*}
-	\abs{f_n(x) - f(x) + g_n(x) - g(x)} \leq \abs{f_n(x) - f(x)} + \abs{g_n(x) -
-	g(x)} < \frac{\Ep}{2} + \frac{\Ep}{2} = \Ep, \ \forall n \geq N
+  \abs{f_n(x) - f(x) + g_n(x) - g(x)} \leq \abs{f_n(x) - f(x)} + \abs{g_n(x) -
+  g(x)} < \frac{\Ep}{2} + \frac{\Ep}{2} = \Ep, \ \forall n \geq N
 \end{equation*}
-	This means $f_n + g_n \tounif f + g$.
+  This means $f_n + g_n \tounif f + g$.
 
-	\item %2
-	Let $f_n \tounif f$ and $g_n \tounif g$ on $S \subseteq \R$. Then $f_n g_n$
-	doesn't converge uniformely to $fg$. In fact, let $h_n(x) = \frac{x}{n}$.
-	By contradiction we can prove $h_n$ doesn't converge uniformely to $h$. Now,
-	if we take $f_n(x) = \frac{1}{n}$ and $g_n(x) = x$ (uniformely convergent),
-	then $f(x) g(x) = \frac{x}{n} = h(x)$ not uniformely convergent. We found a
-	counter example.
+  \item %2
+  Let $f_n \tounif f$ and $g_n \tounif g$ on $S \subseteq \R$. Then $f_n g_n$
+  doesn't converge uniformely to $fg$. In fact, let $h_n(x) = \frac{x}{n}$.
+  By contradiction we can prove $h_n$ doesn't converge uniformely to $h$. Now,
+  if we take $f_n(x) = \frac{1}{n}$ and $g_n(x) = x$ (uniformely convergent),
+  then $f(x) g(x) = \frac{x}{n} = h(x)$ not uniformely convergent. We found a
+  counter example.
 
-	\item %3
-	Let $f_n(x)$ continuous on $\intcc{a,b}$, $f_n(x) \tounif f(x)$, $(x_n)
-	\subseteq \intcc{a,b}$ and $x_n \to x$. Then, $f_n(x_n) \to f(x)$. To prove it
-	we have to show that exists $N$ such that for all $n \geq N$, then
-	$\abs{f_n(x_n) - f(x)} < \Ep$.
-	\begin{enumerate}
-		\item $f_n \tounif f$, this means it exists $N_1$ such that $\abs{f_n(y) -
-		f(y)} < \frac{\Ep}{2}$, for all $n \geq N_1$ and $y \in \intcc{a,b}$. In
-		particular, $\abs{f_n(x_n) - f(x_n)} < \frac{\Ep}{2}$.
+  \item %3
+  Let $f_n(x)$ continuous on $\intcc{a,b}$, $f_n(x) \tounif f(x)$, $(x_n)
+  \subseteq \intcc{a,b}$ and $x_n \to x$. Then, $f_n(x_n) \to f(x)$. To prove it
+  we have to show that exists $N$ such that for all $n \geq N$, then
+  $\abs{f_n(x_n) - f(x)} < \Ep$.
+  \begin{enumerate}
+    \item $f_n \tounif f$, this means it exists $N_1$ such that $\abs{f_n(y) -
+    f(y)} < \frac{\Ep}{2}$, for all $n \geq N_1$ and $y \in \intcc{a,b}$. In
+    particular, $\abs{f_n(x_n) - f(x_n)} < \frac{\Ep}{2}$.
 
-		\item Since $f_n(x)$ continuous and $f_n(x) \tounif f(x)$, then $f(x)$ is
-		continuous. Then $f(x_n) \to f(x)$, this means it exists $N_2$ such that
-		for all $n \geq N_2$, then $\abs{f(x_n) - f(x)} < \frac{\Ep}{2}$.
+    \item Since $f_n(x)$ continuous and $f_n(x) \tounif f(x)$, then $f(x)$ is
+    continuous. Then $f(x_n) \to f(x)$, this means it exists $N_2$ such that
+    for all $n \geq N_2$, then $\abs{f(x_n) - f(x)} < \frac{\Ep}{2}$.
 
-		\item We chose $N = \max \{ N_1. N_2 \}$. Then:
-		\begin{equation*}
-			\abs{f_n(x_n) - f(x)} \leq \abs{f_n(x_n) - f(x_n)} + \abs{f(x_n) - f(x)} <
-			\frac{\Ep}{2} + \frac{\Ep}{2} = \Ep, \ \forall n \geq N
-		\end{equation*}
-	\end{enumerate}
-	We can conclude that $f_n(x_n) \to f(x)$.
+    \item We chose $N = \max \{ N_1. N_2 \}$. Then:
+    \begin{equation*}
+      \abs{f_n(x_n) - f(x)} \leq \abs{f_n(x_n) - f(x_n)} + \abs{f(x_n) - f(x)} <
+      \frac{\Ep}{2} + \frac{\Ep}{2} = \Ep, \ \forall n \geq N
+    \end{equation*}
+  \end{enumerate}
+  We can conclude that $f_n(x_n) \to f(x)$.
 \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
@@ -1555,66 +1574,66 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \section{Power series}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Def Power series
+  \Def Power series
 \\Let $(a_n)_{n \geq 0} \subseteq \R$ a sequence. Then $\pseries{a_n x^n}$ is a
-	power series. We have three cases:
-	\begin{itemize}
-		\item The series converges for all $x \in \R$.
-		\item The series converges for $x = 0$ only.
-		\item The series converges for some bounded interval.
-	\end{itemize}
+  power series. We have three cases:
+  \begin{itemize}
+    \item The series converges for all $x \in \R$.
+    \item The series converges for $x = 0$ only.
+    \item The series converges for some bounded interval.
+  \end{itemize}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
-	\Theorem Let $\beta = \limsup \sqrt[n]{|a_n|}$ and $R = \frac{1}{\beta}$ ($R =
-	\infty$ if $\beta = 0$, $R = 0$ if $\beta = \infty$). Then $\DS
-	\pseries{a_n x^n}$:
-	\begin{itemize}
-		\item Converges for $|x| < R$.
-		\item Diverges for $|x| > R$.
-	\end{itemize}
-	The same can be done with $\beta = \limsup \abs{\frac{a_n}{a_{n+1}}}$.
+  \Theorem Let $\beta = \limsup \sqrt[n]{|a_n|}$ and $R = \frac{1}{\beta}$ ($R =
+  \infty$ if $\beta = 0$, $R = 0$ if $\beta = \infty$). Then $\DS
+  \pseries{a_n x^n}$:
+  \begin{itemize}
+    \item Converges for $|x| < R$.
+    \item Diverges for $|x| > R$.
+  \end{itemize}
+  The same can be done with $\beta = \limsup \abs{\frac{a_n}{a_{n+1}}}$.
 
 %%BEGIN_PROOF
-	\Proof With root test. Let $\alpha = \limsup \sqrt[n]{|a_n|}$, then
-	$\DS \series{a_n} < \infty$ if $\alpha < 1$ or $\DS \series{a_n} = \infty$ if
-	$\alpha = 1$. Let $\alpha_x = \limsup \sqrt[n]{|a_n x^n|} =
-	\limsup |x|\sqrt[n]{|a_n|} = |x| \limsup \sqrt[n]{|a_n|} = \beta |x|$. Then:
-	\begin{enumerate}
-		\item If $0 < R < \infty$, then $\alpha_x = \beta |x| = \frac{|x|}{R}$.
-		\begin{itemize}
-			\item If $|x| < R$, then $\alpha_x < 1$, by root test $\DS
-			\pseries{a_n x^n}$ converges
-			\item If $|x| > R$, then $\alpha_x > 1$, by root test $\DS
-			\pseries{a_n x^n}$ diverges
-		\end{itemize}
+  \Proof With root test. Let $\alpha = \limsup \sqrt[n]{|a_n|}$, then
+  $\DS \series{a_n} < \infty$ if $\alpha < 1$ or $\DS \series{a_n} = \infty$ if
+  $\alpha = 1$. Let $\alpha_x = \limsup \sqrt[n]{|a_n x^n|} =
+  \limsup |x|\sqrt[n]{|a_n|} = |x| \limsup \sqrt[n]{|a_n|} = \beta |x|$. Then:
+  \begin{enumerate}
+    \item If $0 < R < \infty$, then $\alpha_x = \beta |x| = \frac{|x|}{R}$.
+    \begin{itemize}
+      \item If $|x| < R$, then $\alpha_x < 1$, by root test $\DS
+      \pseries{a_n x^n}$ converges
+      \item If $|x| > R$, then $\alpha_x > 1$, by root test $\DS
+      \pseries{a_n x^n}$ diverges
+    \end{itemize}
 
-		\item If $R = \infty$, then $\alpha_x = 0 < 1$ independently of $x$. The
-		series always converges.
+    \item If $R = \infty$, then $\alpha_x = 0 < 1$ independently of $x$. The
+    series always converges.
 
-		\item If $R =0$, then $\alpha_x = \infty > 1$ independently of $x$. The
-		series always diverges.
-	\end{enumerate}
-	\qed
+    \item If $R =0$, then $\alpha_x = \infty > 1$ independently of $x$. The
+    series always diverges.
+  \end{enumerate}
+  \qed
 %%END_PROOF
 
 %%BEGIN_EXAMPLE
-	\Example
-	\begin{itemize}
-		\item %1
-		Let $a_n = 1$. We have the power series $\DS \pseries{x^n}$ and $\beta =
-		\limsup \sqrt[n]{1} = 1$, then $R = 1$. This means the series converges for
-		$x \in \intoo{-1,1}$ and diverges for $x$ such that $|x| > 1$. Moreover, it
-		diverges for $x = 1$, since $\DS \pseries{1} = +\infty$, and it is not
-		defined for $x = -1$.
+  \Example
+  \begin{itemize}
+    \item %1
+    Let $a_n = 1$. We have the power series $\DS \pseries{x^n}$ and $\beta =
+    \limsup \sqrt[n]{1} = 1$, then $R = 1$. This means the series converges for
+    $x \in \intoo{-1,1}$ and diverges for $x$ such that $|x| > 1$. Moreover, it
+    diverges for $x = 1$, since $\DS \pseries{1} = +\infty$, and it is not
+    defined for $x = -1$.
 
-		\item %2
-		Let $\DS \pseries{\frac{1}{n}x^n}$ a power series. Then $\limsup
-		\abs{\frac{a_n}{a_{n+1}}} = \limsup \abs{\frac{n}{n+1}} = 1$, then $R = 1$.
-		For $x = 1$ we have the harmonic series $\DS \pseries{\frac{1}{n}}$ wich
-		diverges, for $x = -1$ we have $\DS \pseries{\frac{(-1)^n}{n}} < \infty$. We
-		can conclude that the power series converges for $x \in \intco{-1,1}$.
-	\end{itemize}
+    \item %2
+    Let $\DS \pseries{\frac{1}{n}x^n}$ a power series. Then $\limsup
+    \abs{\frac{a_n}{a_{n+1}}} = \limsup \abs{\frac{n}{n+1}} = 1$, then $R = 1$.
+    For $x = 1$ we have the harmonic series $\DS \pseries{\frac{1}{n}}$ wich
+    diverges, for $x = -1$ we have $\DS \pseries{\frac{(-1)^n}{n}} < \infty$. We
+    can conclude that the power series converges for $x \in \intco{-1,1}$.
+  \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
