@@ -13,7 +13,7 @@ PDF files can be downloaded [here](http://atelier.inf.unisi.ch/~zuccha/en/usi.ht
 
 To compile with `gcc`, execute from terminal the following code: `g++ notes_converter.cpp -o notes_converter.cpp`.
 
-To run the program, execute from terminal `./notes_converter ./calculus_notes.tex` is in the same folder.
+To run the program, execute from terminal `./notes_converter ./calculus_notes.tex`.
 
 The program will generate three new files:
 - `calculus_notes_definitions.tex`: notes with definitions and theorems, without proofs and examples.
@@ -29,7 +29,7 @@ If you have a GitHub account and you are a USI student or collaborator, then con
 
 To increase code readability, instead of writing long mathematical code, write `\newcommand`s and use those already defined. `\newcommand`s should be defined on top of the .tex document.
 
-When writing a new definition, proposition or theorem, encapsulate it between `%%BEGIN_BLOCK` and `%%END_BLOCK`. Similarly, examples should be encapsulated in `%%BEGIN_EXAMPLE` and `%%END_EXAMPLE`, while proofs should be encapsulated between `%%BEGIN_PROOF` and `%%END_PROOF`. Moreover, examples and proofs should always be inside a block. This allows notes_converter to extract proofs and examples during the parsing.
+When writing a new definition, proposition or theorem, encapsulate it between `%%BEGIN_BLOCK` and `%%END_BLOCK`. Similarly, examples should be encapsulated in `%%BEGIN_EXAMPLE` and `%%END_EXAMPLE`, while proofs should be encapsulated between `%%BEGIN_PROOF` and `%%END_PROOF`. Moreover, examples and proofs should always be inside a block. This allows `notes_converter` to extract proofs and examples during the parsing.
 
 Example:
 
