@@ -31,9 +31,12 @@ To increase code readability, instead of writing long mathematical code, write `
 
 When writing a new definition, proposition or theorem, encapsulate it between `%%BEGIN_BLOCK` and `%%END_BLOCK`. Similarly, examples should be encapsulated in `%%BEGIN_EXAMPLE` and `%%END_EXAMPLE`, while proofs should be encapsulated between `%%BEGIN_PROOF` and `%%END_PROOF`. Moreover, examples and proofs should always be inside a block. This allows `notes_converter` to extract proofs and examples during the parsing.
 
+If you want to add a `\newpage` command for `calculus_notes_definitions.tex`, `calculus_notes_proofs.tex` or `calculus_notes_examples.tex`, you can add `%%NEW_PAGE_DEFINITIONS`, `%%NEW_PAGE_PROOFS` or `%%NEW_PAGE_EXAMPLES` respectively. `notes_converter` will automatically insert `\newpage`s where necessary.
+
 Example:
 
 ```latex
+%%NEW_PAGE_EXAMPLES %%NEW_PAGE_PROOFS
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
   \Proposition Comparison test, for $x_n, y_n$ sequences and $x_n \geq 0$
   \begin{enumerate}[label=(\roman*)]
