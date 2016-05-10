@@ -36,6 +36,7 @@
 
 % Limits and convergence
 \newcommand{\limn}{\lim_{n \to \infty}}
+\newcommand{\lime}{\lim_{\varepsilon \to 0}}
 \newcommand{\limsupn}{\limsup_{n \to \infty}}
 \newcommand{\liminfn}{\liminf_{n \to \infty}}
 \newcommand{\limx}[1]{\lim_{x \to #1}}
@@ -62,6 +63,10 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
+
+% Vectors
+\newcommand{\vecTwo}[2]{\begin{pmatrix}#1 \\ #2\end{pmatrix}}
+\newcommand{\vecThree}[3]{\begin{pmatrix}#1 \\ #2 \\ #3\end{pmatrix}}
 
 % Variables
 \newcommand{\Ep}{\varepsilon}
@@ -117,7 +122,7 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 
 \tableofcontents
 
-\newpage
+\newpage %%NEW_PAGE_EXAMPLES %%NEW_PAGE_PROOFS %%NEW_PAGE_DEFINITIONS
 
 %------------------------------------------------------------------------------%
 % SETS, GROUPS AND FIELDS
@@ -406,7 +411,7 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
   \end{itemize}
 %%END_BLOCK-------------------------------------------------------------------%%
 
-\newpage
+\newpage %%NEW_PAGE_PROOFS
 %------------------------------------------------------------------------------%
 % SPACES
 %------------------------------------------------------------------------------%
@@ -865,7 +870,7 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
   true for $\R^\infty$).
 %%END_BLOCK-------------------------------------------------------------------%%
 
-\newpage
+\newpage %%NEW_PAGE_DEFINITIONS
 %------------------------------------------------------------------------------%
 % SERIES
 %------------------------------------------------------------------------------%
@@ -1027,7 +1032,7 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
 
-\newpage
+\newpage %%NEW_PAGE_EXAMPLES %%NEW_PAGE_PROOFS
 %------------------------------------------------------------------------------%
 % FUNCTIONS AND CONTINUITY
 %------------------------------------------------------------------------------%
@@ -1223,6 +1228,20 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 %%END_BLOCK-------------------------------------------------------------------%%
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Proposition $f$ continuous at $a \iff \limx{a} f(x) = f(a)$
+%%END_BLOCK-------------------------------------------------------------------%%
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Proposition $\limx{a} (fg)(x) = \limx{a} f(x) \cdot \limx{a} g(x)$
+%%END_BLOCK-------------------------------------------------------------------%%
+
+%%NEW_PAGE_EXAMPLES
+%------------------------------------------------------------------------------%
+% CONTINUOUS FUNCTIONS AND INTERVALS
+%------------------------------------------------------------------------------%
+\section{Continuous functions and intervals}
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
   \Def $\funcR{f}$ is bounded on $X \subseteq \R$ if $Im(X) = \{ f(x) : x \in X
   \}$ is bounded. That is, it exists $c$ such that $\abs{f(x)} \leq c$ for all
   $x \in X$.
@@ -1375,6 +1394,12 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
 \\\qed
 %%END_PROOF
 %%END_BLOCK-------------------------------------------------------------------%%
+
+%%NEW_PAGE_PROOFS
+%------------------------------------------------------------------------------%
+% UNIFORM CONTINUITY
+%------------------------------------------------------------------------------%
+\section{Uniform continuity}
 
 %%BEGIN_BLOCK-----------------------------------------------------------------%%
   \Def Uniform continuity
@@ -1636,6 +1661,128 @@ Based on the course of Prof. Michael Bronstein at USI \vspace{3cm}
   \end{itemize}
 %%END_EXAMPLE
 %%END_BLOCK-------------------------------------------------------------------%%
+
+
+%------------------------------------------------------------------------------%
+% LIPSCHITZ CONTINUITY
+%------------------------------------------------------------------------------%
+\section{Lipschitz continuity}
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Def Lipschitz continuity
+\\$\func{f}{(X,d_x)}{(Y,d_y)}$ is Lipschitz continuous if it exists $c \in
+  \intco{0,+\infty}$ such that $d_y(f(x),f(x')) \leq c d_x(x,x')$.
+%%END_BLOCK-------------------------------------------------------------------%%
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Proposition Lipschitz continuity $\Rightarrow$ uniform continuity.
+
+%%BEGIN_PROOF
+  \Proof We need to show that $\forall \Ep > 0 \exists \delta_\Ep > 0 : \forall
+  x, x' \in X : d_x(x,x') < \delta_\Ep \Rightarrow d_y(f(x),f(x')) < \Ep$.
+\\We choose $\delta = \frac{\Ep}{c} \Rightarrow d_y(f(x),f(x')) \leq
+  c d_x(x,x') < c \delta = c \frac{\Ep}{c} = \Ep$.
+\\\qed
+%%END_PROOF
+
+%%BEGIN_EXAMPLE
+  \Example $\sqrt{x}$ is uniformely continuous but not Lipschitz continuous over
+  $\intcc{0,1}$. We can prove it by contradiction.
+\\We assume $\sqrt{x}$ is Lipschitz continuous. This means it exists $c \in
+  \intcc{0,+\infty}$ such that for $x' = 0$, then $|\sqrt{x} - \sqrt{0}| \leq
+  c |x - 0| \iff |\sqrt{x}| \leq c |x| \iff c \geq \frac{1}{\sqrt{x}}$. For
+  $x = 0$, then $c$ is not defined. Contradiction.
+%%END_EXAMPLE
+%%END_BLOCK-------------------------------------------------------------------%%
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Theorem Weierstrass approximation
+\\Every continuous function on $\intcc{a,b}$ can be uniformely approximated by
+  polynomials on $\intcc{a,b}$.
+\\$\DS \exists (a_n) \subseteq \R : p_n(x) = \sumn a_k x^k \tounif f(x)$ on
+  $\intcc{a,b}$.
+%%END_BLOCK-------------------------------------------------------------------%%
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Theorem Bernstein polynomials
+\\$b_{m,n}(x) = \binom{n}{m} x^m (1-x)^{n-m}$
+\\$\DS span \{ b_{0,n}(x), \hdots, b_{n,n}(x) \} = \left\{ \sumn a_k x^k, a_i
+  \in R \right\}$
+
+%%BEGIN_EXAMPLE
+  \Example
+  \begin{equation*}
+    a_0 + a_1x + a_2 x^2 = b_0 (1 - x)^2 + b_1 2x (1-x) + b_2 x^2 =
+    b_0 + 2 (b_1 - b_0) + (b_0 - 2b_1 + b_2) x^2
+  \end{equation*}
+  \begin{equation*}
+    \vecThree{b_0}{b_1}{b_2} = \begin{pmatrix}
+      1 & 0 & 0 \\
+      1 & \sfrac{1}{2} & 0 \\
+      1 & 1 & 1
+    \end{pmatrix} \vecThree{a_0}{a_1}{a_2} \Rightarrow
+    \begin{cases}
+      b_0 = a_0 \\
+      b_1 = a_0 + \frac{1}{2} a_1 \\
+      b_2 = a_0 + a_1 + a_2
+    \end{cases}
+  \end{equation*}
+%%END_EXAMPLE
+%%END_BLOCK-------------------------------------------------------------------%%
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Theorem $\func{f}{\intcc{0,1}}{\R}$ continuous, then:
+  \begin{itemize}
+    \item $\DS B_n(f)(x) = \sum_{m=0}^{n} f(\frac{m}{n}) b_{m,n}(x)$
+    \item $B_n(f)(x) \to f(x)$ uniformely continuous on $\intcc{0,1}$.
+  \end{itemize}
+%%END_BLOCK-------------------------------------------------------------------%%
+
+%%NEW_PAGE_EXAMPLES
+%------------------------------------------------------------------------------%
+% DIFFERETIABILITY AND DERIVATIVES
+%------------------------------------------------------------------------------%
+\section{Differentiability and derivatives}
+
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Theorem $f$ is differentiable if the derivative $\DS f'(a) = \limx{a}
+  \frac{f(x)-f(a)}{x-a}$ and $\DS f'(x) = \lime \frac{f(x+\Ep)-f(x)}{\Ep}$
+  exists.
+
+%%BEGIN_EXAMPLE
+  \Example
+  \begin{itemize}
+    \item $\DS f(x) = x^2 \Rightarrow \lime \frac{f(x+\Ep)-f(x)}{\Ep} =
+    \lime \frac{(x+\Ep)^2 - x^2}{\Ep} = \lime \frac{\Ep (2x + \Ep)}{\Ep} =
+    \lime 2x + \Ep = 2x$
+
+    \item $\DS f(x) = \sqrt{x} \Rightarrow f'(a) =
+    \limx{a} \frac{f(x)-f(a)}{x-a} =
+    \limx{a} \frac{\sqrt{x} \sqrt{a}}{(\sqrt{x}-\sqrt{a})(\sqrt{x}+\sqrt{a})} =
+    \limx{a} \frac{1}{\sqrt{x}+\sqrt{a}} = \frac{1}{2\sqrt{a}}$
+
+    \item $\DS f(x) = |x| \Rightarrow f'(x) = \lime \frac{|x+\Ep| - |x|}{\Ep} =
+    \begin{cases}
+      \lime \frac{x + \Ep - x}{\Ep} = \lime \frac{\Ep}{\Ep} = 1 & x > 0 \\
+      \lime \frac{-x - \Ep + x}{\Ep} = \lime \frac{-\Ep}{\Ep} = -1 & x < 0
+    \end{cases}$
+  \\Not defined for $x = 0$.
+  \end{itemize}
+%%END_EXAMPLE
+%%END_BLOCK-------------------------------------------------------------------%%
+%%BEGIN_BLOCK-----------------------------------------------------------------%%
+  \Proposition $f$ differentiable at $a \Rightarrow f$ continuous at $a$.
+
+%%BEGIN_PROOF
+  \Proof We need to prove that $\DS \limx{a} f(x) = f(a)$.
+\\We know that $f'(a) = \limx{a} \frac{f(x)-f(a)}{x-a}$ exists. Then
+  $\DS \limx{a} (x-a) \frac{f(x)-f(a)}{x-a} + f(a) = \limx{a} f(x)$.
+\\$\DS \Rightarrow \limx{a}(x-a) \limx{a} \frac{f(x)-f(a)}{x-a} \limx{a}f(a) =
+  0 \cdot L + f(a) = f(a)$.
+\\\qed
+%%END_PROOF
+%%END_BLOCK-------------------------------------------------------------------%%
+
 
 %------------------------------------------------------------------------------%
 % END
