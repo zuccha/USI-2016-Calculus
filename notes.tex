@@ -1,0 +1,2233 @@
+\documentclass{article}
+
+%------------------------------------------------------------------------------%
+% PACKAGES
+%------------------------------------------------------------------------------%
+
+% Margins
+\usepackage[lmargin=2.5cm, rmargin=2.5cm]{geometry}
+% Custom items
+\usepackage{enumitem}
+% Header
+\usepackage{fancyhdr}
+% Math
+\usepackage{amsmath} %[fleqn] to align equations to left
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{xfrac}
+% URL
+\usepackage[hyphens]{url}
+% Images
+\usepackage{graphicx}
+% Finite automata
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+
+%------------------------------------------------------------------------------%
+% COMMANDS AND ENUMERATORS
+%------------------------------------------------------------------------------%
+
+% Global
+\newcommand{\DS}{\displaystyle}
+\newcommand{\bb}[1]{\mathbb{#1}}
+
+% Absolute value
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\dabs}[1]{\left|\left|#1\right|\right|}
+
+% Arrows
+\newcommand{\Al}{\Leftarrow}
+\newcommand{\Ar}{\Rightarrow}
+\newcommand{\al}{\leftarrow}
+\newcommand{\ar}{\rightarrow}
+
+% Code
+\newcommand{\CD}[1]{\texttt{#1}}
+
+% Enumerators
+\newenvironment{enumalph}{\begin{enumerate}[label=(\alph*)]}{\end{enumerate}}
+\newenvironment{enumarabic}{\begin{enumerate}[label=(\arabic*)]}{\end{enumerate}}
+\newenvironment{enumrom}{\begin{enumerate}[label=(\roman*)]}{\end{enumerate}}
+
+% Fractions
+\newcommand{\fr}[2]{\frac{#1}{#2}}
+\newcommand{\fx}[2]{\sfrac{#1}{#2}}
+
+% Functions
+\newcommand{\f}[3]{#1 : #2 \rightarrow #3}
+\newcommand{\fToR}[2]{#1 : #2 \rightarrow \mathbb{R}}
+\newcommand{\fToN}[2]{#1 : #2 \rightarrow \mathbb{N}}
+\newcommand{\fOnR}[1]{#1 : \mathbb{R} \rightarrow \mathbb{R}}
+
+% Intervals
+\newcommand{\intcc}[1]{\left[#1\right]}
+\newcommand{\intoc}[1]{\left(#1\right]}
+\newcommand{\intco}[1]{\left[#1\right)}
+\newcommand{\intoo}[1]{\left(#1\right)}
+
+% Limits
+\newcommand{\limn}{\lim_{n \to \infty}}
+\newcommand{\lime}{\lim_{\varepsilon \to 0}}
+\newcommand{\limsupn}{\limsup_{n \to \infty}}
+\newcommand{\liminfn}{\liminf_{n \to \infty}}
+\newcommand{\limx}[1]{\lim_{x \to #1}}
+\newcommand{\tounif}{\xrightarrow{unif.}}
+
+% Theorems
+\makeatletter
+\def\th@plain{\thm@notefont{}\itshape}
+\def\th@definition{\thm@notefont{}\normalfont}
+\def\th@remark{\thm@headfont{\itshape\bfseries}\thm@notefont{}\normalfont}
+\def\thm@space@setup{\thm@preskip=0.5cm\thm@postskip=0.5pt}
+\makeatother
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{definition}
+\newtheorem{recap}{Recap}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{plain}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{plain}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem{exampled}{Example}[definition]
+\theoremstyle{remark}
+\newtheorem{exampler}{Example}[recap]
+\theoremstyle{remark}
+\newtheorem{examplet}{Example}[theorem]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% Sets
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathcal{C}}
+
+% Summations
+\newcommand{\sumn}{\sum_{k=1}^n}
+\newcommand{\series}{\sum_{n=1}^\infty}
+\newcommand{\seriec}{\sum_{k=m}^n}
+\newcommand{\seriex}[1]{\sum_{#1=1}^\infty}
+\newcommand{\pseries}[1]{\sum_{n=0}^\infty #1}
+
+% Syntax
+\newcommand{\ForAll}{\ \forall \ }
+\newcommand{\Exists}{\ \exists \ }
+\newcommand{\ExistsI}{\ \exists! \ }
+
+% Variables
+\newcommand{\E}{\varepsilon}
+
+% Vectors and linear algebra
+\newcommand{\vecTwo}[2]{\begin{pmatrix}#1\\#2\end{pmatrix}}
+\newcommand{\vecThree}[3]{\begin{pmatrix}#1\\#2\\#3\end{pmatrix}}
+\newcommand{\Span}[1]{\text{span}\left\{#1\right\}}
+\newcommand{\dotproduct}[2]{\langle#1,#2\rangle}
+
+
+%------------------------------------------------------------------------------%
+% HEADER / FOOTER
+%------------------------------------------------------------------------------%
+
+% Constants
+\newcommand{\TITLE}{Calculus}
+\newcommand{\SUBTITLE}{Course Notes}
+\newcommand{\INSTITUTION}{Universit\`a della Svizzera italiana}
+\newcommand{\PERIOD}{Year 2015--2016}
+\newcommand{\AUTHOR}{Amedeo Zucchetti}
+
+% Header
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\TITLE  \\ \SUBTITLE}
+\rhead{\AUTHOR \\ \today}
+\cfoot{\thepage}
+
+% Indentation
+%\setlength{\mathindent}{0cm}
+\setlength\parindent{0pt}
+
+% Section
+%\setcounter{section}{-1}
+
+\begin{document}
+
+%------------------------------------------------------------------------------%
+% HEAD
+%------------------------------------------------------------------------------%
+
+\thispagestyle{empty}
+
+\begin{center}
+  % Wide
+  \vspace*{4cm}  {\Large \INSTITUTION \par}
+  \vspace{0.2cm} {\large \PERIOD      \par}
+  \vspace{1cm}   {\Huge  \TITLE       \par}
+  \vspace{0.5cm} {\LARGE \SUBTITLE    \par}
+  \vspace{1cm}   {\Large \AUTHOR      \par}
+  \vspace{0.2cm} {\large \today       \par}
+  % Compact
+  %\vspace{1cm}   {\Huge   \TITLE    \par}
+  %\vspace{0.3cm} {\LARGE  \SUBTITLE \par}
+  %\vspace{0.5cm} {\large  \AUTHOR   \par}
+  %\vspace{0.2cm} {\today}
+\end{center}
+\pagebreak
+
+% Table of Contents
+\setcounter{tocdepth}{2}
+\tableofcontents
+\pagebreak
+
+
+%------------------------------------------------------------------------------%
+% SETS, GROUPS AND FIELDS
+%------------------------------------------------------------------------------%
+\section{Sets, groups and fields}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Natural numbers]
+  The set of natural numbers is defined with the following properties
+  \begin{enumrom}
+  \item $1 \in \N$
+  \item $n \in \N \Ar n+1 \in \N$ ($n+1$ is the successor of $n$)
+  \item $\nexists n \in \N : n+1 = 1$ (no number is predecessor of 1)
+  \item $m, n \in \N$ and $m+1 = n+1 \Ar m = n$
+  \item $A \subseteq \N$, $n \in A$ and $n+1 \in A \Ar A = \N$
+  \end{enumrom}
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Group]
+  A set $X$ and an operation $\circ$ form a group $(X, \circ)$ if the following rules are satisfied for all $a, b, c \in X$
+  \begin{enumrom}
+  \item Closure: $a \circ b \in X$
+  \item Associativity: $(a \circ b) \circ c = a \circ (b \circ c)$
+  \item Identity: $\ExistsI 0 \in X : a \circ 0 = 0 \circ a = a$
+  \item Inverse: $\ExistsI (-a) \in X : a \circ (-a) = (-a) \circ a = 0$
+  \end{enumrom}
+  The group $(X, \circ)$ is abelian if the following rule is satisfied too
+  \begin{enumrom}
+    \setcounter{enumi}{4}
+  \item Commutativity: $a \circ b = b \circ a$
+  \end{enumrom}
+\end{definition}
+
+\begin{exampled}
+  $(\Z_2, \oplus)$ is an abelian group (where $\Z_2 = \{ 0, 1 \}$ and $\oplus$ is exclusive or)
+  \begin{enumrom}
+  \item Closure: $0 \oplus 0 = 0$, $0 \oplus 1 = 1$, $1 \oplus 0 = 1$, $1 \oplus 1 = 0$
+  \item Associativity: we have two elements, so we don't need to prove it
+  \item Identity: $0 \Ar 0 \oplus 0 = 0$, $1 \oplus 0 = 1$, $0 \oplus 1 = 1$
+  \item Inverse: $(-1) = 1, (-0) = 0 \Ar 1 \oplus 1 = 0$, $0 \oplus 0 = 0$
+  \item Commutativity: $1 \oplus 0 = 1 = 0 \oplus 1$
+  \end{enumrom}
+\end{exampled}
+
+\begin{exampled}
+  $(\N, +)$ is not a group, since it doesn't have the identity element.
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Field]
+  Given a set $X$, then $(X, +, \cdot)$ is a field if the following are satisfied for all $a, b, c \in X$
+  \begin{enumrom}
+  \item $a + b \in X$ and $a \cdot b \in X$
+  \item $(a + b) + c = a + (b + c)$ and $(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+  \item $\ExistsI 0 \in X : a + 0 = 0 + a = a$ and $\ExistsI 1 \in X : a \cdot 1 = 1 \cdot a = a$
+  \item $\ExistsI (-a) \in X : a + (-a) = (-a) + a = 0$ and $\ForAll a \neq 0, \ExistsI a^{-1} : a \cdot a^{-1} = a^{-1} \cdot a = 1$
+  \item $a + b = b + a$ and $a \cdot b = b\cdot a$
+  \item $a \cdot (b + c) = a \cdot b + a \cdot c$
+  \end{enumrom}
+\end{definition}
+
+\begin{exampled}
+  Proposition: $a \cdot b = 0 \Ar$ either $a$ or $b$ are equal to 0.\\
+  Proof: we suppose $b \neq 0$, meaning that $0 = 0 \cdot b^{-1} = (a \cdot b) \cdot b^{-1} = a \cdot (b \cdot b^{-1}) = a \cdot 1 = a \Ar a = 0$ (the same can be done supposing $a \neq 0$).
+\end{exampled}
+
+\begin{exampled}
+  Proposition: $a \cdot 0 = 0$.\\
+  Proof: $a \cdot 0 = a \cdot (0 + 0) = a \cdot 0 + a \cdot 0 \Ar$ subtracting $(- \ a \cdot 0)$ from both sides we get $a \cdot 0 + (- \ a \cdot 0) = a \cdot 0 + a \cdot 0 + (- \ a \cdot 0) \iff 0 = a \cdot 0$
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Rational numbers]
+  $\Q = \{ \fr{p}{q} : p, q \in \Z, q \neq 0 \}$
+\end{definition}
+
+\begin{remark}
+  $(\Q, +, \cdot)$ is a field.
+\end{remark}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Ordered Field]
+  Let $\leq$ be an order relation. Then the field $(X, +, \cdot, \leq)$ is an ordered field if the following properties are satisfied for $a, b, c\in X$
+  \begin{enumrom}
+  \item Either $a \leq b$ or $b \leq a$
+  \item If $a \leq b$ and $b \leq a$, then $a = b$
+  \item If $a \leq b$ and $b \leq c$, then $a \leq c$
+  \item If $a \leq b$, then $a + c \leq b + c$
+  \item If $a \leq b$ and $0 \leq c$, then $a \cdot c \leq b \cdot c$
+  \end{enumrom}
+\end{definition}
+
+\begin{exampled}
+  Let's take $(\Q, +, \cdot, \leq)$, $a, b \in \Q$. We want to show that if $a \leq b$, then $(-b) \leq (-a)$.
+\end{exampled}
+
+\begin{proof}
+  $a \leq b \iff a + ((-a) + (-b)) \leq b + ((-a) + (-b)) \iff (a + (-a)) + (-b) \leq (-a) + (b + (-b)) \iff (-b) + 0 \leq (-a) + 0 \iff (-b) \leq (-a)$
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Countable Infinite]
+  A set $A$ is countably infinite if it exists a function $\fToN{f}{A}$ bijective.
+\end{definition}
+
+\begin{remark}
+  Let $A, B$ sets, then
+  \begin{itemize}
+  \item If $|A| = |B| \iff$ exists a bijection between $A$ and $B$
+  \item If $|A| \leq |B| \iff$ exists an injection from $A$ to $B$
+  \item If $|A| < |B| \iff$ exists an injection, but not a bijection
+  \end{itemize}
+\end{remark}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $\Z$ is countably infinite
+\end{proposition}
+
+\begin{proof}
+  We can arrange $\Z$ and $\Z$ in the following way
+  \[
+  \begin{array}{lcrccccccccl}
+    \bb{N} & = & \{ & 1, & 2, & 3, & 4, & 5, & 6, & 7, & \hdots & \} \\
+    \bb{Z} & = & \{ & 0, & 1, & -1,& 2, & -2,& 3, & -3,& \hdots & \} \\
+  \end{array}
+  \]
+  We can take the function $\fToN{f}{\Z}$ such that
+  \[
+  f(x) = \begin{cases}
+    0 & \text{if } x = 1 \\
+    \fr{x}{2} & \text{if } x \text{ even} \\
+    -\fr{(x - 1)}{2} & \text{if } x \text{ odd}
+  \end{cases}, \quad
+  f^{-1}(x) = \begin{cases}
+    1 & \text{if } x = 0 \\
+    2x & \text{if } 0 < x \\
+    -2x+1 & \text{if } x < 0
+  \end{cases}
+  \]
+  $f$ is bijective, thus $\Z$ is countably infinite.
+\end{proof}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $\Q$ is countably infinite.
+\end{proposition}
+
+\begin{proof}
+  Idea of the proof. We can arrange $\N$ and $\Q$ as such
+  \[
+  \begin{array}{lcrcccccccccl}
+    \bb{N} & = & \{ & 1,         & 2,         & 3,          & 4,         & 5,          & 6,         & 7,          & 8,         & \hdots & \} \\
+    \bb{Q} & = & \{ & \fr{0}{1}, & \fr{1}{1}, & -\fr{1}{1}, & \fr{1}{2}, & -\fr{1}{2}, & \fr{2}{1}, & -\fr{2}{1}, & \fr{1}{3}, & \hdots & \} \\
+  \end{array}
+  \]
+  Similarly to the proof for $\Z$, we can find a bijection between $\N$ and $\Q$.
+\end{proof}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $\R$ is not countable.
+\end{proposition}
+
+\begin{proof}
+  Idea of the proof. Let $x \in \intco{0,1}$. Each $x$ can be written as an infinite succession of digits
+  
+  \begin{center}\begin{tabular}{l|l}
+    1 & 0.\textbf{1}786... \\
+    2 & 0.3\textbf{9}09... \\
+    3 & 0.45\textbf{0}0... \\
+    4 & 0.097\textbf{2}... \\
+    ... & ...
+  \end{tabular}\end{center}
+  
+  We can construct a new number, taking a digit from each number (each at a different position) and increment it by 1. This way, the new number will be different from any other in the list in the position from where the digit was taken. In our example, the new number would be 0.\textbf{2013}...
+
+  Since there is one more number than those in the list, then $|\N| < |\R|$, so there is no bijection, and $\R$ is uncountable.
+\end{proof}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $|\R| = |\R^2|$
+\end{proposition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Power set]
+  Let $A$ be a set. The power set of $A$ is $2^A = \{ A' : A' \subseteq A \}$, the set containing all subsets of $A$. $|2^A| = 2^{|A|}$
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $|2^{\N}| = |\R|$
+\end{proposition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $\sqrt{2} \notin \Q$
+\end{proposition}
+
+\begin{proof}
+  By contradiction. We suppose $\sqrt{2} \in \Q$, this means there exists $a, b \in \Z$, $b \neq 0$ and greatest common divisor of $a$ and $b$ is 1, such that $\sqrt{2} = \frac{a}{b}$
+  \[
+  \sqrt{2} = \fr{a}{b} \iff 2 = \fr{a^2}{b^2} \iff 2b^2 = a^2
+  \]
+  This means $a^2$ is even (and $a$ is even), then it exists $c$ such that $a = 2c$
+  \[
+  2b^2 = a^2 \iff 2b^2 = (2c)^2 = 4c^2 \iff b^2 = 2c^2
+  \]
+  This means $b^2$, and $b$, are even. But if both $a$ and $b$ are even, then the greatest common divisor of $a$ and $b$ is not 1, contradiction. We can conclude that $\sqrt{2} \notin \Q$.
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Bounds]
+  Let $A, X$ be sets, such that $A \subseteq X$, and $x \in X$, then
+  \begin{itemize}
+  \item $x$ is upper bound of $A$ if $a \leq x$, for all $a \in A$
+  \item $x$ is lower bound of $A$ if $x \leq a$, for all $a \in A$
+  \end{itemize}
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Supremum and infimum]
+  Let $A$ be a set
+  \begin{itemize}
+  \item The supremum is the smallest upper bound of $A$
+  \item The infimum is the greatest lower bound of $A$
+  \end{itemize}
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Maximum and minimum]
+  Let $A$ be a set
+  \begin{itemize}
+  \item The maximum is the biggest element of $A$ (if $\sup(A) \in A$, then $\max(A) = \sup(A)$)
+  \item The minimum is the smallest element of $A$ (if $\inf(A) \in A$, then $\min(A) = \inf(A)$)
+  \end{itemize}
+\end{definition}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% SPACES
+%------------------------------------------------------------------------------%
+\section{Spaces}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Topology]
+  Let $X$ be a set. Then $\tau \subseteq 2^X$ is a topology if
+  \begin{enumrom}
+  \item $X \in \tau$
+  \item $\emptyset \in \tau$
+  \item $A_\alpha \in \tau$, then $\displaystyle \bigcup_\alpha A_\alpha \in \tau$ (the union of any element of $\tau$ is also contained in $\tau$)
+  \item $A_i \in \tau$, then $\displaystyle \bigcap_{i = 1}^n A_i \in \tau$ (any finite intersection of elements of $\tau$ is also contained in $\tau$)
+  \end{enumrom}
+\end{definition}
+
+\begin{exampled}
+  Let $X = \{ 1, 2, 3, 4 \}$
+  \begin{enumerate}
+  \item $\tau = \{ \emptyset, X \}$ is topology, since $\emptyset \cup X = X \in \tau$ and $\emptyset \cap X = \emptyset \in \tau$.
+  \item $\tau = \{ \emptyset, \{ 2 \}, \{ 2, 3 \}, X \}$ is topology. The cases with $\emptyset$ and $X$ are trivial. $\{ 2 \} \cup \{ 2, 3 \} = \{ 2, 3 \} \in \tau$ and $\{ 2 \} \cap \{ 2, 3 \} = \{ 2 \} \in \tau$.
+  \item $A = \{ \emptyset, \{ 2 \}, \{ 3 \}, X \}$ is not a topology. In fact, $\{ 2 \} \cup \{ 3 \} = \{ 2, 3 \} \notin A$.
+  \end{enumerate}
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Topological space]
+  Let $X$ be a set, $\tau$ a topology, then $(X, \tau)$ is a topological space.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Neighborhood in a topological space $(X, \tau)$]
+  A set $N$ is a neighborhood of $x \in X$ if there exists a set $U \in \tau$ such that $x \in U$ and $U \subseteq N$.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Metric]
+  Let $X$ be a set, $x, y, z \in X$. The function $d : X \times X \ar \R$ is a metric if
+  \begin{enumrom}
+  \item $d(x,y) = d(y,x)$
+  \item $d(x,y) = 0 \iff x = y$
+  \item $d(x,z) \leq d(x,y) + d(y,z)$
+  \end{enumrom}
+\end{definition}
+
+\begin{exampled}
+  $d(x,y) = \abs{x - y}$
+\end{exampled}
+
+\begin{exampled}
+  $\DS d(x,y) = ||x - y||_2 = \left(\sum_{i = 1}^n (x_i - y_i)^2\right)^{\frac{1}{2}}$
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Metric space]
+  Let $X$ be a set, $d$ be a metric, then $(X, d)$ is a metric space.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Ball in a metric space $(X, d)$]
+  $B_r(x) = \{ y \in X : d(x,y) < r \}$ is a ball of center $x$ and radius $r$. $B_r(x)$ is subset of $X$.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Open set in a topological space $(X, \tau)$]
+  A set $U$ is open in $(X, \tau)$ if $U \in \tau$.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Open set in a metric space $(X, d)$]
+  A set $U$ is open in $(X, d)$ if for all $x \in U$ exists $\E > 0$ such that $B_\E(x) \subseteq U$.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Closed set]
+  $C \subseteq X$ is closed if $X\setminus C$ is open. A set is closed if its complement is open.
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Let $S = (X, x)$ be a space ($x$ a metric or a topology), then
+  \begin{enumrom}
+  \item $X$ is open in $S$
+  \item $\emptyset$ is open in $S$
+  \item For all $A_\alpha$ open in $S$, then $\displaystyle \bigcup_\alpha A_\alpha$ is open in $S$ (any union of any open set is also open)
+  \item For all $A_i$ open in $S$, then $\displaystyle \bigcap_{i=1}^n A_i$ is open in $S$ (any finite intersection of any open set is also open)
+  \end{enumrom}
+\end{proposition}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% SEQUENCES
+%------------------------------------------------------------------------------%
+\section{Sequences}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Sequence]
+  A sequence $(x_n)$ is a function $\f{x}{\N}{X}$, where $x(n) = x_n$. The elements of a sequence can be listed in an ordered set with repetition
+  \[
+  (x_n) = (x_1, x_2, x_3, x_4, \hdots)
+  \]
+\end{definition}
+
+\begin{exampled}
+  $a_n = n \Ar (a_n) = (1, 2, 3, 4, 5, \hdots)$
+\end{exampled}
+
+\begin{exampled}
+  $b_n = \fr{1}{n} \Ar (b_n) = (1, \fr{1}{2}, \fr{1}{3}, \hdots)$
+\end{exampled}
+
+\begin{exampled}
+  $c_n = (-1)^n \Ar (c_n) = (1, -1, 1, -1, \hdots)$
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Cauchy sequence]
+  A sequence $(x_n)$ is a Cauchy sequence if for all $\E > 0$ exists $N_\E$ such that $d(x_n,x_m) < \E$, for all $n, m \geq N_\E$. That is, starting from an index $N_\E$ all values $x_n$ are contained in an interval ${[}x_{N_\E} - \E, x_{N_\E} + \E{]}$.
+\end{definition}
+
+\begin{exampled}
+  $x_n = \fr{1}{n}$ in $(\R, d)$, where $d(x,y) = \abs{x - y}$. We have to find, for each $\E$, an $N$ that satisfies the definition of Cauchy sequence. Let's take $N \leq n \leq m$. Thanks to the triangle inequality, we can first find that:
+  \[
+  d(x_n,x_m) = \abs{x_n - x_m} \leq \abs{x_n} + \abs{-x_m} =
+  \abs{x_n} + \abs{x_m} = \abs{\fr{1}{n}} + \abs{\fr{1}{m}} =
+  \fr{1}{n} + \fr{1}{m}
+  \]
+  Since $N \leq n \leq m$, then we have $\fr{1}{m} \leq \fr{1}{n} \leq \fr{1}{N}$:
+  \[
+  \fr{1}{n} + \fr{1}{m} \leq
+  \fr{1}{N} + \fr{1}{N} = \fr{2}{N}
+  \]
+  Now, in order to satisfy the definition we must have $\fr{2}{N} \leq \E$, thus $\fr{2}{\E} \leq N$. This means, starting from $N = \fr{2}{\E}$ all $d(x_n,x_m)$ will be smaller than $\E$. In fact, if we take the previous inequality:
+  \[
+  \abs{\fr{1}{n} - \fr{1}{m}} \leq
+  \fr{2}{N} = \fr{2}{\fr{2}{\E}} = \E
+  \]
+  Note that it is not important if $d(x,y) < \E$ or $d(x,y) \leq \E$.
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Convergence in metric space]
+  $(X, d)$ is a metric space. A sequence $(x_n)$ converges to a limit $x$ if for all $\E > 0$ exists $N_\E$ such that $d(x_n,x) < \E$, for all $n \geq N_\E$.
+\end{definition}
+
+\begin{exampled}
+  $x_n = \frac{1}{n}$ in $\R$ converges to 0. We take $N \leq n$ and $N = \frac{1}{\E}$
+  \[
+  \abs{x_n - 0} =
+  \abs{x_n} =
+  \abs{\frac{1}{n}} =
+  \frac{1}{n} \leq
+  \frac{1}{N} =
+  \frac{1}{\frac{1}{\E}} =
+  \E
+  \]
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Convergence in topological space]
+  $(X, \tau)$ is a topological space. A sequence $(x_n)$ converges to a limit $x$ if for all $U \in \tau$ such that $x \in U$, it exists $N_U$ such that $x_n \in U$, for all $n \geq N_U$. That is, $x$ is a limit of a sequence, if all sets of $\tau$ that contain $x$ also contain the tail of the sequence.
+\end{definition}
+
+\begin{exampled}
+  Let's take $X = \{ a, b, c \}$, $(x_n) = (a, b)$ and $\tau = \{ \emptyset, \{ a \}, X \}$.
+  \begin{itemize}
+  \item $a$ is not a limit of $(x_n)$, in fact $\{ a \}$ contains $a$, but doesn't contain the tail of $(x_n)$
+  \item $b$ and $c$ are limits of $(x_n)$, in fact $b \in X$ and $c \in X$, and $X$ contains $(x_n)$ (and its tail too)
+  \end{itemize}
+\end{exampled}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $x_n \to x$ in $(X, d) \iff$ for all $U \subseteq X$ open exists $N_U$ such that $x_n \in U$, for all $n \geq N_U$.
+  %If a sequence converges in metric, then converges it in a topological space?
+\end{proposition}
+
+\begin{proof}
+  Let $U \subseteq X$ open, $x \in U$, it exists $\E > 0$ such that $B_\E(x) \subseteq U$.
+  \begin{itemize}
+  \item[$\Ar$] Since $x_n$ converges, then $d(x_n,x) < \E$, for all $\E$. This means $x \in B_\E(x) \subseteq U$, thus $x \in U$
+  \item[$\Al$] $x \in B_\E(x)$ open. This means it exists $N$ such that all $x_n \in B_\E(x)$, for all $n \geq N$. We can conclude that $d(x_n,x) < \E$.
+  \end{itemize}
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  If a sequence converges to a limit in a metric space, then the limit is unique.
+\end{theorem}
+
+\begin{proof}
+  Let's suppose $x_n \to x$ and $x_n \to x'$. It exists $N$ such that for $n geq N$, $d(x_n,x) < \E$ and It exists $N'$ such that for $n \geq N'$, $d(x_n,x') < \E$. We take $n \geq \max\{ N, N' \}$. Now we have $0 \leq d(x,x') \leq d(x,x_n) + d(x_n,x') < 2\E$. Since $\E$ is arbitrarily small, then $d(x,x') \leq 0$. Now, we have $0 \leq d(x,x') \leq 0 \Ar d(x,x') = 0 \Ar x = x'$.
+\end{proof}
+
+\begin{remark}
+  This isn't true in a topological space. In a topological space, a sequence can converge to multiple limits.
+\end{remark}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $x_n \to x$ in $(X,d)$ metric space, then for all $y \in X$, $d(x_n,y) \to d(x,y)$.
+\end{proposition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}[Properties of real sequences]
+  For all $(x_n), (y_n)$ such that $x_n \to x$, $y_n \to y$, we have the following properties
+  \begin{enumrom}
+  \item $\DS \limn (\alpha x_n + \beta y_n) = \alpha \limn x_n + \beta \limn y_n$
+  \item $\DS \limn x_n x_y = \limn x_n \limn y_n$
+  \item $\DS \limn \fr{x_n}{x_y} = \fr{\limn x_n}{\limn y_n}$
+  \end{enumrom}
+\end{proposition}
+
+\begin{proof} We prove each point individually
+  \begin{enumrom}
+  \item $\DS \ForAll \E > 0, \quad \Exists N : \abs{x_n - x} < \fr{\E}{2\abs{\alpha}} = \E', \quad \Exists N' : \abs{y_n - y} < \fr{\E}{2\abs{\beta}} = \E'' $ and we take $ n = \max \{ N, N'\} $.
+    \[
+    \abs{(\alpha x_n + \beta y_n) - (\alpha x + \beta y)} =
+    \abs{\alpha (x_n - x) + \beta (y_n - y)} \leq
+    \abs{\alpha (x_n - x)} + \abs{\beta (y_n - y)} =
+    \]
+    \[ =
+    \abs{\alpha} \abs{(x_n - x)} + \abs{\beta} \abs{(y_n - y)} <
+    \abs{\alpha} \E' + \abs{\beta} \E'' =
+    \fr{\E}{2} + \fr{\E}{2} =
+    \E
+    \]
+  \item[(i-ii)] Similar to previous demonstration.
+  \end{enumrom}
+\end{proof}
+
+\begin{examplet}
+  Knowing that $\fr{1}{n} \to 0$, show that $\fr{1}{n^2} \to 0$.
+  \[
+  \limn \fr{1}{n^2} = \limn \fr{1}{n} \cdot \limn \fr{1}{n} = 0 \cdot 0 = 0
+  \]
+\end{examplet}
+
+\begin{examplet}
+  Find the limit of the sequence $\fr{2n^2 - 3n + 2}{n^2 + n -1}$.
+  \[
+  \limn \fr{2n^2 - 3n + 2}{n^2 + n -1} =
+  \fr{\lim (2n^2 - 3n + 2)}{\lim (n^2 + n -1)} =
+  \fr{\lim 2 - \lim \fr{3}{n} + \lim \fr{2}{n^2}}{\lim 1 +
+    \lim \fr{1}{n} - \lim \fr{1}{n^2}} =
+  \fr{2 - 0 + 0}{1 + 0 - 0} = 2
+  \]
+\end{examplet}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Bounded sequence]
+  A sequence $(x_n)$ is bounded if exists $c$ such that $\abs{s_n} \leq c$.
+\end{definition}
+
+\begin{exampled}
+  $a_n = \frac{1}{n}$ is bounded. We can take $c = 1$, $\abs{\frac{1}{n}} = \frac{1}{n} \leq 1$, being $a_1 = 1$ the $\sup(a_n)$.
+\end{exampled}
+
+\begin{exampled}
+  $b_n = (-1)^n$ is bounded. In fact, the values of the sequence are always 1 and -1. If we take $c = 1$, then $\abs{b_n} = 1 \leq 1$.
+\end{exampled}
+
+\begin{exampled}
+  $x_n = n$ is not bounded, we can prove it by contradiction. We suppose it exists a $c$ such that $\abs{x_n} \leq c$. If we take $x_{c+1} = c + 1$, we have $c + 1 \leq c \iff 0 \leq 1$ contradiction. This means $x_n$ is not bounded.
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Monotonic sequence]
+  A sequence is monotonic if
+  \begin{itemize}
+    \item $(x_n)$ is monotonic increasing if $x_n \leq x_{n+1}$ for all $n$
+    \item $(x_n)$ is monotonic decreasing if $x_{n+1} \leq x_n$ for all $n$
+  \end{itemize}
+\end{definition}
+
+\begin{exampled}
+  $a_n = \fr{1}{n}$ is monotonic decreasing. In fact, $\fr{1}{n+1} \leq \fr{1}{n}$, then $a_{n+1} \leq a_n$.
+\end{exampled}
+
+\begin{exampled}
+  $b_n = n$ is monotonic increasing. In fact, $b_n = n$ and $b_{n+1} = n + 1$. Since $n \leq n + 1$, then $b_n \leq b_{n+1}$.
+\end{exampled}
+
+\begin{exampled}
+  $c_n = (-1)^n$ is not monotonic. We can take $n = 1$, then $a_1 \leq a_2 \nleq a_3$.
+\end{exampled}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  If a sequence monotonic and bounded, then the sequence is convergent.
+\end{theorem}
+
+\begin{proof}
+  $(x_n)$ increasing and bounded, let $c = \sup(x_n)$. For all $\E > 0$ exists $N$ such that $c - \E < x_N$. Since $(x_n)$ increasing, for all $n \geq N$, $x_N \leq x_n \leq c$.
+  \[
+  c - \E < x_n \leq c \iff - \E < x_n - c \leq 0 < \E \iff
+  \abs{x_n - c} < \E
+  \]
+  The last inequality implies convergence. Similarly, the theorem can be proven for decreasing sequences.
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Limit superior and inferior]
+  If $(x_n)$ is a sequence, then
+  \begin{itemize}
+    \item $\limsup_{n \to \infty} x_n = \limn \sup\{x_k : k \geq n\}$
+    \item $\liminf_{n \to \infty} x_n = \limn \inf\{x_k : k \geq n\}$
+  \end{itemize}
+\end{definition}
+
+\begin{exampled}
+
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Subsequence]
+  $(x_{n_k}) \subseteq (x_n)$ is a subsequence of $(x_n)$. Only some terms of a sequence are part of a subsequence.
+\end{definition}
+
+\begin{exampled}
+  $x_n = (-1)^n \cdot n$. We take $k = 2n$, then the subsequence
+  $(x_{n_k}) = (x_{2n})$ of $(x_n)$ takes all the even indexes $n$ of $(x_n)$:
+  \[
+    \begin{array}{lcrcccccccl}
+      (x_n)    & = & ( & -1, & 2, & -3, & 4, & -5, & 6, & \hdots & )\\
+      (x_{2n}) & = & ( &     & 2, &     & 4, &     & 6, & \hdots & )
+    \end{array}
+  \]
+\end{exampled}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  If $x_n \to x$, then $x_{n_k} \to x$. If a sequence converges, all subsequences converge to the same limit.
+\end{theorem}
+
+\begin{proof}
+  $k \leq n_k$ (it can be proved by induction) and $d(x_k,x) < \E$. Since $N \leq k \leq n_k$, then $d(x_{n_k},x) \leq d(x_k,x) < \E$. This means the subsequence converges to $x$.
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Dominant term]
+  $x_n$ is a dominant term if $x_m < x_n$ for all $n < m$.
+\end{definition}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  Every sequence has a monotonic subsequence.
+\end{theorem}
+
+\begin{proof}
+  Based on dominants terms:
+  \begin{itemize}
+    \item If we have infinite dominant terms, we take the decreasing subsequence formed by the dominant terms.
+    \item If we have a finite number of dominant terms, then, after the last dominant term, we start taking an increasing subsequence (since, for each term, there will be at some point a greater term).
+  \end{itemize}
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Bolzano-Weierstrass]
+  Every bounded sequence has a convergent subsequence.
+\end{theorem}
+
+\begin{proof}
+  We take $(x_n)$ bounded. We show it in three steps:
+  \begin{itemize}
+    \item $(x_n)$ has a monotonic subsequence $(x_{n_k})$
+    \item Since $(x_n)$ is bounded, then $(x_{n_k})$ is bounded
+    \item Since $(x_{n_k})$ is bounded and monotonic, it is convergent
+  \end{itemize}
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}
+  $X \subseteq \R^n$ is compact $\iff X$ is closed and bounded (this is not true for $\R^\infty$).
+\end{definition}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% SERIES
+%------------------------------------------------------------------------------%
+\section{Series}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Series]
+  $(x_n)$ is sequence. $\DS s_n = \sumn{x_k}$ is a series (also known as the partial sum). A series is the summation of the terms of a sequence.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Convergence of series]
+  $\DS s_n = \sumn{x_k}$ a series. $\DS \limn s_n = \limn \sumn{x_k} = \series{x_k}$.
+\end{definition}
+
+\begin{exampled}
+  The following are famous convergent series
+  \begin{itemize}
+    \item Harmonic: $\DS \series{\frac{1}{n}} = +\infty$
+    \item Geometric: $\DS \series{a^n} = \begin{cases}
+    \infty & \abs{a} \geq 1 \\ \frac{1}{1-a} & \abs{a} < 1\end{cases}$
+    \item Exponential: $\DS \series{\frac{1}{n!}} = e$
+    \item Leibniz: $\DS \series{\frac{(-1)^n}{2n-1}} = \frac{\pi}{4}$
+  \end{itemize}
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Absolute convergence of series]
+  $\DS s_n = \sumn{x_k}$ is a series. $s_n$ converges absolutely if
+  \[\DS \series{\abs{x_k}} < \infty\]
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Absolute convergence $\Ar$ convergence. If $\DS \series{\abs{x_k}} < \infty$, then $\DS \series{x_k} < \infty$.
+\end{proposition}
+
+\begin{proof}
+  We know that
+  \[\series{\abs{x_k}} < \infty \text{ and } x_n \leq \abs{x_n}\]
+  then
+  \[ \series{x_k} \leq \series{\abs{x_k}} < \infty\]
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Cauchy criterion for series]
+  $\DS s_n = \sumn{x_k}$, and $\DS \series{x_k} < \infty$ is a Cauchy series if for all $\E > 0$ it exists $N$ such that:
+  \[
+    \ForAll N \leq m \leq n \Ar \abs{s_n - s_m} =
+    \abs{\sumn{x_k} - \sum_{k=1}^m x_k} = \abs{\sum_{k=m}^n x_k} < \E
+  \]
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}[Comparison test]
+  For $x_n, y_n$ sequences and $x_n \geq 0$
+  \begin{enumrom}
+    \item If $\DS \series{x_k} < \infty$ and $\abs{y_n} \leq x_n \DS \Ar \series{y_k} < \infty$
+    \item If $\DS \series{x_k} = +\infty$ and $x_n \leq y_n \DS \Ar \series{y_k} = +\infty$
+  \end{enumrom}
+\end{proposition}
+
+\begin{proof}
+  We prove the two point individually
+  \begin{enumrom}
+    \item $\DS \abs{\seriec{y_k}} \leq \seriec{\abs{y_k}} \leq \seriec{x_k} < \E \Ar \series{y_k} < \infty$
+    \item $\DS +\infty = \series{x_k} \leq \series{y_k} \Ar \series{y_n} = +\infty$
+  \end{enumrom}
+\end{proof}
+
+\begin{examplet}
+  $\DS \series \fr{1}{n^2+1}$ converges, in fact
+  \[
+  \series \fr{1}{n^2+1} < \series \fr{1}{n^2} < \infty
+  \]
+\end{examplet}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}[Ratio test]
+  For $x_n$ sequence, $x_n \neq 0$ and $\DS s_n = \sumn{x_k}$ series:
+  \begin{enumrom}
+    \item $s_n$ converges absolutely if $\limsupn \abs{\fr{x_{n+1}}{x_n}} < 1$
+    \item $s_n$ diverges if $\liminfn \abs{\fr{x_{n+1}}{x_n}} > 1$
+  \end{enumrom}
+\end{proposition}
+
+\begin{examplet}
+  $\DS \series\left({-\fr{1}{3}}\right)^n$
+  \[
+  \abs{\fr{(-\fr{1}{3})^{n+1}}{(-\fr{1}{3})^n}} = \abs{-\fr{1}{3}}
+  = \fr{1}{3} \Ar \limsupn \fr{1}{3} = \fr{1}{3} < 1 \Ar
+  \text{ converges absolutely}
+  \]
+\end{examplet}
+
+\begin{examplet}
+  $\DS \series \fr{n}{n^2+3}$
+  \begin{itemize}
+  \item Ratio test:
+    \[
+    \limsupn \abs{\fr{n+1}{(n+1)^2+3}\fr{n^2+3}{n}} =
+    \limsupn \fr{n+1}{(n+1)^2+3}\fr{n^2+3}{n} = 1 \text{, no information}
+    \]
+  \item Comparison test:
+    \[
+    \fr{n}{n^2+3n^2} \leq \fr{n}{n^2+3} \Ar
+    \fr{n}{n^2+3n^2} = \fr{n}{4n^2} = \fr{1}{4} \fr{n}{n^2}
+    \Ar \series \fr{1}{4} \fr{n}{n^2} \Ar
+    + \infty = \fr{1}{4} \series \fr{n}{n^2} \leq \series \fr{n}{n^2+3}
+    \]
+    The series diverges. Sometimes one test can give more information than others.
+  \end{itemize}
+\end{examplet}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}[Root test]
+  Let $\DS s_n = \sumn{x_k}$ a series, $\DS \alpha = \limsupn \sqrt[n]{\abs{x_n}}$:
+  \begin{enumrom}
+    \item $s_n$ converges absolutely if $\alpha < 1$
+    \item $s_n$ diverges if $\alpha > 1$
+  \end{enumrom}
+\end{proposition}
+
+\begin{proof}
+  $\alpha = \limsupn \sqrt[n]{\abs{x_n}}, \E > 0, \alpha + \E < 1$:
+  \[
+    \limsupn \sqrt[n]{\abs{x_n}} = \limn \sup\{\sqrt[k]{\abs{x_k}} : k > n\}
+    \Ar \Exists N : \abs{\sup\{\sqrt[n]{\abs{x_n}} : n > N\} - \alpha} <
+    \E
+  \]
+  \[
+    \alpha - \E < \abs{\sup\{\sqrt[n]{\abs{x_n}} : n > N\}} < \alpha + \E
+    \Ar \sqrt[n]{\abs{x_n}} < \alpha + \E \iff
+    \abs{x_n} < (\alpha + \E)^n
+  \]
+  Since the geometric series $\DS \series (\alpha + \E)^n < \infty$, then $\DS \series \abs{x_n} < \series (\alpha + \E)^n < \infty$, the series converges absolutely.
+\end{proof}
+
+\begin{examplet}
+  $\DS \series\left({-\frac{1}{3}}\right)^n \Ar \limsupn \sqrt[n]{-\frac{1}{3}^n} = \limsupn \frac{1}{3} = \frac{1}{3} < 1$, the series converges absolutely.
+\end{examplet}
+
+\begin{examplet}
+  $\DS \series 2^{(-1)^n-n}$ converges, in fact
+  \[
+  \sqrt[n]{2^{(-1)^n-n}} =
+  \begin{cases}
+    2^{\frac{1}{n}-1}  & \text{if } n \text{ even} \\
+    2^{-\frac{1}{n}-1} & \text{if } n \text{ odd}
+  \end{cases} \Ar
+  \limn 2^{\frac{1}{n}-1} = \limn 2^{-\frac{1}{n}-1} = \frac{1}{2} < 1
+  \]
+\end{examplet}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% FUNCTIONS AND CONTINUITY
+%------------------------------------------------------------------------------%
+\section{Functions and continuity}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Image]
+  Given a function $\f{f}{X}{Y}$, the image of $f$ is defined as $Im_f(X) = \{ f(x) : x \in X \}$. It contains all the images of all elements of $X$.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Preimage]
+  Given a function $\f{f}{X}{Y}$, the preimage of $f$ is defined as $PreIm_f(Y) = \{ x : f(x) \in Y \}$. It contains all the elements of $X$ that have an image in $Y$.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Continuity in metric space]
+  $\f{f}{(X,d_x)}{(Y,d_y)}$ is continuous at $x \in X$ if
+  \[
+    \ForAll \E > 0 \Exists \delta_\E > 0 : \ForAll x' \in X,
+    d_x(x,x') < \delta_\E \Ar d_y(f(x),f(x')) < \E
+  \]
+\end{definition}
+
+\begin{exampled}
+  Let's take $\DS f(x) = \begin{cases} 0 & \text{if } x = 0 \\ x^2 \sin\fr{1}{x} & \text{otherwise} \end{cases}$\\
+  We want to prove that $f$ is continuous in 0. Let $\E > 0$, then $\abs{f(x) - f(0)} = \abs{f(x) - 0} = \abs{f(x)} \leq x^2$. If we take $\delta = \sqrt{\E}$, then
+  \[
+    \abs{x - 0} < \delta \Ar x^2 < \delta \Ar \abs{f(x) - f(0)}
+    \leq x^2 < \delta^2 = \E \Ar f \text{ is continuous in 0}
+  \]
+\end{exampled}
+
+\begin{remark}
+  Continuity can also be defined as follows
+  \[
+    \ForAll \E > 0 \Exists \delta_\E > 0 :
+    Im_f(B_{\delta\E}^{d_x}(x)) \subseteq B_\E^{d_y}(f(x))
+  \]
+  This means that the image of each ball around each $x$ is contained in another ball around $f(x)$.
+\end{remark}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Continuity in topological space]
+  $\f{f}{(X,\tau_x)}{(Y,\tau_y)}$ is continuous at $x \in X$ if for all $U \in \tau_y$ such that $f(x) \in U$, then $PreIm_f(U) \in \tau_x$.
+\end{definition}
+
+\begin{exampled}
+  Let's take $(M,\tau_m)$, $(N,\tau_n)$, $M = N = \{ 1, 2 \}$, $\tau_m = \{ \emptyset, \{ 1 \}, \{ 2 \}, \{ 1, 2 \} \}$, $\tau_m = \{ \emptyset, \{ 1, 2 \} \}$.
+  \begin{itemize}
+    \item Let $\f{f}{(M,\tau_m)}{(N,\tau_n)}$, such that $f(1) = 2$ and $f(2) = 1$:
+    \[
+      PreIm_f(\emptyset) = \emptyset \in \tau_m,
+      PreIm_f(\{ 1, 2 \}) = \{ 1, 2 \} \in \tau_m \Ar
+      f \text{ is continuous in all } x \in M
+    \]
+    \item Let $\f{g}{(N,\tau_n)}{(M,\tau_m)}$, such that $f(1) = 2$ and $f(2) = 1$:
+    \[
+      PreIm_g(\{ 1 \}) = \{ 2 \} \notin \tau_n \Ar g \text{ is not continuous}
+    \]
+  \end{itemize}
+\end{exampled}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Continuous functions map open sets into open sets.
+  \[
+  \text{If } \f{f}{(X,d_x)}{(Y,d_y)} \text{ continuous, then } PreIm_f(A) \text{ is open, for all } A \subseteq Y \text{ open}
+  \]
+\end{proposition}
+
+\begin{proof}
+  Let $A \subseteq Y$ open, $x \in PreIm_f(A)$, $f(x) \in A$. Then, it exists $\E > 0$ such that $B_\E^{d_y}(f(x)) \subseteq A$. Since $f$ is continuous, then it exists $\delta_\E$ such that:
+  \[
+    PreIm_f(B_{\delta_\E}^{d_x}(x)) \subseteq B_\E^{d_y}(f(x))
+    \subseteq A \Ar B_{\delta_\E}^{d_x}(x) \subseteq PreIm_f(A)
+    \Ar A \text{ is open}
+  \]
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  Continuous functions map limits to limits
+  \[
+    f \text{ continuous, } x_n \to x \iff f(x_n) \to f(x)
+  \]
+\end{theorem}
+
+\begin{proof}[Proof, topology]
+  (only for ``$\Ar$'') Let $\f{f}{(X,\tau_x)}{(Y,\tau_y)}$, $A \in \tau_y$, $f(x) \in A$. Since $f$ continuous, then $PreIm_f(A) \in \tau_x$ and $x \in PreIm_f(A)$. Since $x_n$ converges to $x$, we have that:
+  \[
+    \Exists N : \ForAll n \geq N, (x_n) \subseteq PreIm_f(A) \Ar
+    Im_f(x_n) \subseteq A \Ar f(x_n) \to f(x)
+  \]
+\end{proof}
+
+\begin{proof}[Proof, metric]
+  (only for ``$\Ar$'') Let $\E > 0$, $\f{f}{(X,d_x)}{(Y,d_y)}$ continuous. Then, it exists $\delta > 0$ such that for all $x' \in X$, $d_x(x,x') < \delta$. This means $d_y(f(x),f(x')) < \E$. Since $x_n$ converges to $x$
+  \[
+    \Exists N : \ForAll n \geq N, d_x(x,x) < \delta \Ar d_y(f(x_n),f(x))
+    < \E \Ar f(x_n) \to f(x)
+  \]
+\end{proof}
+
+\begin{examplet}
+  Let's take $f(x) = 2x^2 + 1$ and $\DS \limn x_n = x$. Then:
+  \[
+    \limn 2x_n^2 + 1 = 2 \left(\limn x_n\right)^2 + 1 = 2x^2 + 1
+  \]
+  This means that for $x_n \to x$, then $f(x_n) \to f(x)$. Therefore, $f$ is continuous.
+\end{examplet}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $\fOnR{f,g}$ continuous at $x \Ar f+g$, $f \cdot g$ and $\fr{f}{g}$ (for $g(x) \neq 0$) are continuous at $x$.
+\end{proposition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $f$ continuous at $x$ and $g$ continuous at $f(x) \Ar g \circ f = g(f(x))$ is continuous at $x$.
+\end{proposition}
+
+\begin{proof} We have the following implications
+  \begin{enumarabic}
+    \item $f$ continuous at $x \Ar$ for $x_n \to x$, then $f(x_n) \to f(x)$
+    \item $g$ continuous at $y \Ar$ for $y_n \to y$, then $g(y_n) \to f(y)$
+    \item In particular, for $y_n = f(x_n) \Ar g(f(x_n)) \to g(f(x))$
+  \end{enumarabic}
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Contraction]
+  $\f{f}{(X,d)}{(X,d)}$ is a contraction $\iff$ it exists $0 \leq c < 1$ such that $d(f(x),f(y)) \leq cd(x,y)$, for all $x,y \in X$.
+\end{definition}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Banach fixed point]
+  Let's take $(X,d)$ complete (Cauchy $\iff$ convergence) and $\f{f}{(X,d)}{(X,d)}$ a contraction, then
+  \begin{enumrom}
+    \item $\ExistsI x^* \in X : f(x^*) = x^*$
+    \item $x_0 \in X$, $x_{n+1} = f(x_n) \Ar x_n \to x^*$
+  \end{enumrom}
+\end{theorem}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Convergence of a function]
+  $f$ converges to $c$ at $x_0 \iff$ for all $(x_n)$ such that $x_n \to x_0$ we have $f(x_n) \to c$. We write $\DS \limx{x_0} f(x) = c$. Moreover
+  \begin{itemize}
+    \item $f$ converges from above if, for all $(x_n)$, then $x_0 < x_n$.
+    We write $\DS \limx{x_0^+} f(x) = c$.
+    \item $f$ converges from below if, for all $(x_n)$, then $x_n < x_0$.
+    We write $\DS \limx{x_0^-} f(x) = c$.
+  \end{itemize}
+\end{definition}
+
+\begin{exampled}
+  Let $\DS f(x) = \fr{1}{x} \Ar \limx{0^+} \fr{1}{x} = +\infty, \limx{0^-} \fr{1}{x} = -\infty$
+\end{exampled}
+
+\begin{exampled}
+  Let $\DS f(x) = floor(x) \Ar \limx{1^+} floor(x) = 1, \limx{1^-} floor(x) = 0$, but
+  \[
+  \DS \limx{\fr{1}{2}^+} floor(x) = \fr{1}{2} = \limx{\fr{1}{2}^-} floor(x)
+  \]
+\end{exampled}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $f$ continuous at $\DS a \iff \limx{a} f(x) = f(a)$
+\end{proposition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $\DS \limx{a} (fg)(x) = \limx{a} f(x) \cdot \limx{a} g(x)$
+\end{proposition}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% CONTINUOUS FUNCTIONS AND INTERVALS
+%------------------------------------------------------------------------------%
+\section{Continuous functions and intervals}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Bounded function]
+  $\fOnR{f}$ is bounded on $X \subseteq \R$ if $Im(X) = \{ f(x) : x \in X \}$ is bounded. That is, it exists $c$ such that $\abs{f(x)} \leq c$ for all $x \in X$.
+\end{definition}
+
+\begin{exampled}
+  $\f{f}{\R}{\intcc{-1,1}}$, $f(x) = \sin(x)$ is bounded on $\R$, since $\abs{\sin(x)} \leq 1$ for all $x \in \R$.
+\end{exampled}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Extreme value]
+  If $\fOnR{f}{\intcc{a,b}}$ is continuous, then:
+  \begin{enumrom}
+    \item $f$ is bounded on $\intcc{a,b}$
+    \item $f$ has a maximum and a minimum on $\intcc{a,b}$, meaning that
+      \[
+      \Exists x_{minimizer}, x_{maximizer} \in \intcc{a,b} :
+      f(x_{mininizer}) \leq f(x) \leq f(x_{maximizer}), \ForAll x \in \intcc{a,b}
+      \]
+  \end{enumrom}
+\end{theorem}
+
+\begin{proof}
+  Proof by contradiction, we assume $f$ unbounded. We proceed in two steps
+  \begin{enumarabic}
+    \item Since $f$ undounded, for all $n \in \N$ it exists $x_n \in \intcc{a,b}$ such that $\abs{f(x_n)} > n$. Then, $(x_n) \subseteq \intcc{a,b}$ is bounded and has a subsequence $(x_{n_k})$ that converges to a $x_0 \in \intcc{a,b}$ (Bolzano-Weierstrass). Since $f$ is continuous at $x_0$, then $f(x_{n_k})$ converges to $f(x_0)$. If $f$ is unbounded, then $f(x_n)$ diverges: contradiction. This means $f$ is bounded.
+    \item Let's take $M = \sup\{ f(x) : x \in \intcc{a,b} \}$ the smallest upper
+    bound of $Im(\intcc{a,b})$, then $M - \frac{1}{n}$ is not an upper bound.
+    We know it exists $x_n$ such that $M - \frac{1}{n} < f(x_n) \leq M$. This
+    means:
+    \[
+    \limn{M - \fr{1}{n}} \leq \limn{f(x_n)} \leq M \iff
+    M \leq \limn{f(x_n)} \leq M \iff \limn{f(x_n)} = M
+    \]
+    Moreover, $(x_n) \subseteq \intcc{a,b}$ is bounded, and it has a subsequence $(x_{n_k})$ convergent to $x_0 \in \intcc{a,b}$. Since $f$ is continuous, then $f(x_{n_k})$ converges to $f(x_0)$. This means $f(x_0) = M$, where $x_0$ is the maximizer.
+  \end{enumarabic}
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Intermediate value]
+  $f$ continuous on $\intcc{a,b}$, $f(a) < c < f(b) \Ar \Exists x \in \intcc{a,b} : f(x) = c$.
+\end{theorem}
+
+\begin{proof}
+  Let's assume $f(a) < c < f(b)$ (the same can be done for the opposite). Let's have $S = \{ x \in \intcc{a,b} : f(x) < c \}$ not empty, since at least $f(a) \in S$. Let $x_0 = \sup S \in \intcc{a,b}$, then $x_0 - \frac{1}{n}$ is not an upper bound, and it exists $s_n \in S$ such that $x_0 - \frac{1}{n} < s_n \leq x_0$. This means $s_n$ converges to $x_0$. We now have $f(s_n) < c$ and $f(x_0) = \lim f(s_n) \leq c$.
+  
+  Let's take $t_n = \min \{ x_0 + \fr{1}{n}, b \} \in \intcc{a,b}$, where $x_0 < t_n \leq t_n + \fr{1}{n}$, meaning that $t_n$ converges to $x_0$. Now $t_n \notin S$ (since $t_n > \sup S$), $f(t_n) \geq c$ and $f(x_0) = \lim t_n \geq c$. Therefore $c \leq f(x_0) \leq c$, so $f(x_0) = c$.
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Darboux function]
+  A Darboux function is a function that satisfies the intermediate value property.
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Continuous implies Darboux, but not the opposite.
+\end{proposition}
+
+\begin{examplet}
+  $f(x) = \begin{cases}\sin(\frac{1}{x}) & x > 0 \\ 0 & x = 0\end{cases} \quad$ is a Darboux function, but it is not continuous.
+\end{examplet}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Continuous functions map intervals to intervals.
+\end{proposition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Connectedness]
+  Let $(X, \tau)$ a topological space, the $A \subseteq X$ is disconnected if the two equivalent definitions hold
+  \begin{itemize}
+    \item There exists $U, V \in \tau$ such that:
+    \begin{itemize}
+      \item $(A \cap U) \cap (A \cap V) = \emptyset$, and
+      \item $(A \cap U) \cup (A \cap V) = A$, and
+      \item $A \cap U \neq \emptyset \neq A \cap V$
+    \end{itemize}
+    \item There exists $U, V \subseteq A$ such that:
+    \begin{itemize}
+      \item $A = U \cup V$, and
+      \item $\overline{U} \cap V = \emptyset = U \cap \overline{V}$
+    \end{itemize}
+  \end{itemize}
+  \textit{N.B.:} here $\overline{U}$ doesn't mean complementary set of $U$, but set closure of $U$. That is, the smallest closed set containing $U$.\\
+  A set is connected if it is not disconnected.
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Continuous functions preserve connectedness.\\
+  \[
+  \f{f}{(X,\tau_x)}{(Y,\tau_y)}, A \subseteq X \text{ connected in } (X,\tau_x) \Ar Im(A) \subseteq Y \text{ is connected in } (Y,\tau_y)
+  \]
+\end{proposition}
+
+\begin{proof}
+  By contradiction. We suppose $A$ connected and $Im(A)$ disconnected. Since $Im(A)$ is disconnected, exist $V_1, V_2 \in \tau_y$ such that:
+  \begin{itemize}
+    \item $(Im(A) \cap V_1) \cap (Im(A) \cap V_2) = \emptyset$, and
+    \item $(Im(A) \cap V_1) \cup (Im(A) \cap V_2) = Im(A)$, and
+    \item $Im(A) \cap V_1 \neq \emptyset \neq Im(A) \cap V_2$
+  \end{itemize}
+  Let $U_1 = PreIm(V_1)$ and $U_2 = PreIm(V_2)$ it follows (it should be proved) that:
+  \begin{itemize}
+    \item $(PreIm(A) \cap U_1) \cap (PreIm(A) \cap U_2) = \emptyset$, and
+    \item $(PreIm(A) \cap U_1) \cup (PreIm(A) \cap U_2) = PreIm(A)$, and
+    \item $PreIm(A) \cap U_1 \neq \emptyset \neq PreIm(A) \cap U_2$
+  \end{itemize}
+  This implies that $A$ is disconnected, contradiction. Therefore $Im(A)$ is connected.
+\end{proof}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% UNIFORM CONTINUITY
+%------------------------------------------------------------------------------%
+\section{Uniform continuity}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Uniform continuity]
+  $\f{f}{(X,d_x)}{(Y,d_y)}$ is uniformly continuous on $X$ if
+  \[
+  \ForAll \E > 0 \quad \Exists \delta_\E > 0 : \ForAll x,x' \in X : d_x(x,x')
+  < \delta \Ar d_y(f(x),f(x')) < \E
+  \]
+\end{definition}
+
+\begin{exampled}
+  $f(x) = \fr{1}{x^2}$ in $\left[a, +\infty\right)$, $a > 1$. To show that $f$ is uniformly continuous, we have to show that for all $\E > 0$ exists $\delta_\E > 0$ such that for all $x,y$ such that $\abs{x-y} < \delta$ then $\abs{f(x)-f(y)} < \E$. Let $\E > 0$ and $f(x) - f(y) = \fr{1}{x^2} - \fr{1}{y^2} = \fr{(x+y)(x-y)}{x^2 y^2}$. Then, since $a \leq x,y \ \ForAll x,y$:
+    \[
+    \fr{(x+y)}{x^2 y^2} = \fr{x}{x^2 y^2} + \fr{y}{x^2 y^2} \leq \fr{2}{a^3}
+    \]
+    We chose $\delta = \fr{\E a^3}{2}$, then:
+    \[
+    \ForAll x,y \geq a : \abs{x-y} < \delta \Ar \abs{f(x)-f(y)} =
+    \abs{x-y} \abs{\fr{x+y}{x^2 y^2}} < \delta \fr{2}{a^3} =
+    \fr{\E a^3}{2} \fr{2}{a^3} = \E
+    \]
+    This means $f$ is uniformly continuous.
+\end{exampled}
+
+\begin{remark}
+  Uniform continuity is different from normal continuity. In normal continuity the $\delta$ depends on both $\E$ and $x$, while in uniform continuity $\delta$ depends solely on $\E$. In fact, $f$ is ``normally'' continuous on $x_0 \in X$ if:
+  \[
+  \ForAll \E > 0 \quad \Exists \delta_{\E,x_0} > 0 : \ForAll x \in X :
+  d_x(x_0,x) < \delta \Ar d_y(f(x_0),f(x)) < \E
+  \]
+\end{remark}
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  $f$ continuous on $A$, closed and bounded $\Ar$ $f$ is uniformly continuous on $A$.
+\end{theorem}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  $f$ uniformly continuous on $S$, $(s_n) \subseteq S$ is Cauchy sequence $\Ar f(s_n)$ is Cauchy sequence.
+\end{theorem}
+
+\begin{proof}
+  Let $(s_n) \subseteq S$ a Cauchy sequence, $\E > 0$ and $f$ uniformly continuous
+  \begin{enumerate}
+  \item Exists $\delta > 0$ such that $\abs{f(x)-f(y)} < \E$ for all $\abs{x-y} < \delta$.
+  \item Exists $N_\E$ such that for all $n,m \geq N$, then $\abs{s_n - s_m} < \delta$
+  \end{enumerate}
+  Combining (1) and (2) we have that for all $n,m \geq N$, $\abs{f(s_n)-f(s_m)} < \E$. This means $f(s_n)$ is a Cauchy sequence.
+\end{proof}
+
+\begin{examplet}
+  $f(x) = \frac{1}{x^2}$ is not uniformly continuous on $(0,1)$. In fact, $s_n = \frac{1}{n}$ is Cauchy, but $f(s_n) = n^2$ is not Cauchy.
+\end{examplet}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Sequence of functions]
+  $(f_n) \subseteq \{ \f{f}{S}{\R} \}$ is a sequence of functions. A sequence of function can converge to a function: $f_n \to f$.
+\end{definition}
+
+\begin{exampled}
+  $f_n(x) = \frac{x}{n} \to f(x) = 0$
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Pointwise convergence]
+  $f_n$ converges pointwise to $f \iff \DS \limn{f_n(x)} = f(x)$ for all $x \in S$.
+  \[
+  \ForAll \E > 0, x \in S \Exists N_\E : \abs{f_n(x) - f(x)} < \E
+  \]
+\end{definition}
+
+\begin{exampled}
+  $f_n(x) = x^n$, $x \in \intcc{0,1} \Ar f(x) = \begin{cases}1 & x = 1 \\ 0 & x \neq 1\end{cases}$. $f_n$ is continuous and $f$ is discontinuous.
+\end{exampled}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[infinite norm]
+  $d_\infty(f_n,f) = \sup \{ \abs{f_n(x) - f(x)} \}$
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Uniform convergence]
+  $f_n$ converges uniformly to $f$ if exists $N_\E$ such that $d_\infty(f_n,f) < \E$ for all $n \geq N_\E$.
+\end{definition}
+
+\begin{exampled}
+  Let $f_n(x) = (1 - \abs{x})^n$, $x \in \intoo{-1,1}$. Then $f$ converges pointwise (but not uniformly) to $f(x) = \begin{cases}1 & x = 0 \\ 0 & x \neq 0\end{cases}$. In fact
+    \begin{itemize}
+    \item Pointwise convergence\\
+      For $x = 0$, $f_n(x) = (1 - 0)^n = 1$, then $\DS \limn{f_n} = \limn{1} = 1$. For $x \neq 0$, $\abs{x} < 1$. This means $1 - |x| < 1$, then $\DS \limn{(1-|x|)^n} = 0$.
+    \item Uniform convergence\\
+      We assume $f_n \tounif f$ and we take $\E = \frac{1}{2}$. Then it exists $N$ such that $\abs{f_n(x) - f(x)} < \frac{1}{2}$ for all $x \in \intoo{-1,1}$. Let's take $x = 1 - 2^{-\frac{1}{n}}$, then $1 - x = 2^{-\frac{1}{n}}$. Thus $(1 - x)^n = (2^{-\frac{1}{n}})^n = \frac{1}{2} \nless \frac{1}{2} = \E$. Contradiction, $f$ doesn't converge uniformly to $f$.
+    \end{itemize}
+\end{exampled}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  Uniform limit of a continuous function is continuous.
+  \[
+  f_n(x) \text{ continuous and } f_n(x) \tounif f(x) \Ar f(x) \text{ is continuous}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let $\E > 0$ Since $f_n \tounif f(x)$, it exists $N_\E$ such that $\abs{f_n(x)-f(x)} <
+  \frac{\E}{3}$ for all $n \geq N$. Since $f_n$ continuous, it exists $\delta > 0$ such that for all $x,x_0$ such that $\abs{x_0 - x} < \delta$, then $\abs{f_N(x_0) - f_N(x)} < \frac{\E}{3}$. By triangle inequality we have
+  \[
+  \abs{f(x_0) - f(x)} \leq
+  \abs{f(x_0) - f_N(x_0)} + \abs{f_N(x_0) - f(x)} \leq
+  \]
+  \[ \leq
+  \abs{f(x_0) - f_N(x_0)} + \abs{f_N(x_0) - f_N(x)} + \abs{f_N(x) - f(x)} <
+  \frac{\E}{3} + \frac{\E}{3} + \frac{\E}{3} =
+  \E
+  \]
+\end{proof}
+
+\begin{examplet}
+  Let $f_n \tounif f$ and $g_n \tounif g$ on $S \subseteq \R$. Then $f_n + g_n \tounif f + g$. In fact
+  \[
+  \Exists N_f : \ForAll x \in S \abs{f_n(x) - f(x)} < \frac{\E}{2} \ForAll n > N_f
+  \]
+  \[
+  \Exists N_g : \ForAll x \in S \abs{g_n(x) - g(x)} < \frac{\E}{2} \ForAll n > N_g
+  \]
+  We take $N = \max \{ N_f, N_g \}$. Then
+  \[
+  \abs{f_n(x) - f(x) + g_n(x) - g(x)} \leq \abs{f_n(x) - f(x)} + \abs{g_n(x) - g(x)} < \frac{\E}{2} + \frac{\E}{2} = \E, \ForAll n \geq N
+  \]
+  This means $f_n + g_n \tounif f + g$.
+\end{examplet}
+
+\begin{examplet}
+  Let $f_n \tounif f$ and $g_n \tounif g$ on $S \subseteq \R$. Then $f_n g_n$ doesn't converge uniformly to $fg$. In fact, let $h_n(x) = \frac{x}{n}$. By contradiction we can prove $h_n$ doesn't converge uniformly to $h$. Now, if we take $f_n(x) = \frac{1}{n}$ and $g_n(x) = x$ (uniformly convergent), then $f(x) g(x) = \frac{x}{n} = h(x)$ not uniformly convergent. We found a counter example.
+\end{examplet}
+
+\begin{examplet}
+  Let $f_n(x)$ continuous on $\intcc{a,b}$, $f_n(x) \tounif f(x)$, $(x_n) \subseteq \intcc{a,b}$ and $x_n \to x$. Then, $f_n(x_n) \to f(x)$. To prove it we have to show that exists $N$ such that for all $n \geq N$, then $\abs{f_n(x_n) - f(x)} < \E$.
+  \begin{enumarabic}
+  \item $f_n \tounif f$, this means it exists $N_1$ such that $\abs{f_n(y) - f(y)} < \frac{\E}{2}$, for all $n \geq N_1$ and $y \in \intcc{a,b}$. In particular, $\abs{f_n(x_n) - f(x_n)} < \frac{\E}{2}$.
+  \item Since $f_n(x)$ continuous and $f_n(x) \tounif f(x)$, then $f(x)$ is continuous. Then $f(x_n) \to f(x)$, this means it exists $N_2$ such that for all $n \geq N_2$, then $\abs{f(x_n) - f(x)} < \frac{\E}{2}$.
+  \item We chose $N = \max \{ N_1. N_2 \}$. Then:
+    \[
+    \abs{f_n(x_n) - f(x)} \leq \abs{f_n(x_n) - f(x_n)} + \abs{f(x_n) - f(x)} <
+    \frac{\E}{2} + \frac{\E}{2} = \E, \ForAll n \geq N
+    \]
+  \end{enumarabic}
+  We can conclude that $f_n(x_n) \to f(x)$.
+\end{examplet}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% POWER SERIES
+%------------------------------------------------------------------------------%
+\section{Power Series}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Power series]
+  Let $(a_n)_{n \geq 0} \subseteq \R$ a sequence. Then $\pseries{a_n x^n}$ is a power series. We have three cases
+  \begin{itemize}
+  \item The series converges for all $x \in \R$.
+  \item The series converges for $x = 0$ only.
+  \item The series converges for some bounded interval.
+  \end{itemize}
+\end{definition}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  Let $\beta = \limsup \sqrt[n]{|a_n|}$ and $R = \frac{1}{\beta}$ ($R = \infty$ if $\beta = 0$, $R = 0$ if $\beta = \infty$). Then $\DS \pseries{a_n x^n}$
+  \begin{itemize}
+  \item Converges for $|x| < R$.
+  \item Diverges for $|x| > R$.
+  \end{itemize}
+  The same can be done with $\beta = \limsup \abs{\frac{a_n}{a_{n+1}}}$.
+\end{theorem}
+
+\begin{proof}
+  With root test. Let $\alpha = \limsup \sqrt[n]{|a_n|}$, then $\DS \series{a_n} < \infty$ if $\alpha < 1$ or $\DS \series{a_n} = \infty$ if $\alpha = 1$. Let $\alpha_x = \limsup \sqrt[n]{|a_n x^n|} = \limsup |x|\sqrt[n]{|a_n|} = |x| \limsup \sqrt[n]{|a_n|} = \beta |x|$. Then
+  \begin{enumarabic}
+  \item If $0 < R < \infty$, then $\alpha_x = \beta |x| = \frac{|x|}{R}$.
+    \begin{itemize}
+    \item If $|x| < R$, then $\alpha_x < 1$, by root test $\DS \pseries{a_n x^n}$ converges
+    \item If $|x| > R$, then $\alpha_x > 1$, by root test $\DS \pseries{a_n x^n}$ diverges
+    \end{itemize}
+  \item If $R = \infty$, then $\alpha_x = 0 < 1$ independently of $x$. The series always converges.
+  \item If $R =0$, then $\alpha_x = \infty > 1$ independently of $x$. The series always diverges.
+  \end{enumarabic}
+\end{proof}
+
+\begin{examplet}
+  Let $a_n = 1$. We have the power series $\DS \pseries{x^n}$ and $\beta = \limsup \sqrt[n]{1} = 1$, then $R = 1$. This means the series converges for $x \in \intoo{-1,1}$ and diverges for $x$ such that $|x| > 1$. Moreover, it diverges for $x = 1$, since $\DS \pseries{1} = +\infty$, and it is not defined for $x = -1$.
+\end{examplet}
+
+\begin{examplet}
+  Let $\DS \pseries{\frac{1}{n}x^n}$ a power series. Then $\limsup \abs{\frac{a_n}{a_{n+1}}} = \limsup \abs{\frac{n}{n+1}} = 1$, then $R = 1$. For $x = 1$ we have the harmonic series $\DS \pseries{\frac{1}{n}}$ wich diverges, for $x = -1$ we have $\DS \pseries{\frac{(-1)^n}{n}} < \infty$. We can conclude that the power series converges for $x \in \intco{-1,1}$.
+\end{examplet}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% LIPSCHITZ CONTINUITY
+%------------------------------------------------------------------------------%
+\section{Lipschitz continuity}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Lipschitz continuity]
+  $\f{f}{(X,d_x)}{(Y,d_y)}$ is Lipschitz continuous if it exists $c \in \intco{0,+\infty}$ such that $d_y(f(x),f(x')) \leq c d_x(x,x')$.
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Lipschitz continuity $\Ar$ uniform continuity.
+\end{proposition}
+
+\begin{proof}
+  We need to show that $\ForAll \E > 0 \Exists \delta_\E > 0 : \ForAll x, x' \in X : d_x(x,x') < \delta_\E \Ar d_y(f(x),f(x')) < \E$. We choose $\delta = \frac{\E}{c} \Ar d_y(f(x),f(x')) \leq c d_x(x,x') < c \delta = c \frac{\E}{c} = \E$.
+\end{proof}
+
+\begin{examplet}
+  $\sqrt{x}$ is uniformly continuous but not Lipschitz continuous over $\intcc{0,1}$. We can prove it by contradiction. We assume $\sqrt{x}$ is Lipschitz continuous. This means it exists $c \in \intcc{0,+\infty}$ such that for $x' = 0$, then $|\sqrt{x} - \sqrt{0}| \leq c |x - 0| \iff |\sqrt{x}| \leq c |x| \iff c \geq \frac{1}{\sqrt{x}}$. For $x = 0$, then $c$ is not defined. Contradiction.
+\end{examplet}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Weierstrass approximation]
+  Every continuous function on $\intcc{a,b}$ can be uniformly approximated by polynomials on $\intcc{a,b}$
+  \[
+  \Exists (a_n) \subseteq \R : p_n(x) = \sumn a_k x^k \tounif f(x) \text{ on } \intcc{a,b}
+  \]
+\end{theorem}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Bernstein polynomials]
+  $b_{m,n}(x) = \binom{n}{m} x^m (1-x)^{n-m}$
+  \[
+  span \{ b_{0,n}(x), \hdots, b_{n,n}(x) \} =
+  \left\{ \sumn a_k x^k, a_i \in R \right\}
+  \]
+\end{theorem}
+
+\begin{examplet}
+  \[
+  a_0 + a_1x + a_2 x^2 = b_0 (1 - x)^2 + b_1 2x (1-x) + b_2 x^2 =
+  b_0 + 2 (b_1 - b_0) + (b_0 - 2b_1 + b_2) x^2
+  \]
+  \[
+  \vecThree{b_0}{b_1}{b_2} =
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    1 & \sfrac{1}{2} & 0 \\
+    1 & 1 & 1
+  \end{pmatrix} \vecThree{a_0}{a_1}{a_2} \Ar
+  \begin{cases}
+    b_0 = a_0 \\
+    b_1 = a_0 + \frac{1}{2} a_1 \\
+    b_2 = a_0 + a_1 + a_2
+  \end{cases}
+  \]
+\end{examplet}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  $\f{f}{\intcc{0,1}}{\R}$ continuous, then
+  \begin{itemize}
+  \item $\DS B_n(f)(x) = \sum_{m=0}^{n} f(\frac{m}{n}) b_{m,n}(x)$
+  \item $B_n(f)(x) \to f(x)$ uniformly continuous on $\intcc{0,1}$
+  \end{itemize}
+\end{theorem}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% DIFFERENTIABILITY AND DERIVATIVES
+%------------------------------------------------------------------------------%
+\section{Differentiability and derivatives}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Derivative]
+  The derivative of a function $f$ at point $a$ is defined as one
+  \[
+  f'(a) = \limx{a} \frac{f(x)-f(a)}{x-a} = \lime \frac{f(a+\E)-f(a)}{\E}
+  \]
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Differentiability]
+  $f$ is differentiable if the derivative $f'$ exists.
+\end{definition}
+
+\begin{exampled}
+  $\DS f(x) = x^2 \Ar \lime \frac{f(x+\E)-f(x)}{\E} = \lime \frac{(x+\E)^2 - x^2}{\E} = \lime \frac{\E (2x + \E)}{\E} = \lime 2x + \E = 2x$
+\end{exampled}
+
+\begin{exampled}
+  $\DS f(x) = \sqrt{x} \Ar f'(a) = \limx{a} \frac{f(x)-f(a)}{x-a} = \limx{a} \frac{\sqrt{x} \sqrt{a}}{(\sqrt{x}-\sqrt{a})(\sqrt{x}+\sqrt{a})} = \limx{a} \frac{1}{\sqrt{x}+\sqrt{a}} = \frac{1}{2\sqrt{a}}$
+\end{exampled}
+
+\begin{exampled}
+  $\DS f(x) = |x| \Ar f'(x) = \lime \frac{|x+\E| - |x|}{\E} =
+    \begin{cases}
+      \lime \frac{x + \E - x}{\E} = \lime \frac{\E}{\E} = 1 & x > 0 \\
+      \lime \frac{-x - \E + x}{\E} = \lime \frac{-\E}{\E} = -1 & x < 0
+    \end{cases}$
+  \\Not defined for $x = 0$.
+\end{exampled}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $f$ differentiable at $a$, then $f$ continuous at $a$.
+\end{proposition}
+
+\begin{proof}
+  We need to prove that $\DS \limx{a} f(x) = f(a)$. We know that $f'(a) = \limx{a} \frac{f(x)-f(a)}{x-a}$ exists. Then $\DS \limx{a} (x-a) \frac{f(x)-f(a)}{x-a} + f(a) = \limx{a} f(x)$. $\DS \Ar \limx{a}(x-a) \limx{a} \frac{f(x)-f(a)}{x-a} \limx{a}f(a) = 0 \cdot L + f(a) = f(a)$.
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}
+  $f \in \mathcal{C}^k(\R)$, $f$ is differentiable $k$ times, and the derivatives are continuous.
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  Properties of derivatives
+  \begin{itemize}
+  \item $(f + g)'(x) = f'(x) + g'(x)$
+  \item $(fg)'(x) = f'(x)g(x) + f(x)g'(x)$
+  \item $(\frac{f(x)}{g(x)})' = \frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2} \quad \ForAll g(x) \neq 0$
+  \item $(g \circ f)'(x) = (g' \circ f)(x)f'(x) = g'(x)f(x)f'(x)$
+  \item $f^{-1}(x)' = \frac{1}{f'(f^{-1}(x))}$
+  \end{itemize}
+\end{proposition}
+
+\begin{examplet}
+  Let $f(x) = e^x$, $f'(x) = e^x$ and $f^{-1}(y) = \ln(y)$. The derivative of $\ln'(y)$ is
+  \[
+  \ln'(y) = \frac{1}{e^{\ln(y)}} = \frac{1}{y}
+  \]
+\end{examplet}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Local minimizer]
+  $x^*$ is a local minimizer if exists $\E > 0$ such that $f(x^*) \leq f(x)$ for all $x \in \intoo{x^*-\E, x^*+\E}$. This means, $f(x^*)$ is local minimum (the smallest image in a given interval).
+\end{definition}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  $\fOnR{f}{\intoo{a,b}}$ is differentiable and has a local minimum at $x \Ar f'(x) = 0$.
+\end{theorem}
+
+\begin{proof}
+  $\Exists \E > 0 : f(x) \leq f(y) \ForAll y \in \intoo{x-\E,x+\E}$
+  \[
+  \lim_{y \to x^-} \frac{f(y)-f(x)}{y-x} \leq 0, \quad
+  \lim_{y \to x^+} \frac{f(y)-f(x)}{y-x} \geq 0 \quad \Ar
+  \lim_{y \to x} \frac{f(y)-f(x)}{y-x} = 0
+  \]
+  Since $f$ is differentiable, $\DS \lim_{y \to x}\frac{f(y)-f(x)}{y-x}$ exists, and it has to be 0.
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Rolle's theorem]
+  Let $\fOnR{f}{\intcc{a,b}}$ differentiable on $\intoo{a,b}$ and $f(a) = f(b) \Ar$ it exists $x \in \intoo{a,b}$ such that $f'(x) = 0$.
+\end{theorem}
+
+\begin{proof}
+  There exists $x_m$ and $x_M$ minimizer and maximizer, such that $f(x_m) \leq f(x) \leq f(x_M)$ for all $x \in \intcc{a,b}$.
+  \begin{enumarabic}
+  \item W.l.o.g., if $x_m = a$, $x_M = b$, then $f(x) = f(a) = f(b)$ constant, meaning that $f'(x) = 0 \ForAll x$
+  \item $x_m, x_M \in \intoo{a,b} \Ar$ it exists $x \in \intoo{a,b}$ such that $f'(x) = 0$
+  \end{enumarabic}
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Mean value theorem]
+  Let $\fOnR{f}{\intcc{a,b}}$ differentiable on $\intoo{a,b} \Ar$ it exists $c \in \intoo{a,b}$ such that $f'(c) = \frac{f(b)-f(a)}{b-a}$
+\end{theorem}
+
+\begin{proof}
+  Let $g(x) = f(x) - \frac{f(b)-f(a)}{b-a}(x-a) \Ar g(a) = f(a)$ and $g(b) = f(b)$. By Rolle's theorem we know that it exists $c \in \intoo{a,b}$ such that $g'(c) = 0$. Now:
+  \[
+  g'(x) = f'(x) - \frac{f(b)-f(a)}{b-a} \iff
+  f'(x) = g'(x) + \frac{f(b)-f(a)}{b-a} \Ar
+  f'(c) = g'(c) + \frac{f(b)-f(a)}{b-a} =
+  \frac{f(b)-f(a)}{b-a}
+  \]
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Second order optimality conditions]
+  Let $f \in \C^2(\R)$ and $f'(x) = 0$
+  \begin{itemize}
+  \item If $f''(x) > 0 \Ar x$ is a local minimum
+  \item If $f''(x) < 0 \Ar x$ is a local maximum
+  \item If $f''(x) = 0 \Ar x$ is an inflection point
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Let $f'(x) = 0$ and $f''(x) > 0$. It exists $\E > 0$ such that $\frac{f'(y)}{y-x} > 0$ for all $y : 0 < |x-y| < \E$. Then $y \in \intoo{x-\E,x+\E}\setminus{\{x\}}$. Now we have three cases
+  \begin{itemize}
+  \item $y \in \intoo{x,x+\E}$, $y > x \Ar f'(y) > 0 \Ar f$ is increasing on $\intoo{x,x+\E}$
+  \item $y \in \intoo{x-\E,x}$, $y < x \Ar f'(y) < 0 \Ar f$ is decreasing on $\intoo{x-\E,x}$
+  \item $f(x) \leq f(y)$ for all $y \in \intoo{x-\E,x+\E}$
+  \end{itemize}
+\end{proof}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Convex vector space]
+  Let $A$ be a vector space, $x,y \in A$ and $t \in \intcc{0,1}$. Then $A$ is convex if $tx + (1-t)y \in A$.
+\end{definition}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Convex function]
+  $\fOnR{f}{\intcc{a,b}}$ is convex if for all $x,y \in \intcc{a,b}$, $t \in \intcc{0,1}$, then
+  \[
+  f(tx+(1-t)y) \leq tf(x) + (1-t)f(y)
+  \]
+\end{definition}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  If $f$ is convex, then global minimum is local minimum.
+\end{theorem}
+
+\begin{proof}
+  Let $x^*$ a local minimum of $f$ convex. We have to show that $f(x^*) \leq f(y)$, for all $y$. It exists $\E > 0$ such that $f(x^*) \leq f(x)$ for all $x \in \intoo{x^*-\E,x^*+\E}$. Let $y$, $t < \frac{\E}{|y-x^*|}$ and $x = (1-t)x^* + ty$. Then, $|x-x^*| = |(1-t)x^*+ty-x*| = t|y-x^*| < \E$. Now
+  \[
+  f(x^*) \leq f(x) = f(ty+(1-t)x^*) \leq tf(y) + (1-t)f(x^*) \Ar
+  tf(x^*) \leq tf(y) \Ar
+  f(x^*) \leq f(y)
+  \]
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Gradient inequality]
+  $f \in \C^1$ is convex $\iff f(x) \geq f(y) + f'(y)(x-y)$
+\end{theorem}
+
+\begin{proof}
+  $f(x+t(y-x)) \leq (1-t)f(x) + tf(y)$, for all $x,y$ and for all $t \in \intcc{0,1}$.
+  \begin{itemize}
+  \item[$\Ar$] We divide by $t$, and then take $t \to 0$
+    \[
+    f(y) \geq f(x) + \frac{f(x+t(y-x)) - f(x)}{t(y-x)}(y-x) \Ar
+    f(y) \geq f(x) + f'(x)(y-x)
+    \]
+  \item[$\Al$] Let $x \neq y$, $t \in \intcc{0,1}$ and $z = tx+(1-t)y$ $f(x) \geq f(z) + f'(z)(x-z)$ and $f(y) \geq f(z) + f'(z)(y-z)$, now, multiplying the first inequality by $t$, the second by $(1-t)$ and adding them
+    \[
+    tf(x) + (1-t)f(y) \geq tf(z) + tf'(z)(x-z) + (1-t)f(z) + t(1-t)f'(z)(y-z)=
+    \]
+    \[ =
+    f(z) + (-f'(z)z + f'(z)(tx+(1-t)y)) = f(z) = f(tx-(1-t)y) \Ar
+    f \text{ is convex}
+    \]
+  \end{itemize}
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Newton's method]
+  Newton's method is a way to approximate a local minimum or maximum of a function. $x^{(0)}$ is the initial guess of a local minimum $\Ar x^{(n+1)} = x^{(n)} - \frac{f'(x^{(n)})}{f''(x^{(n)})}$ is a more precise approximation.
+\end{theorem}
+
+\begin{proof}
+  $f \in \C^2(\R)$. Let $g(\E) = f(x) + f'(x)\E + \frac{1}{2}f''(x)\E^2 \approx f(x+\E)$. Then, $g'(\E) = f'(x) + f''(x)\E = 0$ if and only if $\E = -\frac{f'(x)}{f''(x)} \Ar f'(x - \frac{f'(x)}{f''(x)}) \approx 0$.
+\end{proof}
+
+\begin{examplet}
+  $f(x) = \frac{1}{4}x^4 - \frac{1}{2}x^2 - x$, $f'(x) = x^3 - x - 1$ and $f''(x) = 3x^2 - 1$. Solve $f'(x) = 0$, with initial guess 1:
+  \begin{enumarabic}
+  \item $x^{(0)} = 1$
+  \item $x^{(1)} = 1 - \frac{f'(1)}{f''(1)} = 1.5$
+  \item $x^{(2)} \approx 1.3478$
+  \item $x^{(3)} \approx 1.3252$
+  \item $x^{(4)} \approx 1.32472$
+  \item $x^{(5)} \approx 1.32472$
+  \end{enumarabic}
+  As we can see, the last two approximation are already close.
+\end{examplet}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Taylor' series]
+  Taylor series are a way to approximate a function. Let $f \in \C^\infty(\R)$, then its Taylor series around point $x_0$ is $\DS T_f(x) = \sum_{k=0}^\infty \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k \approx \sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k$.
+\end{theorem}
+
+\begin{examplet}
+  $f(x) = e^x$, the Taylor series around 0 is $\DS T_f(x) = \sum_{k=0}^\infty \frac{e^0}{k!}(x-0)^k = \sum_{k=0}^\infty \frac{x^k}{k!} = e^x \Ar T_f'(x) = e^x$.
+\end{examplet}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}
+  If $f(x) = T_f(x)$ for all $x$, then $f(x)$ is analytic.
+\end{definition}
+
+\begin{exampled}
+  $f(x) = \sin(x)$, $f'(x) = \cos(x)$, $f''(x) = -\sin(x)$, $f'''(x) = -\cos(x)$, $f^{(4)}(x) = \sin(x)$ has period of four. Then
+  \[
+  T_f(x) =
+  \sum_{k=0}^\infty \frac{x^{4k+1}}{(4k+1)!} -
+  \sum_{k=0}^\infty \frac{x^{4k+3}}{(4k+3)!} =
+  \sum_{k=0}^\infty (-1)^n \frac{x^{2n+1}}{(2n+1)!} = \sin(x)
+  \]
+\end{exampled}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Taylor's theorem]
+  $f \in \C^{n+1}(\R)$, then it exists $\xi \in \intoo{a,x}$ such that
+  \[
+  f(x) =
+  \sum_{k=0}^n \left( \frac{f^{(k)}(a)}{k!}(x-a)^k \right) +
+  \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}
+  \]
+  Where $\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1} = O((x-a)^{n+1})$ is the error of approximation.
+\end{theorem}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% INTEGRALS
+%------------------------------------------------------------------------------%
+\section{Integrals}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Partition]
+  Let $\fOnR{f}{\intcc{a,b}}$, $\Delta = \{ a = x_0, x_1, \hdots, x_{n-1}, x_n = b \}$ is a partition of $\intcc{a,b}$. Let $m_k = \inf \{ f(x) : x \in \intcc{x_{k-1},x_k} \}$ and $M_k = \sup \{ f(x) : x \in \intcc{x_{k-1},x_k} \}$. Then
+  \[
+  L_\Delta(f) = \sumn (x_k - x_{k-1})m_k, \quad
+  U_\Delta(f) = \sumn (x_k - x_{k-1})M_k
+  \]
+  $L(f) = \sup \{ L_\Delta(f) \}$ and $U(f) = \inf \{ U_\Delta(f) \}$ are the lower and upper Darboux sums.
+\end{definition}
+
+\begin{exampled}
+  $f(x) = cx$ on $\intcc{0,1} \Ar L(f) = U(f) = \frac{c}{2}$
+\end{exampled}
+
+\begin{exampled}
+  $f(x) = \begin{cases}1 & x \in \Q \\ 0 & x \notin \Q\end{cases} \Ar L(f) = 0 \neq 1 = U(f)$
+\end{exampled}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Ross' theorem]
+  $f$ bounded on $\intcc{a,b} \Ar L(f) \leq U(f)$
+\end{theorem}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Darboux (Riemann) integral]
+    If $L(f) = U(f)$, then $f$ is Darboux integrable and we call the integral $L(f) = U(f) = \int_a^b f(x) dx$.
+\end{definition}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}
+  $f$ continuous and bounded $\Ar f$ is Riemann integrable.
+\end{proposition}
+
+\begin{proof}
+  $f$ is continuous and bounded, then $f$ is uniformly continuous. For all $\E > 0$ exists $\Delta$ such that $\varphi_\Delta(x) \leq f(x) \leq \psi_\Delta(x)$ for all $x \in \intcc{a,b}$, and $\varphi_\Delta(x) - \psi_\Delta(x) \leq \frac{\E}{b-a}$. By uniform continuity we have that it exists $\delta > 0$ such that $|f(x)-f(y)| < \frac{\E}{b-a}$ for all $x,y \in \intcc{a,b}$ such that $|x-y| < \delta$. Now, choosing $\Delta$ sufficiently dense, we have that $x_k - x_{k-1} < k$ for all $k$. Then
+  \[
+  |f(x_k)-f(x_{k-1})| < \frac{\E}{b-a} \Ar M_k-m_k < \frac{\E}{b-a}
+  \]
+  Now:
+  \[
+  U_\Delta(f) - L_\Delta(f) =
+  \sum_{k=0}^n (x_k - x_{k-1})(M_k - m_k) \leq
+  \sum_{k=0}^n (x_k - x_{k-1})\frac{\E}{b-a} =
+  (x_n - x_0) \frac{\E}{b-a} =
+  (b-a) \frac{\E}{b-a} = \E
+  \]
+  This leads to
+  \[
+  U(f) \leq U_\Delta(f) \leq L_\Delta(f) + \E \leq L(f) + \E \leq U(f) + \E
+  \]
+\end{proof}
+
+
+% PROPOSITION
+% --------------------
+\begin{proposition}[Properties of integrals]
+  $\fOnR{f,g}{\intcc{a,b}}$ integrable, $\lambda \in \R$ and $c \in \intcc{a,b}$. Then:
+  \begin{enumarabic}
+    \item $\int_a^b (\lambda f)(x) dx = \lambda \int_a^b f(x) dx$
+    \item $\int_a^b (f+g)(x) dx = \int_a^b f(x) dx + \int_a^b g(x) dx$
+    \item $\int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx$
+    \item If $f(x) \leq g(x) \ForAll x \Ar \int_a^b f(x) dx \leq \int_a^b g(x) dx$
+  \end{enumarabic}
+\end{proposition}
+
+\begin{proof}
+  Proof of 2. Other proofs can be done similarly.
+\\$f,g$ integrable, then $L(f) = U(f)$ and $L(g) = U(g)$. Moreover, for all $\E > 0$ exists $\Delta$ such that $L_\Delta(f) \geq L(f) - \frac{\E}2$ and $L_\Delta(g) \geq L(g) - \frac{\E}2$. This means that for all $\E$
+  \[
+  L(f+g) \geq L_\Delta(f+g) \geq L_\Delta(f) + L_\Delta(g) \geq L(f) + L(g) - \E \iff L(f+g) \geq L(f) + L(g)
+  \]
+  Similarly, for all $\E > 0$ exists $\Delta$ such that $U_\Delta(f) \leq U(f) + \frac{\E}2$ and $U_\Delta(g) \leq U(g) + \frac{\E}2$. Then, for all $\E$
+  \[
+  U(f+g) \leq U_\Delta(f+g) \leq U_\Delta(f) + U_\Delta(g) \leq U(f) + U(g) + \E \iff U(f+g) \leq U(f) + U(g)
+  \]
+  Now we can see that
+  \[
+  L(f) + L(g) \leq L(f+g) \leq U(f+g) \leq U(f) + U(g) = L(f) + L(g)
+  \]
+  From that it follows that $L(f) + L(g) = L(f+g) = U(f+g) = U(f) + U(g)$, thus proving proposition 2.
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  If $f$ is monotonic or continuous, then $f$ is integrable.
+\end{theorem}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}
+  If $f$ is integrable on $\intcc{a,b}$, then $|f|$ is integrable on $\intcc{a,b}$ and $\abs{\int_a^b f(x) dx} \leq \int_a^b |f(x)| dx$.
+\end{theorem}
+
+\begin{proof}
+  $-|f(x)| \leq f(x) \leq |f(x)| \Ar -\int_a^b |f(x)| dx \leq \int_a^b f(x) dx \leq \int_a^b |f(x)| dx \Ar \abs{\int_a^b f(x) dx} \leq \int_a^b |f(x)| dx$
+\end{proof}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Mean value theorem for integrals]
+  $\fOnR{f,g}{\intcc{a,b}}$ continuous, $g(x) \geq 0$ for all $x \in \intcc{a,b} \Ar$ it exists $c \in \intcc{a,b}$ such that $\int_a^b f(x)g(x) dx = f(c) \int_a^b g(x) dx$
+\end{theorem}
+
+\begin{proof}
+  Minimum and maximum of $f$ and $g$ exists, thus $m \leq f(x) \leq M$. Multiplying by $g(x)$ we get $mg(x) \leq f(x)g(x) \leq Mg(x)$. Now we can apply integral, and for some $\mu \in \intcc{m,M}$ the following holds
+  \[
+  m \int_a^b g(x) dx \leq \int_a^b f(x)g(x) dx \leq M \int_a^b g(x) dx \Ar \int_a^b f(x)g(x) dx =
+  \mu \int_a^b g(x) dx
+  \]
+  Since $f$ continuous, by intermediate value theorem we can say that it exists $c \in \intcc{a,b}$ such that $f(c) = \mu$.
+\end{proof}
+
+\begin{corollary}
+  $\fOnR{f}{\intcc{a,b}}$ continuous, then it exists $c \in \intcc{a,b}$ such that $\int_a^b f(x) dx = f(c) (b-a)$.
+\end{corollary}
+
+\begin{proof}
+  We choose $g(x) = 1 \Ar \int_a^b f(x) 1 dx = f(c) \int_a^b 1 dx = f(c) (b-a)$.
+\end{proof}
+
+
+\newpage
+%------------------------------------------------------------------------------%
+% ANTIDERIVATIVES
+%------------------------------------------------------------------------------%
+\section{Antiderivatives (or indefinite integrals)}
+
+
+% DEFINITION
+% --------------------
+\begin{definition}[Antiderivative]
+  $\fOnR{F}{\intcc{a,b}}$ differentiable, is the antiderivative of $\fOnR{f}{\intcc{a,b}}$ if $F'(x) = f(x)$. We write $\int f(x) dx$.
+\end{definition}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Fundamental theorem of calculus]
+  $\fOnR{f}{\intcc{a,b}}$ continuous, then $f$ has an unique antiderivative $F(x) = \int_a^x f(t) dt$, with $F(a) = 0$.
+\end{theorem}
+
+\begin{proof}
+  W.l.o.g. we can assume that $x < y$, for $x,y \in \intcc{a,b}$. Then
+  \[
+    \frac{F(y)-F(x)}{y-x} =
+    \frac{1}{y-x}\left(\int_a^y f(t) dt - \int_a^x f(t) dt\right) =
+    \frac{1}{y-x} \int_x^y f(t) dt
+  \]
+  We also know that it exists $\xi_y \in \intcc{a,b}$ such that $(y-x) f(\xi_y) = \int_x^y f(t) dt$. Since $f$ is continuous, then $\DS \lim_{y \to x} f(\xi_y) = f(\lim_{y \to x} \xi_y) = f(x)$. Now
+  \[
+    F'(x) =
+    \lim_{y \to x} \frac{F(y)-F(x)}{y-x} =
+    \lim_{y \to x} \frac{1}{y-x} \int_x^y f(t) dt =
+    \lim_{y \to x} f(\xi_y) =
+    f(x)
+  \]
+  Moreover, we can conclude that $F(a) = \int_a^b f(t) dt = 0$.
+\end{proof}
+
+\begin{corollary}
+  $\fOnR{f}{\intcc{a,b}}$, $F$ antiderivative of $f$, then $\int_a^b f(x) dx = F(x) |_a^b = F(b) - F(a)$.
+\end{corollary}
+
+\begin{proof}
+  $F(x) = \int_a^x f(t) dt + c$, $F(a) = 0 + c$ and $F(b) = \int_a^b f(t) dt + c$. Then, $F(b) - F(a) = \int_a^b f(t) dt$.
+\end{proof}
+
+\begin{examplet}
+  $g(x) = \frac{x^{n+1}}{n+1}$, $g'(x) = x^n$. Then $\int x^n dx = \frac{x^{n+1}}{n+1} + c$ and $\int_a^b x^n dx = \frac{b^{n+1} - a^{n+1}}{n+1}$.
+\end{examplet}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Integration by parts]
+  $\fOnR{f,g}{\int{a,b}} \in \C^1(\intcc{a,b})$, then
+  \[
+  \int_a^b f(x) g'(x) dx = f(b)g(b) - f(a)g(a) - \int_a^b f'(x)g(x) dx
+  \]
+\end{theorem}
+
+
+% THEOREM
+% --------------------
+\begin{theorem}[Integration by substitution]
+  $\fOnR{f}{\int{a,b}}$ continuous $\fOnR{g}{\int{a,b}} \in \C^1(\intcc{a,b})$, then:
+  \[
+    \int_a^b f(g(x))g'(x) dx = \int_{g(a)}^{g(b)} f(t) dt
+  \]
+\end{theorem}
+
+\begin{examplet}
+  Substitution from left to right\\
+  Let $f(x) = \cos(x^2 + 1) x$, $a = 0$ and $b = 2$. We can chose $g(x) = t = x^2 + 1$, then deriving on both sides we obtain $g'(x) = dt = 2x dx$, hence $\frac{1}{2} g'(x) = \frac{1}{2} dt = x dx$. Now
+  \[
+  \int_a^b f(x) dx =
+  \int_0^2 \cos(x^2 + 1) x dx =
+  \int_{0^2+1}^{2^2+1} \cos(t) \frac{1}{2} dt =
+  \frac{1}{2} \int_1^5 \cos(t) dt =
+  \frac{1}{2} \left(\cos(5) - \cos(1)\right)
+  \]
+\end{examplet}
+
+\begin{examplet}
+  Substitution from right to left\\
+  We want to solve $\int_0^1 \sqrt{1-x^2}dx$. We can chose $x = \sin(t)$, this means (deriving on both sides) that $dx = \cos(t)dt$. Now
+  \[
+  \int_0^1 \sqrt{1-x^2} dx =
+  \int_{\arcsin{0}}^{\arcsin(1)} \sqrt{1-\sin^2(t)} \cos(t) dt =
+  \int_0^{\frac{\pi}{2}} \sqrt{\cos^2(t)} \cos(t) dt =
+  \int_0^{\frac{\pi}{2}} \cos^2(t) dt =
+  \frac{\pi}{4}
+  \]
+\end{examplet}
+
+
+%------------------------------------------------------------------------------%
+% END
+%------------------------------------------------------------------------------%
+
+\end{document}
