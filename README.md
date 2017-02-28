@@ -1,4 +1,4 @@
-# USI-Calculus-Spring-2016
+# USI-2016-Calculus
 
 This is a collection of notes taken from the calculus course given by Prof. Michael Bronstein at USI. Students are free to download the notes and contribute to add content and correct mistakes.
 
